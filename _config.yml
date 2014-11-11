@@ -11,7 +11,7 @@ twitter_username: burakinc
 github_username:  burakince
 
 # Build settings
-exclude: ["script", "vendor", "Gemfile", "Gemfile.lock", "config.ru", "Procfile", "Rakefile", "readme.md", "scss"]
+exclude: ["Gemfile", "Gemfile.lock", "README.md", "CNAME"]
 markdown: kramdown
 markdown_ext: markdown,mkd,mkdn,md
 timezone: Europe/Istanbul
