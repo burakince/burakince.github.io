@@ -9,7 +9,9 @@ baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://www.burakince.net" # the base hostname & protocol for your site
 twitter_username: burakinc
 github_username:  burakince
-timezone: Europe/Istanbul
 
 # Build settings
+exclude: ["script", "vendor", "Gemfile", "Gemfile.lock", "config.ru", "Procfile", "Rakefile", "readme.md", "scss"]
 markdown: kramdown
+markdown_ext: markdown,mkd,mkdn,md
+timezone: Europe/Istanbul
