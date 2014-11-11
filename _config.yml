@@ -1,0 +1,14 @@
+# Site settings
+title: Burak İnce
+email: burak.ince@linux.org.tr
+description: > # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://www.burakince.net" # the base hostname & protocol for your site
+twitter_username: burakinc
+github_username:  burakince
+
+# Build settings
+markdown: kramdown
