@@ -11,6 +11,7 @@ twitter_username: burakinc
 github_username:  burakince
 
 # Build settings
+safe: false
 exclude: ["Gemfile", "Gemfile.lock", "README.md", "CNAME"]
 markdown: kramdown
 markdown_ext: markdown,mkd,mkdn,md
