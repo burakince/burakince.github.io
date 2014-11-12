@@ -1,0 +1,8 @@
+{% if site.JB.contact_form.provider and page.JB.contact_form != false %}
+
+{% case site.JB.contact_form.provider %}
+{% when "email-me-form" %}
+  {% include JB/contact-form-providers/email-me-form %}
+{% endcase %}
+
+{% endif %}
