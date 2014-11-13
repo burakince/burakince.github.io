@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About
+title: Hakkında
 header: About
 permalink: /about/
 group: navigation
