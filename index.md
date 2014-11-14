@@ -4,7 +4,6 @@ title: Anasayfa
 header: Home
 permalink: /
 group: navigation
-tagline: Kişisel Bloğum
 weight : 1
 ---
 {% include JB/setup %}
