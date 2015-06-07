@@ -16,4 +16,4 @@ burakince.github.io
    $ jekyll serve
    ```
 
-4. Open <http://127.0.0.1:4000/> to view your site
+4. Open <http://localhost:4000/> to view site
