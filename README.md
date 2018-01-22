@@ -3,12 +3,12 @@ burakince.github.io
 
 1. Install jekyll dependencies
    ```sh
-   $ sudo gem install jekyll
+   $ gem install jekyll
    ```
 
 2. Install i18n dependency
    ```sh
-   $ sudo gem install i18n
+   $ gem install i18n
    ```
 
 3. Serve the site for changes
