@@ -1,4 +1,4 @@
-burakince.github.io
+www.burakince.net
 ===================
 
 1. Install jekyll dependencies
