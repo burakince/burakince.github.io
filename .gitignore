@@ -1,8 +1,18 @@
-_site
 .DS_Store
 *.sublime-project
 *.sublime-workspace
 codekit-config.json
 node_modules
-.sass-cache
+
+# Generated output.
+_site/
+
+# Added when running `jekyll new PATH` or serving in incremental mode.
 .jekyll-metadata
+
+.jekyll-cache/
+.sass-cache/
+
+# Bundle's config.
+.bundle/
+vendor/
