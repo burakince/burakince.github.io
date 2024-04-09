@@ -25,5 +25,5 @@ npm run build
 Runs the built app in production mode.
 
 ```bash
-npm start
+npx serve@latest out
 ```
