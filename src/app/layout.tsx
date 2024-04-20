@@ -1,18 +1,74 @@
+import Header from "@/app/_components/header";
 import Footer from "@/app/_components/footer";
-import { HOME_OG_IMAGE_URL } from "@/lib/constants";
-import type { Metadata } from "next";
+import Container from "@/app/_components/container";
+import { SITE_METADATA } from "@/lib/siteMetadata";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#000" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};
+
 export const metadata: Metadata = {
-  title: `Burak Ince Personal Blog`,
-  description: `Burak Ince Personal Blog.`,
+  title: SITE_METADATA.title,
+  description: SITE_METADATA.description,
   openGraph: {
-    images: [HOME_OG_IMAGE_URL],
+    type: "website",
+    url: "https://www.burakince.com",
+    title: SITE_METADATA.title,
+    description: SITE_METADATA.description,
+    siteName: SITE_METADATA.description,
   },
+  icons: {
+    icon: [
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        url: "/favicon/favicon-16x16.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        url: "/favicon/favicon-32x32.png",
+      },
+    ],
+    shortcut: {
+      rel: "shortcut icon",
+      url: "/favicon/favicon.ico",
+    },
+    apple: {
+      rel: "apple-touch-icon",
+      sizes: "180x180",
+      url: "/favicon/apple-touch-icon.png",
+    },
+    other: [
+      {
+        rel: "mask-icon",
+        color: "#000000",
+        url: "/favicon/safari-pinned-tab.svg",
+      },
+      {
+        type: "image/png",
+        sizes: "192x192",
+        url: "/favicons/android-chrome-192x192.png",
+      },
+      {
+        type: "image/png",
+        sizes: "512x512",
+        url: "/favicons/android-chrome-512x512.png",
+      },
+    ],
+  },
+  manifest: "/favicon/site.webmanifest",
 };
 
 export default function RootLayout({
@@ -23,41 +79,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/favicon/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
-        <link
-          rel="mask-icon"
-          href="/favicon/safari-pinned-tab.svg"
-          color="#000000"
-        />
-        <link rel="shortcut icon" href="/favicon/favicon.ico" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta
           name="msapplication-config"
           content="/favicon/browserconfig.xml"
         />
-        <meta name="theme-color" content="#000" />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
-      <body className={inter.className}>
-        <div className="min-h-screen">{children}</div>
-        <Footer />
+      <body className={`bg-slate-100 dark:bg-slate-800 ${inter.className}`}>
+        <Container>
+          <Header />
+          <div>{children}</div>
+          <Footer />
+        </Container>
       </body>
     </html>
   );

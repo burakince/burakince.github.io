@@ -1,30 +1,19 @@
-import Container from "@/app/_components/container";
-import { HeroPost } from "@/app/_components/hero-post";
-import { Intro } from "@/app/_components/intro";
-import { MoreStories } from "@/app/_components/more-stories";
 import { getAllPosts } from "@/lib/api";
+import PostPreview from "@/app/_components/post-preview";
 
-export default function Index() {
+const HomePage = () => {
   const allPosts = getAllPosts();
-
-  const heroPost = allPosts[0];
-
-  const morePosts = allPosts.slice(1);
+  const allPostPreviews = allPosts.map((post) => (
+    <PostPreview key={post.slug} {...post} />
+  ));
 
   return (
     <main>
-      <Container>
-        <Intro />
-        <HeroPost
-          title={heroPost.title}
-          coverImage={heroPost.coverImage}
-          date={heroPost.date}
-          author={heroPost.author}
-          slug={heroPost.slug}
-          excerpt={heroPost.excerpt}
-        />
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-      </Container>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {allPostPreviews}
+      </div>
     </main>
   );
-}
+};
+
+export default HomePage;
