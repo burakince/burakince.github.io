@@ -54,7 +54,7 @@ export const metadata: Metadata = {
       {
         rel: "mask-icon",
         color: "#000000",
-        url: "/favicon/safari-pinned-tab.svg",
+        url: "/favicon/safari-pinned-tab.png",
       },
       {
         type: "image/png",
