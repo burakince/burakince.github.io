@@ -4,6 +4,7 @@ import Container from "@/app/_components/container";
 import { SITE_METADATA } from "@/lib/siteMetadata";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import "./globals.css";
 
@@ -93,6 +94,9 @@ export default function RootLayout({
           <Footer />
         </Container>
       </body>
+      <GoogleAnalytics
+        gaId={SITE_METADATA.analytics.googleAnalytics.googleAnalyticsId}
+      />
     </html>
   );
 }

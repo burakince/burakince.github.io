@@ -9,8 +9,8 @@ export const SITE_METADATA = {
   twitter: "https://twitter.com/burakinc",
   linkedin: "https://www.linkedin.com/in/inceburak/",
   analytics: {
-    // googleAnalytics: {
-    //   googleAnalyticsId: '', // e.g. G-XXXXXXX
-    // },
+    googleAnalytics: {
+      googleAnalyticsId: "G-37SPDQK30W", // e.g. G-XXXXXXX
+    },
   },
 };
