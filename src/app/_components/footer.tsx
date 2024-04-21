@@ -1,16 +1,63 @@
 import { SITE_METADATA } from "@/lib/siteMetadata";
-import SocialIcon from "./social-icons";
 import Link from "next/link";
+import GithubIcon from "./social-icons/github.svg";
+import GmailIcon from "./social-icons/gmail.svg";
+import LinkedinIcon from "./social-icons/linkedin.svg";
+import XIcon from "./social-icons/x.svg";
 
 const Footer = () => {
   return (
     <footer>
       <div className="border-t border-slate-400 flex flex-col items-center mt-12 py-6">
         <div className="mb-3 flex flex-row space-x-4">
-          <SocialIcon kind="mail" href={`mailto:${SITE_METADATA.email}`} />
-          <SocialIcon kind="github" href={SITE_METADATA.github} />
-          <SocialIcon kind="linkedin" href={SITE_METADATA.linkedin} />
-          <SocialIcon kind="twitter" href={SITE_METADATA.twitter} />
+          <a
+            className="text-sm text-gray-500 transition hover:text-gray-600"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={SITE_METADATA.github}
+          >
+            <span className="sr-only">github</span>
+            <GithubIcon
+              className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
+              alt="Github"
+            />
+          </a>
+          <a
+            className="text-sm text-gray-500 transition hover:text-gray-600"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={SITE_METADATA.linkedin}
+          >
+            <span className="sr-only">linkedin</span>
+            <LinkedinIcon
+              className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
+              alt="Linkedin"
+            />
+          </a>
+          <a
+            className="text-sm text-gray-500 transition hover:text-gray-600"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={SITE_METADATA.twitter}
+          >
+            <span className="sr-only">twitter</span>
+            <XIcon
+              className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
+              alt="Twitter"
+            />
+          </a>
+          <a
+            className="text-sm text-gray-500 transition hover:text-gray-600"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`mailto:${SITE_METADATA.email}`}
+          >
+            <span className="sr-only">mail</span>
+            <GmailIcon
+              className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
+              alt="Github Icon"
+            />
+          </a>
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
           <div>{SITE_METADATA.author}</div>
