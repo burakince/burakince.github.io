@@ -7,6 +7,7 @@ export const SITE_METADATA = {
   email: "me@burakince.com",
   github: "https://github.com/burakince",
   twitter: "https://twitter.com/burakinc",
+  keybase: "https://keybase.io/burakince",
   linkedin: "https://www.linkedin.com/in/inceburak/",
   analytics: {
     googleAnalytics: {

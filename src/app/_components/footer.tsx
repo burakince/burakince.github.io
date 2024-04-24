@@ -4,6 +4,7 @@ import GithubIcon from "./social-icons/github.svg";
 import GmailIcon from "./social-icons/gmail.svg";
 import LinkedinIcon from "./social-icons/linkedin.svg";
 import XIcon from "./social-icons/x.svg";
+import KeybaseIcon from "./social-icons/keybase.svg";
 
 const Footer = () => {
   return (
@@ -44,6 +45,18 @@ const Footer = () => {
             <XIcon
               className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
               alt="Twitter"
+            />
+          </a>
+          <a
+            className="text-sm text-gray-500 transition hover:text-gray-600"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={SITE_METADATA.keybase}
+          >
+            <span className="sr-only">keybase</span>
+            <KeybaseIcon
+              className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
+              alt="Keybase"
             />
           </a>
           <a
