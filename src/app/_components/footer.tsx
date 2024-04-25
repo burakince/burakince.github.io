@@ -1,4 +1,4 @@
-import { SITE_METADATA } from "@/lib/siteMetadata";
+import { SITE_METADATA } from "@/lib/site-metadata";
 import Link from "next/link";
 import GithubIcon from "./social-icons/github.svg";
 import GmailIcon from "./social-icons/gmail.svg";

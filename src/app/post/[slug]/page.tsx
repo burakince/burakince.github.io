@@ -1,7 +1,7 @@
+import Markdown from "markdown-to-jsx";
 import DateFormatter from "@/app/_components/date-formatter";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
-import { SITE_METADATA } from "@/lib/siteMetadata";
-import Markdown from "markdown-to-jsx";
+import { SITE_METADATA } from "@/lib/site-metadata";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 

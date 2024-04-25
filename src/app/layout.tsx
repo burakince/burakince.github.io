@@ -1,7 +1,7 @@
 import Header from "@/app/_components/header";
 import Footer from "@/app/_components/footer";
 import Container from "@/app/_components/container";
-import { SITE_METADATA } from "@/lib/siteMetadata";
+import { SITE_METADATA } from "@/lib/site-metadata";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -60,12 +60,12 @@ export const metadata: Metadata = {
       {
         type: "image/png",
         sizes: "192x192",
-        url: "/favicons/android-chrome-192x192.png",
+        url: "/favicon/android-chrome-192x192.png",
       },
       {
         type: "image/png",
         sizes: "512x512",
-        url: "/favicons/android-chrome-512x512.png",
+        url: "/favicon/android-chrome-512x512.png",
       },
     ],
   },
