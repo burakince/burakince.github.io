@@ -20,7 +20,7 @@ const Footer = () => {
             <span className="sr-only">github</span>
             <GithubIcon
               className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
-              alt="Github"
+              title="Github"
             />
           </a>
           <a
@@ -32,7 +32,7 @@ const Footer = () => {
             <span className="sr-only">linkedin</span>
             <LinkedinIcon
               className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
-              alt="Linkedin"
+              title="Linkedin"
             />
           </a>
           <a
@@ -44,7 +44,7 @@ const Footer = () => {
             <span className="sr-only">twitter</span>
             <XIcon
               className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
-              alt="Twitter"
+              title="Twitter"
             />
           </a>
           <a
@@ -56,7 +56,7 @@ const Footer = () => {
             <span className="sr-only">keybase</span>
             <KeybaseIcon
               className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
-              alt="Keybase"
+              title="Keybase"
             />
           </a>
           <a
@@ -68,7 +68,7 @@ const Footer = () => {
             <span className="sr-only">mail</span>
             <GmailIcon
               className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
-              alt="Github Icon"
+              title="Github Icon"
             />
           </a>
         </div>
