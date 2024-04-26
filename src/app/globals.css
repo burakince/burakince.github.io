@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("highlight.js/styles/paraiso-dark.css") screen and
+  (prefers-color-scheme: dark);
+@import url("highlight.js/styles/paraiso-light.css") screen and
+  (prefers-color-scheme: light);

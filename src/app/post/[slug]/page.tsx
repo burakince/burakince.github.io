@@ -1,9 +1,21 @@
-import Markdown from "markdown-to-jsx";
 import DateFormatter from "@/app/_components/date-formatter";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
+import markdownToHtml from "@/lib/markdownToHtml";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import hljs from "highlight.js";
+import javascript from "highlight.js/lib/languages/javascript";
+import typescript from "highlight.js/lib/languages/typescript";
+import bash from "highlight.js/lib/languages/bash";
+import css from "highlight.js/lib/languages/css";
+import yaml from "highlight.js/lib/languages/yaml";
+
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("bash", bash);
+hljs.registerLanguage("css", css);
+hljs.registerLanguage("yaml", yaml);
 
 type Params = {
   params: {
@@ -11,12 +23,14 @@ type Params = {
   };
 };
 
-const PostPage = ({ params }: Params) => {
+const PostPage = async ({ params }: Params) => {
   const post = getPostBySlug(params.slug);
 
   if (!post) {
     return notFound();
   }
+
+  const content = await markdownToHtml(post.content || "");
 
   return (
     <div>
@@ -27,7 +41,7 @@ const PostPage = ({ params }: Params) => {
         <DateFormatter dateString={post.date} />
       </div>
       <article className="prose dark:prose-invert max-w-none lg:prose-xl">
-        <Markdown>{post.content || ""}</Markdown>
+        <div dangerouslySetInnerHTML={{ __html: content }} />
       </article>
     </div>
   );
