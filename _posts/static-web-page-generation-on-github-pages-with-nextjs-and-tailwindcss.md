@@ -1,6 +1,6 @@
 ---
-title: "Static Web Page Generation on GitHub Pages with Next.js, Tailwind CSS, and Markdown Content"
-excerpt: "Learn how to generate static web pages on GitHub Pages using Next.js, Tailwind CSS, markdown-to-jsx, and the TailwindCSS Typography plugin for a streamlined, efficient web development experience. This guide also includes a step-by-step walkthrough for setting up deployment with GitHub Pages."
+title: "Generate Static Web Pages on GitHub with Next.js, Tailwind CSS & Markdown"
+excerpt: "Discover how to create static web pages on GitHub Pages with Next.js, Tailwind CSS, and Markdown. Follow a step-by-step guide for efficient deployment."
 date: "2024-04-25T12:49:07.322Z"
 keywords:
   - "Next.js Markdown rendering"
