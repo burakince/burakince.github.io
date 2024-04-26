@@ -1,3 +1,4 @@
+import { SITE_METADATA } from "@/lib/site-metadata";
 import Link from "next/link";
 
 const Header = () => {
@@ -6,7 +7,7 @@ const Header = () => {
       <div className="text-center bg-slate-800 dark:bg-slate-950 p-8 my-6 rounded-md">
         <Link href={"/"}>
           <h1 className="text-2xl text-white dark:text-slate-500 font-bold mt-4">
-            Burak&apos;s Blog
+            {SITE_METADATA.title}
           </h1>
         </Link>
         <p className="text-slate-300 dark:text-slate-700">

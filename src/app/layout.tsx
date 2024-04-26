@@ -3,6 +3,7 @@ import Footer from "@/app/_components/footer";
 import Container from "@/app/_components/container";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import type { Metadata, Viewport } from "next";
+import Head from "next/head";
 import { Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
@@ -12,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#000" },
+    { media: "(prefers-color-scheme: light)", color: "#f1f5f9" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
 };
@@ -20,6 +21,39 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: SITE_METADATA.title,
   description: SITE_METADATA.description,
+  robots: "index, follow",
+  keywords: [
+    "latest tech trends",
+    "technology updates",
+    "emerging technologies",
+    "software engineering",
+    "programming languages",
+    "coding best practices",
+    "AI developments",
+    "machine learning",
+    "deep learning",
+    "cybersecurity tips",
+    "data protection",
+    "security threats",
+    "latest gadgets",
+    "tech reviews",
+    "device comparisons",
+    "tech industry updates",
+    "technology news",
+    "tech market trends",
+    "tech tutorials",
+    "coding tutorials",
+    "software guides",
+    "product reviews",
+    "technology product reviews",
+    "tech gadgets reviews",
+    "cloud technology",
+    "cloud services",
+    "cloud solutions",
+    "tech innovation",
+    "tech breakthroughs",
+    "innovative tech ideas",
+  ],
   openGraph: {
     type: "website",
     url: "https://www.burakince.com",
@@ -79,14 +113,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <Head>
+        <meta name="robots" content="all" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta
           name="msapplication-config"
           content="/favicon/browserconfig.xml"
         />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      </head>
+      </Head>
       <body className={`bg-slate-100 dark:bg-slate-800 ${inter.className}`}>
         <Container>
           <Header />

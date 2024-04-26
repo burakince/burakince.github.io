@@ -1,7 +1,8 @@
 export const SITE_METADATA = {
-  title: "Burak's Blog",
+  title: "Burak's Tech Insights: AI, Software, and More",
   author: "Burak Ince",
-  description: "Burak's Tech Blog",
+  description:
+    "Discover the latest in technology, software development, and AI trends with Burak's in-depth analysis and expert insights.",
   siteUrl: "https://www.burakince.com",
   siteRepo: "https://github.com/burakince/burakince.github.io",
   email: "me@burakince.com",

@@ -54,12 +54,18 @@ export function generateMetadata({ params }: Params): Metadata {
     return notFound();
   }
 
-  const title = `${post.title} | ${SITE_METADATA.title}`;
+  const title = `${post.title} | Burak Ince`;
 
   return {
     title,
+    description: post.excerpt,
+    keywords: post.keywords,
+    alternates: {
+      canonical: `${SITE_METADATA.siteUrl}/post/${params.slug}`,
+    },
     openGraph: {
       title,
+      description: post.excerpt,
     },
   };
 }
