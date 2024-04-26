@@ -18,10 +18,7 @@ const Footer = () => {
             href={SITE_METADATA.github}
           >
             <span className="sr-only">github</span>
-            <GithubIcon
-              className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
-              title="Github"
-            />
+            <GithubIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
             className="text-sm text-gray-500 transition hover:text-gray-600"
@@ -30,10 +27,7 @@ const Footer = () => {
             href={SITE_METADATA.linkedin}
           >
             <span className="sr-only">linkedin</span>
-            <LinkedinIcon
-              className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
-              title="Linkedin"
-            />
+            <LinkedinIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
             className="text-sm text-gray-500 transition hover:text-gray-600"
@@ -42,10 +36,7 @@ const Footer = () => {
             href={SITE_METADATA.twitter}
           >
             <span className="sr-only">twitter</span>
-            <XIcon
-              className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
-              title="Twitter"
-            />
+            <XIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
             className="text-sm text-gray-500 transition hover:text-gray-600"
@@ -54,10 +45,7 @@ const Footer = () => {
             href={SITE_METADATA.keybase}
           >
             <span className="sr-only">keybase</span>
-            <KeybaseIcon
-              className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
-              title="Keybase"
-            />
+            <KeybaseIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
             className="text-sm text-gray-500 transition hover:text-gray-600"
@@ -66,10 +54,7 @@ const Footer = () => {
             href={`mailto:${SITE_METADATA.email}`}
           >
             <span className="sr-only">mail</span>
-            <GmailIcon
-              className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6"
-              title="Github Icon"
-            />
+            <GmailIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
