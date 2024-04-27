@@ -424,7 +424,16 @@ export default Home;
 
 3. Commit and push your changes to the repository. The GitHub Actions workflow will automatically build and deploy your static website whenever you push changes to the main branch.
 
-4. Once the deployment is complete, visit your GitHub repository's Settings > Pages to find the URL where your static site is hosted.
+4. To configure GitHub Pages for your repository, follow these steps:
+
+   1. Navigate to your Git repository and click the **Settings** button.
+   2. In the **Settings** menu, select **Pages** from the **Code and automation** section.
+   3. Under the **Build and deployment** section, locate the **Source** dropdown menu.
+   4. Ensure **GitHub Actions** is selected as the source option.
+
+   By setting up GitHub Actions as the source, you can streamline the build and deployment process for your GitHub Pages site.
+
+5. Once the deployment is complete, visit your GitHub repository's Settings > Pages to find the URL where your static site is hosted.
 
 ## Conclusion
 
