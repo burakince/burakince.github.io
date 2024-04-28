@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
-import { Person, WithContext } from "schema-dts";
+import { Organization, Person, WithContext } from "schema-dts";
 
 const title = `${SITE_METADATA.author} - Lead Developer with 12+ Years Experience`;
 const description =
@@ -36,16 +36,18 @@ export const metadata: Metadata = {
   },
 };
 
+const orgJsonLd: Organization = {
+  "@type": "Organization",
+  name: SITE_METADATA.worksFor,
+};
+
 const ProfilePage = () => {
   const jsonLd: WithContext<Person> = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: SITE_METADATA.author,
     jobTitle: SITE_METADATA.jobTitle,
-    worksFor: {
-      "@type": "Organization",
-      name: SITE_METADATA.worksFor,
-    },
+    worksFor: orgJsonLd,
     description: description,
     url: SITE_METADATA.siteUrl,
     image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,

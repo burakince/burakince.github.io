@@ -1,25 +1,29 @@
 import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
-import { WebSite, WithContext } from "schema-dts";
+import { Person, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
 
 const HomePage = () => {
+  const meJsonLd: Person = {
+    "@type": "Person",
+    name: SITE_METADATA.author,
+    jobTitle: SITE_METADATA.jobTitle,
+    worksFor: SITE_METADATA.worksFor,
+    url: `${SITE_METADATA.siteUrl}/me`,
+    image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
+  };
   const jsonLd: WithContext<WebSite> = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_METADATA.title,
     url: SITE_METADATA.siteUrl,
+    inLanguage: "en-US",
+    isFamilyFriendly: true,
+    accountablePerson: meJsonLd,
+    author: meJsonLd,
+    creator: meJsonLd,
+    publisher: meJsonLd,
     description: SITE_METADATA.description,
-    author: {
-      "@type": "Person",
-      name: SITE_METADATA.author,
-      url: `${SITE_METADATA.siteUrl}/me`,
-    },
-    publisher: {
-      "@type": "Person",
-      name: SITE_METADATA.author,
-      url: `${SITE_METADATA.siteUrl}/me`,
-    },
   };
   const allPosts = getAllPosts();
   const allPostPreviews = allPosts.map((post) => (

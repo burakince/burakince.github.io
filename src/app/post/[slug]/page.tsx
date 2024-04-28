@@ -4,13 +4,13 @@ import markdownToHtml from "@/lib/markdownToHtml";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BlogPosting, Person, WithContext } from "schema-dts";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
 import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
 import yaml from "highlight.js/lib/languages/yaml";
-import { BlogPosting, WithContext } from "schema-dts";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("typescript", typescript);
@@ -22,6 +22,15 @@ type Params = {
   params: {
     slug: string;
   };
+};
+
+const meJsonLd: Person = {
+  "@type": "Person",
+  name: SITE_METADATA.author,
+  jobTitle: SITE_METADATA.jobTitle,
+  worksFor: SITE_METADATA.worksFor,
+  url: `${SITE_METADATA.siteUrl}/me`,
+  image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
 };
 
 const PostPage = async ({ params }: Params) => {
@@ -37,16 +46,12 @@ const PostPage = async ({ params }: Params) => {
     headline: post.title,
     datePublished: post.date,
     dateModified: new Date().toLocaleString(),
-    author: [
-      {
-        "@type": "Person",
-        name: SITE_METADATA.author,
-        jobTitle: SITE_METADATA.jobTitle,
-        worksFor: SITE_METADATA.worksFor,
-        url: `${SITE_METADATA.siteUrl}/me`,
-        image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
-      },
-    ],
+    inLanguage: "en-US",
+    isFamilyFriendly: true,
+    accountablePerson: meJsonLd,
+    author: meJsonLd,
+    creator: meJsonLd,
+    publisher: meJsonLd,
     description: post.excerpt,
   };
 
