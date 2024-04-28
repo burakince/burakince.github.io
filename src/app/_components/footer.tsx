@@ -16,6 +16,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             href={SITE_METADATA.github}
+            title="github"
           >
             <span className="sr-only">github</span>
             <GithubIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
@@ -25,6 +26,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             href={SITE_METADATA.linkedin}
+            title="linkedin"
           >
             <span className="sr-only">linkedin</span>
             <LinkedinIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
@@ -34,6 +36,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             href={SITE_METADATA.twitter}
+            title="twitter"
           >
             <span className="sr-only">twitter</span>
             <XIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
@@ -43,6 +46,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             href={SITE_METADATA.keybase}
+            title="keybase"
           >
             <span className="sr-only">keybase</span>
             <KeybaseIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
@@ -52,6 +56,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             href={`mailto:${SITE_METADATA.email}`}
+            title="email"
           >
             <span className="sr-only">mail</span>
             <GmailIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
