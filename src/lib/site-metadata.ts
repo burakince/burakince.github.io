@@ -1,6 +1,8 @@
 export const SITE_METADATA = {
   title: "Burak's Tech Insights: AI, Software, and More",
   author: "Burak Ince",
+  jobTitle: "Lead Software Developer",
+  worksFor: "Thoughtworks",
   description:
     "Discover the latest in technology, software development, and AI trends with Burak's in-depth analysis and expert insights.",
   siteUrl: "https://www.burakince.com",

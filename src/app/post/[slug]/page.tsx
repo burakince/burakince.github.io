@@ -10,6 +10,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
 import yaml from "highlight.js/lib/languages/yaml";
+import { BlogPosting, WithContext } from "schema-dts";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("typescript", typescript);
@@ -30,6 +31,25 @@ const PostPage = async ({ params }: Params) => {
     return notFound();
   }
 
+  const jsonLd: WithContext<BlogPosting> = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    datePublished: post.date,
+    dateModified: new Date().toLocaleString(),
+    author: [
+      {
+        "@type": "Person",
+        name: SITE_METADATA.author,
+        jobTitle: SITE_METADATA.jobTitle,
+        worksFor: SITE_METADATA.worksFor,
+        url: `${SITE_METADATA.siteUrl}/me`,
+        image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
+      },
+    ],
+    description: post.excerpt,
+  };
+
   const content = await markdownToHtml(post.content || "");
 
   return (
@@ -43,6 +63,10 @@ const PostPage = async ({ params }: Params) => {
       <article className="prose dark:prose-invert max-w-none lg:prose-xl">
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </article>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     </div>
   );
 };

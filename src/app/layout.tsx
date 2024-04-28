@@ -3,7 +3,6 @@ import Footer from "@/app/_components/footer";
 import Container from "@/app/_components/container";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import type { Metadata, Viewport } from "next";
-import Head from "next/head";
 import { Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
@@ -85,7 +84,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
+      <head>
         <meta name="robots" content="all" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta
@@ -93,7 +92,7 @@ export default function RootLayout({
           content="/favicon/browserconfig.xml"
         />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      </Head>
+      </head>
       <body className={`bg-slate-100 dark:bg-slate-800 ${inter.className}`}>
         <Container>
           <Header />
