@@ -426,7 +426,7 @@ export const metadata: Metadata = {
     "Helm",
   ],
   alternates: {
-    canonical: `${SITE_METADATA.siteUrl}/me`,
+    canonical: `${SITE_METADATA.siteUrl}/me/`,
   },
   openGraph: {
     title,

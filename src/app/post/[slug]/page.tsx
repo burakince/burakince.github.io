@@ -88,7 +88,7 @@ export function generateMetadata({ params }: Params): Metadata {
     description: post.excerpt,
     keywords: post.keywords,
     alternates: {
-      canonical: `${SITE_METADATA.siteUrl}/post/${params.slug}`,
+      canonical: `${SITE_METADATA.siteUrl}/post/${params.slug}/`,
     },
     openGraph: {
       title,
