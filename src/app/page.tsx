@@ -2,7 +2,7 @@ import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
 import { Organization, Person, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
-import JsonLd from "./_components/json-ld";
+import JsonLd from "@/app/_components/json-ld";
 
 const HomePage = () => {
   const orgJsonLd: Organization = {
