@@ -33,10 +33,10 @@ const HomePage = () => {
 
   return (
     <div>
-      <JsonLd data={structuredData} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {allPostPreviews}
       </div>
+      <JsonLd data={structuredData} />
     </div>
   );
 };

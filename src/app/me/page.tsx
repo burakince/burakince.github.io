@@ -1,23 +1,23 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
-import { Organization, Person, WithContext } from "schema-dts";
+import { Organization, Person, ProfilePage, WithContext } from "schema-dts";
 import JsonLd from "../_components/json-ld";
 
 const title = `${SITE_METADATA.author} - Lead Developer with 12+ Years Experience`;
 const description =
   "Lead Developer with 12+ years of professional experience starting from 2011 and 24+ years of programming experience starting from 1999.";
 
-const ProfilePage = () => {
+const MePage = () => {
   const orgJsonLd: Organization = {
     "@type": "Organization",
     name: SITE_METADATA.worksFor,
   };
 
-  const structuredData: WithContext<Person> = {
-    "@context": "https://schema.org",
+  const myProfileJsonLd: Person = {
     "@type": "Person",
     name: SITE_METADATA.author,
+    gender: "male",
     jobTitle: SITE_METADATA.jobTitle,
     worksFor: orgJsonLd,
     description: description,
@@ -44,9 +44,16 @@ const ProfilePage = () => {
     ],
   };
 
+  const structuredData: WithContext<ProfilePage> = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    dateCreated: "2024-04-28T15:18:27.000Z",
+    dateModified: new Date().toISOString(),
+    mainEntity: myProfileJsonLd,
+  };
+
   return (
     <div>
-      <JsonLd data={structuredData} />
       <header>
         <section
           id="profile"
@@ -392,6 +399,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </section>
+      <JsonLd data={structuredData} />
     </div>
   );
 };
@@ -426,4 +434,4 @@ export const metadata: Metadata = {
   },
 };
 
-export default ProfilePage;
+export default MePage;
