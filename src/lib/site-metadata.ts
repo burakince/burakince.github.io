@@ -11,6 +11,7 @@ export const SITE_METADATA = {
   github: "https://github.com/burakince",
   twitter: "https://twitter.com/burakinc",
   keybase: "https://keybase.io/burakince",
+  huggingface: "https://huggingface.co/burakince",
   linkedin: "https://www.linkedin.com/in/inceburak/",
   keywords: [
     "latest tech trends",
