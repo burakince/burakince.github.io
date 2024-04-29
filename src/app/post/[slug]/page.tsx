@@ -45,7 +45,7 @@ const PostPage = async ({ params }: Params) => {
     "@type": "BlogPosting",
     headline: post.title,
     datePublished: post.date,
-    dateModified: new Date().toLocaleString(),
+    dateModified: new Date().toISOString(),
     inLanguage: "en-US",
     isFamilyFriendly: true,
     accountablePerson: meJsonLd,
