@@ -2,47 +2,17 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { Organization, Person, WithContext } from "schema-dts";
-import Script from "next/script";
 
 const title = `${SITE_METADATA.author} - Lead Developer with 12+ Years Experience`;
 const description =
   "Lead Developer with 12+ years of professional experience starting from 2011 and 24+ years of programming experience starting from 1999.";
-export const metadata: Metadata = {
-  title: title,
-  description: description,
-  keywords: [
-    SITE_METADATA.author,
-    "lead developer",
-    "professional experience",
-    "programming",
-    "software development",
-    "AI",
-    "machine learning",
-    "data engineering",
-    "web development",
-    "IoT",
-    "AWS",
-    "Terraform",
-    "Python",
-    "Golang",
-    "Kubernetes",
-    "Helm",
-  ],
-  alternates: {
-    canonical: `${SITE_METADATA.siteUrl}/me`,
-  },
-  openGraph: {
-    title,
-    description: description,
-  },
-};
-
-const orgJsonLd: Organization = {
-  "@type": "Organization",
-  name: SITE_METADATA.worksFor,
-};
 
 const ProfilePage = () => {
+  const orgJsonLd: Organization = {
+    "@type": "Organization",
+    name: SITE_METADATA.worksFor,
+  };
+
   const jsonLd: WithContext<Person> = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -420,13 +390,45 @@ const ProfilePage = () => {
           </div>
         </div>
       </section>
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        id="about-me-jsonld"
       />
     </div>
   );
 };
+
+export function generateMetadata(): Metadata {
+  const metadata: Metadata = {
+    title: title,
+    description: description,
+    keywords: [
+      SITE_METADATA.author,
+      "lead developer",
+      "professional experience",
+      "programming",
+      "software development",
+      "AI",
+      "machine learning",
+      "data engineering",
+      "web development",
+      "IoT",
+      "AWS",
+      "Terraform",
+      "Python",
+      "Golang",
+      "Kubernetes",
+      "Helm",
+    ],
+    alternates: {
+      canonical: `${SITE_METADATA.siteUrl}/me`,
+    },
+    openGraph: {
+      title,
+      description: description,
+    },
+  };
+  return metadata;
+}
 
 export default ProfilePage;
