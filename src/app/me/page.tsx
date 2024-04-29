@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { Organization, Person, ProfilePage, WithContext } from "schema-dts";
-import JsonLd from "../_components/json-ld";
+import JsonLd from "@/app/_components/json-ld";
 
 const title = `${SITE_METADATA.author} - Lead Developer with 12+ Years Experience`;
 const description =
@@ -11,7 +11,9 @@ const description =
 const MePage = () => {
   const orgJsonLd: Organization = {
     "@type": "Organization",
-    name: SITE_METADATA.worksFor,
+    name: SITE_METADATA.worksFor.name,
+    url: SITE_METADATA.worksFor.url,
+    logo: SITE_METADATA.worksFor.logo,
   };
 
   const myProfileJsonLd: Person = {

@@ -1,18 +1,26 @@
 import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
-import { Person, WebSite, WithContext } from "schema-dts";
+import { Organization, Person, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import JsonLd from "./_components/json-ld";
 
 const HomePage = () => {
+  const orgJsonLd: Organization = {
+    "@type": "Organization",
+    name: SITE_METADATA.worksFor.name,
+    url: SITE_METADATA.worksFor.url,
+    logo: SITE_METADATA.worksFor.logo,
+  };
+
   const meJsonLd: Person = {
     "@type": "Person",
     name: SITE_METADATA.author,
     jobTitle: SITE_METADATA.jobTitle,
-    worksFor: SITE_METADATA.worksFor,
+    worksFor: orgJsonLd,
     url: `${SITE_METADATA.siteUrl}/me`,
     image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
   };
+
   const structuredData: WithContext<WebSite> = {
     "@context": "https://schema.org",
     "@type": "WebSite",

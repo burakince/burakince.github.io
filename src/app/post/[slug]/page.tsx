@@ -4,7 +4,7 @@ import markdownToHtml from "@/lib/markdownToHtml";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BlogPosting, Person, WithContext } from "schema-dts";
+import { BlogPosting, Organization, Person, WithContext } from "schema-dts";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
@@ -25,11 +25,18 @@ type Params = {
   };
 };
 
+const orgJsonLd: Organization = {
+  "@type": "Organization",
+  name: SITE_METADATA.worksFor.name,
+  url: SITE_METADATA.worksFor.url,
+  logo: SITE_METADATA.worksFor.logo,
+};
+
 const meJsonLd: Person = {
   "@type": "Person",
   name: SITE_METADATA.author,
   jobTitle: SITE_METADATA.jobTitle,
-  worksFor: SITE_METADATA.worksFor,
+  worksFor: orgJsonLd,
   url: `${SITE_METADATA.siteUrl}/me`,
   image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
 };
