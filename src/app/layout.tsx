@@ -25,7 +25,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    nocache: true,
   },
   keywords: SITE_METADATA.keywords,
   alternates: {
@@ -92,7 +91,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="robots" content="all" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta
           name="msapplication-config"
