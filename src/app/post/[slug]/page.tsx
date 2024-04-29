@@ -11,6 +11,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
 import yaml from "highlight.js/lib/languages/yaml";
+import JsonLd from "@/app/_components/json-ld";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("typescript", typescript);
@@ -40,7 +41,7 @@ const PostPage = async ({ params }: Params) => {
     return notFound();
   }
 
-  const jsonLd: WithContext<BlogPosting> = {
+  const structuredData: WithContext<BlogPosting> = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
@@ -68,10 +69,7 @@ const PostPage = async ({ params }: Params) => {
       <article className="prose dark:prose-invert max-w-none lg:prose-xl">
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </article>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={structuredData} />
     </div>
   );
 };

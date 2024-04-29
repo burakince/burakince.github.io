@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { Organization, Person, WithContext } from "schema-dts";
+import JsonLd from "../_components/json-ld";
 
 const title = `${SITE_METADATA.author} - Lead Developer with 12+ Years Experience`;
 const description =
@@ -13,7 +14,7 @@ const ProfilePage = () => {
     name: SITE_METADATA.worksFor,
   };
 
-  const jsonLd: WithContext<Person> = {
+  const structuredData: WithContext<Person> = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: SITE_METADATA.author,
@@ -45,6 +46,7 @@ const ProfilePage = () => {
 
   return (
     <div>
+      <JsonLd data={structuredData} />
       <header>
         <section
           id="profile"
@@ -390,45 +392,38 @@ const ProfilePage = () => {
           </div>
         </div>
       </section>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
     </div>
   );
 };
 
-export function generateMetadata(): Metadata {
-  const metadata: Metadata = {
-    title: title,
+export const metadata: Metadata = {
+  title: title,
+  description: description,
+  keywords: [
+    SITE_METADATA.author,
+    "lead developer",
+    "professional experience",
+    "programming",
+    "software development",
+    "AI",
+    "machine learning",
+    "data engineering",
+    "web development",
+    "IoT",
+    "AWS",
+    "Terraform",
+    "Python",
+    "Golang",
+    "Kubernetes",
+    "Helm",
+  ],
+  alternates: {
+    canonical: `${SITE_METADATA.siteUrl}/me`,
+  },
+  openGraph: {
+    title,
     description: description,
-    keywords: [
-      SITE_METADATA.author,
-      "lead developer",
-      "professional experience",
-      "programming",
-      "software development",
-      "AI",
-      "machine learning",
-      "data engineering",
-      "web development",
-      "IoT",
-      "AWS",
-      "Terraform",
-      "Python",
-      "Golang",
-      "Kubernetes",
-      "Helm",
-    ],
-    alternates: {
-      canonical: `${SITE_METADATA.siteUrl}/me`,
-    },
-    openGraph: {
-      title,
-      description: description,
-    },
-  };
-  return metadata;
-}
+  },
+};
 
 export default ProfilePage;
