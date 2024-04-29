@@ -68,3 +68,7 @@ ncu --interactive
 // or
 ncu -i
 ```
+
+Social Share Preview Checker: https://socialsharepreview.com/
+Favicon Generator: https://realfavicongenerator.net/
+Open Graph Review and Generater: https://www.opengraph.xyz/

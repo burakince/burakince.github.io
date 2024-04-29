@@ -20,13 +20,20 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: SITE_METADATA.title,
   description: SITE_METADATA.description,
-  robots: "index, follow",
+  creator: SITE_METADATA.author,
+  publisher: SITE_METADATA.author,
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+  },
   keywords: SITE_METADATA.keywords,
   alternates: {
     canonical: SITE_METADATA.siteUrl,
   },
   openGraph: {
     type: "website",
+    images: [`${SITE_METADATA.siteUrl}/assets/open-graph-image.jpg`],
     url: "https://www.burakince.com",
     title: SITE_METADATA.title,
     description: SITE_METADATA.description,
@@ -96,7 +103,7 @@ export default function RootLayout({
       <body className={`bg-slate-100 dark:bg-slate-800 ${inter.className}`}>
         <Container>
           <Header />
-          <div>{children}</div>
+          <main>{children}</main>
           <Footer />
         </Container>
       </body>
