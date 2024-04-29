@@ -61,9 +61,9 @@ const PostPage = async ({ params }: Params) => {
   return (
     <div>
       <div className="my-12 text-center">
-        <h1 className="text-2xl text-violet-600 dark:text-violet-500 mb-2">
+        <h2 className="text-2xl text-violet-600 dark:text-violet-500 mb-2">
           {post.title}
-        </h1>
+        </h2>
         <DateFormatter dateString={post.date} />
       </div>
       <article className="prose dark:prose-invert max-w-none lg:prose-xl">

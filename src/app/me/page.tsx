@@ -68,12 +68,12 @@ const MePage = () => {
               className="w-24 h-24 rounded-full mr-6"
             />
             <div>
-              <h1 className="text-3xl font-bold dark:text-gray-300">
+              <h2 className="text-3xl font-bold dark:text-gray-300">
                 Burak Ince
-              </h1>
-              <h2 className="text-xl text-gray-700 dark:text-gray-500">
-                Lead Consultant Developer at Thoughtworks
               </h2>
+              <h3 className="text-xl text-gray-700 dark:text-gray-500">
+                Lead Consultant Developer at Thoughtworks
+              </h3>
             </div>
           </div>
           <div className="mt-4 dark:text-gray-300">
