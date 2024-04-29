@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { Organization, Person, WithContext } from "schema-dts";
+import Script from "next/script";
 
 const title = `${SITE_METADATA.author} - Lead Developer with 12+ Years Experience`;
 const description =
@@ -419,9 +420,10 @@ const ProfilePage = () => {
           </div>
         </div>
       </section>
-      <script
+      <Script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        id="about-me-jsonld"
       />
     </div>
   );

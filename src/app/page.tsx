@@ -2,6 +2,7 @@ import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
 import { Person, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
+import Script from "next/script";
 
 const HomePage = () => {
   const meJsonLd: Person = {
@@ -35,9 +36,10 @@ const HomePage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {allPostPreviews}
       </div>
-      <script
+      <Script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        id="index-jsonid"
       />
     </main>
   );
