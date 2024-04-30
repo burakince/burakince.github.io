@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     images: [`${SITE_METADATA.siteUrl}/assets/open-graph-image.jpg`],
-    url: "https://www.burakince.com",
+    url: SITE_METADATA.siteUrl,
     title: SITE_METADATA.title,
     description: SITE_METADATA.description,
     siteName: SITE_METADATA.description,
