@@ -37,7 +37,9 @@ export const metadata: Metadata = {
     url: SITE_METADATA.siteUrl,
     title: SITE_METADATA.title,
     description: SITE_METADATA.description,
+    emails: SITE_METADATA.email,
     siteName: SITE_METADATA.description,
+    locale: SITE_METADATA.locale,
   },
   icons: {
     icon: [

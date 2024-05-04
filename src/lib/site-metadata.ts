@@ -11,6 +11,7 @@ export const SITE_METADATA = {
     "Discover the latest in technology, software development, and AI trends with Burak's in-depth analysis and expert insights.",
   siteUrl: "https://www.burakince.com",
   siteRepo: "https://github.com/burakince/burakince.github.io",
+  locale: "en-US",
   email: "me@burakince.com",
   github: "https://github.com/burakince",
   twitter: "https://twitter.com/burakinc",

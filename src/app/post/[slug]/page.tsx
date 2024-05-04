@@ -64,7 +64,7 @@ const PostPage = async ({ params }: Params) => {
     headline: post.title,
     datePublished: post.date,
     dateModified: new Date().toISOString(),
-    inLanguage: "en-US",
+    inLanguage: SITE_METADATA.locale,
     isFamilyFriendly: true,
     accountablePerson: meJsonLd,
     author: meJsonLd,
@@ -116,9 +116,18 @@ export function generateMetadata({ params }: Params): Metadata {
       canonical: `${SITE_METADATA.siteUrl}/post/${params.slug}/`,
     },
     openGraph: {
-      title,
+      type: "article",
       images: `${SITE_METADATA.siteUrl}/assets/blog/og-images/${params.slug.replace(/-/g, "_")}.png`,
+      url: `${SITE_METADATA.siteUrl}/post/${params.slug}/`,
+      title,
       description: post.excerpt,
+      emails: SITE_METADATA.email,
+      siteName: post.excerpt,
+      locale: SITE_METADATA.locale,
+      publishedTime: post.date,
+      modifiedTime: new Date().toISOString(),
+      authors: `${SITE_METADATA.siteUrl}/me/`,
+      tags: post.keywords,
     },
   };
 }

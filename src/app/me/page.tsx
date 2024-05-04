@@ -433,8 +433,17 @@ export const metadata: Metadata = {
     canonical: `${SITE_METADATA.siteUrl}/me/`,
   },
   openGraph: {
+    type: "profile",
+    images: `${SITE_METADATA.siteUrl}/assets/me/burakince.jpg`,
+    url: `${SITE_METADATA.siteUrl}/me/`,
     title,
     description: description,
+    emails: SITE_METADATA.email,
+    siteName: description,
+    locale: SITE_METADATA.locale,
+    firstName: "Burak",
+    lastName: "Ince",
+    gender: "male",
   },
 };
 
