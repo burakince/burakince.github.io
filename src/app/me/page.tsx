@@ -434,7 +434,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "profile",
-    images: `${SITE_METADATA.siteUrl}/assets/me/burakince.jpg`,
+    images: [`${SITE_METADATA.siteUrl}/assets/me/burakince.jpg`],
     url: `${SITE_METADATA.siteUrl}/me/`,
     title,
     description: description,
@@ -444,6 +444,11 @@ export const metadata: Metadata = {
     firstName: "Burak",
     lastName: "Ince",
     gender: "male",
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@burakinc",
+    images: [`${SITE_METADATA.siteUrl}/assets/me/burakince.jpg`],
   },
 };
 

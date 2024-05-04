@@ -41,6 +41,11 @@ export const metadata: Metadata = {
     siteName: SITE_METADATA.description,
     locale: SITE_METADATA.locale,
   },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@burakinc",
+    images: [`${SITE_METADATA.siteUrl}/assets/open-graph-image.jpg`],
+  },
   icons: {
     icon: [
       {

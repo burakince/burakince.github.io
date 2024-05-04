@@ -118,7 +118,9 @@ export function generateMetadata({ params }: Params): Metadata {
     },
     openGraph: {
       type: "article",
-      images: `${SITE_METADATA.siteUrl}/assets/blog/og-images/${params.slug.replace(/-/g, "_")}.png`,
+      images: [
+        `${SITE_METADATA.siteUrl}/assets/blog/og-images/${params.slug.replace(/-/g, "_")}.png`,
+      ],
       url: `${SITE_METADATA.siteUrl}/post/${params.slug}/`,
       title,
       description: post.excerpt,
@@ -129,6 +131,13 @@ export function generateMetadata({ params }: Params): Metadata {
       modifiedTime: new Date().toISOString(),
       authors: `${SITE_METADATA.siteUrl}/me/`,
       tags: post.keywords,
+    },
+    twitter: {
+      card: "summary_large_image",
+      creator: "@burakinc",
+      images: [
+        `${SITE_METADATA.siteUrl}/assets/blog/og-images/${params.slug.replace(/-/g, "_")}.png`,
+      ],
     },
   };
 }
