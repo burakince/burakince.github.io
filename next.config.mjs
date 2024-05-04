@@ -19,6 +19,10 @@ const nextConfig = {
   // Optional: Change the output directory `out` -> `dist`
   // distDir: 'dist',
 
+  experimental: {
+    serverComponentsExternalPackages: ["@resvg/resvg-js"],
+  },
+
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.svg$/,

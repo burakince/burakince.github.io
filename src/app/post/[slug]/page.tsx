@@ -12,6 +12,10 @@ import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
 import yaml from "highlight.js/lib/languages/yaml";
 import JsonLd from "@/app/_components/json-ld";
+import { Params } from "@/interfaces/post";
+import { generateImage } from "@/lib/og-generator";
+import OgTemplate from "@/app/_components/og-template";
+import Image from "next/image";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("typescript", typescript);
@@ -19,17 +23,16 @@ hljs.registerLanguage("bash", bash);
 hljs.registerLanguage("css", css);
 hljs.registerLanguage("yaml", yaml);
 
-type Params = {
-  params: {
-    slug: string;
-  };
-};
-
 const orgJsonLd: Organization = {
   "@type": "Organization",
   name: SITE_METADATA.worksFor.name,
   url: SITE_METADATA.worksFor.url,
   logo: SITE_METADATA.worksFor.logo,
+};
+
+const imageSize = {
+  width: 1200,
+  height: 386,
 };
 
 const meJsonLd: Person = {
@@ -48,9 +51,16 @@ const PostPage = async ({ params }: Params) => {
     return notFound();
   }
 
+  const ogImage = await generateImage({
+    template: <OgTemplate title={post.title} excerpt={post.excerpt} />,
+    slug: post.slug,
+    options: imageSize,
+  });
+
   const structuredData: WithContext<BlogPosting> = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    image: `${SITE_METADATA.siteUrl}${ogImage}`,
     headline: post.title,
     datePublished: post.date,
     dateModified: new Date().toISOString(),
@@ -67,8 +77,9 @@ const PostPage = async ({ params }: Params) => {
 
   return (
     <div>
-      <div className="my-12 text-center">
-        <h2 className="text-2xl text-violet-600 dark:text-violet-500 mb-2">
+      <div className="my-6 text-center">
+        <Image src={ogImage} {...imageSize} alt={post.title} priority={true} />
+        <h2 className="text-2xl text-violet-600 dark:text-violet-500 mt-6 mb-2">
           {post.title}
         </h2>
         <DateFormatter dateString={post.date} />
@@ -99,6 +110,7 @@ export function generateMetadata({ params }: Params): Metadata {
     },
     openGraph: {
       title,
+      images: `${SITE_METADATA.siteUrl}/assets/blog/og-images/${params.slug.replace(/-/g, "_")}.png`,
       description: post.excerpt,
     },
   };

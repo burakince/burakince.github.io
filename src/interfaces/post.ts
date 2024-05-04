@@ -6,3 +6,9 @@ export type Post = {
   content: string;
   keywords: string[];
 };
+
+export type Params = {
+  params: {
+    slug: string;
+  };
+};

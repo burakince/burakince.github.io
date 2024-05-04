@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@next/third-parties": "^14.2.3",
+    "@resvg/resvg-js": "^2.6.2",
     "date-fns": "^3.6.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.9.0",
@@ -23,6 +24,7 @@
     "remark-html": "^16.0.1",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.0",
+    "satori": "^0.10.13",
     "unified": "^11.0.4"
   },
   "devDependencies": {
