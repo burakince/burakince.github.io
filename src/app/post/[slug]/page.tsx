@@ -31,8 +31,8 @@ const orgJsonLd: Organization = {
 };
 
 const imageSize = {
-  width: 834,
-  height: 386,
+  width: 1200,
+  height: 630,
 };
 
 const meJsonLd: Person = {
@@ -81,7 +81,8 @@ const PostPage = async ({ params }: Params) => {
         <div className="flex justify-center items-center">
           <Image
             src={ogImage}
-            {...imageSize}
+            width={imageSize.width / 1.4}
+            height={imageSize.height / 1.4}
             alt={post.title}
             priority={true}
           />
