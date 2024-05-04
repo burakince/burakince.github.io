@@ -31,7 +31,7 @@ const orgJsonLd: Organization = {
 };
 
 const imageSize = {
-  width: 1200,
+  width: 834,
   height: 386,
 };
 
@@ -78,7 +78,14 @@ const PostPage = async ({ params }: Params) => {
   return (
     <div>
       <div className="my-6 text-center">
-        <Image src={ogImage} {...imageSize} alt={post.title} priority={true} />
+        <div className="flex justify-center items-center">
+          <Image
+            src={ogImage}
+            {...imageSize}
+            alt={post.title}
+            priority={true}
+          />
+        </div>
         <h2 className="text-2xl text-violet-600 dark:text-violet-500 mt-6 mb-2">
           {post.title}
         </h2>
