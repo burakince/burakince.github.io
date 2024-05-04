@@ -20,6 +20,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: SITE_METADATA.title,
   description: SITE_METADATA.description,
+  category: "technology",
   creator: SITE_METADATA.author,
   publisher: SITE_METADATA.author,
   robots: {
@@ -57,16 +58,43 @@ export const metadata: Metadata = {
       rel: "shortcut icon",
       url: "/favicon/favicon.ico",
     },
-    apple: {
-      rel: "apple-touch-icon",
-      sizes: "180x180",
-      url: "/favicon/apple-touch-icon.png",
-    },
+    apple: [
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        url: "/favicon/apple-touch-icon.png",
+      },
+      {
+        rel: "apple-touch-icon-60x60",
+        sizes: "60x60",
+        url: "/favicon/apple-touch-icon-60x60.png",
+      },
+      {
+        rel: "apple-touch-icon-76x76",
+        sizes: "76x76",
+        url: "/favicon/apple-touch-icon-76x76.png",
+      },
+      {
+        rel: "apple-touch-icon-120x120",
+        sizes: "120x120",
+        url: "/favicon/apple-touch-icon-120x120.png",
+      },
+      {
+        rel: "apple-touch-icon-152x152",
+        sizes: "152x152",
+        url: "/favicon/apple-touch-icon-152x152.png",
+      },
+      {
+        rel: "apple-touch-icon-180x180",
+        sizes: "180x180",
+        url: "/favicon/apple-touch-icon-180x180.png",
+      },
+    ],
     other: [
       {
         rel: "mask-icon",
         color: "#000000",
-        url: "/favicon/safari-pinned-tab.png",
+        url: "/favicon/safari-pinned-tab.svg",
       },
       {
         type: "image/png",
@@ -91,7 +119,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="msapplication-TileColor" content="#2c3e50" />
         <meta
           name="msapplication-config"
           content="/favicon/browserconfig.xml"
