@@ -5,13 +5,16 @@
 
 version: 2
 updates:
-
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
     reviewers:
       - "burakince"
+    groups:
+      actions-deps:
+        patterns:
+          - "*"
 
   - package-ecosystem: "npm"
     directory: "/"
@@ -19,3 +22,7 @@ updates:
       interval: "daily"
     reviewers:
       - "burakince"
+    groups:
+      npm-deps:
+        patterns:
+          - "*"
