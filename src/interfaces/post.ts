@@ -7,8 +7,6 @@ export type Post = {
   keywords: string[];
 };
 
-export type Params = {
-  params: {
-    slug: string;
-  };
-};
+export type Params = Promise<{
+  slug: string;
+}>;

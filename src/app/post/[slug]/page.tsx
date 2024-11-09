@@ -44,8 +44,9 @@ const meJsonLd: Person = {
   image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
 };
 
-const PostPage = async ({ params }: Params) => {
-  const post = getPostBySlug(params.slug);
+const PostPage = async ({ params }: { params: Params }) => {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     return notFound();
@@ -100,8 +101,13 @@ const PostPage = async ({ params }: Params) => {
   );
 };
 
-export function generateMetadata({ params }: Params): Metadata {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     return notFound();
@@ -114,14 +120,14 @@ export function generateMetadata({ params }: Params): Metadata {
     description: post.excerpt,
     keywords: post.keywords,
     alternates: {
-      canonical: `${SITE_METADATA.siteUrl}/post/${params.slug}/`,
+      canonical: `${SITE_METADATA.siteUrl}/post/${slug}/`,
     },
     openGraph: {
       type: "article",
       images: [
-        `${SITE_METADATA.siteUrl}/assets/blog/og-images/${params.slug.replace(/-/g, "_")}.png`,
+        `${SITE_METADATA.siteUrl}/assets/blog/og-images/${slug.replace(/-/g, "_")}.png`,
       ],
-      url: `${SITE_METADATA.siteUrl}/post/${params.slug}/`,
+      url: `${SITE_METADATA.siteUrl}/post/${slug}/`,
       title,
       description: post.excerpt,
       emails: SITE_METADATA.email,
@@ -136,7 +142,7 @@ export function generateMetadata({ params }: Params): Metadata {
       card: "summary_large_image",
       creator: "@burakinc",
       images: [
-        `${SITE_METADATA.siteUrl}/assets/blog/og-images/${params.slug.replace(/-/g, "_")}.png`,
+        `${SITE_METADATA.siteUrl}/assets/blog/og-images/${slug.replace(/-/g, "_")}.png`,
       ],
     },
   };
