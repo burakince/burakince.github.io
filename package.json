@@ -10,12 +10,12 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "@next/third-parties": "^15.4.7",
+    "@next/third-parties": "^15.5.0",
     "@resvg/resvg-js": "^2.6.2",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
-    "next": "15.4.7",
+    "next": "15.5.0",
     "react": "^19",
     "react-dom": "^19",
     "rehype-highlight": "^7.0.2",
@@ -34,7 +34,7 @@
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint-config-next": "^15.4.7",
+    "eslint-config-next": "^15.5.0",
     "eslint-config-prettier": "^10.1.8",
     "next-sitemap": "^4.2.3",
     "postcss": "^8.5.6",
