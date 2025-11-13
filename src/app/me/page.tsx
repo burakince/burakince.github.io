@@ -33,18 +33,97 @@ const MePage = () => {
       SITE_METADATA.huggingface,
     ],
     knowsAbout: [
+      // Core
       "software development",
-      "AI",
-      "machine learning",
-      "data engineering",
-      "web development",
-      "IoT",
-      "AWS",
-      "Terraform",
-      "Python",
+      "full-stack development",
+      "system architecture",
+      "distributed systems",
+      "micro-services",
+      "event-driven architecture",
+
+      // Languages
+      "Java",
       "Golang",
+      "Python",
+      "TypeScript",
+      "JavaScript",
+      "Scala",
+      "C#",
+      "Swift",
+      "Bash",
+      "Groovy",
+      "Ruby",
+      "Lua",
+      "PL/SQL",
+
+      // Cloud / Infra
+      "AWS",
+      "Google Cloud Platform",
+      "Azure",
       "Kubernetes",
       "Helm",
+      "Terraform",
+      "CloudFormation",
+      "Istio",
+      "KNative",
+      "Docker",
+      "Docker Swarm",
+
+      // Data Engineering
+      "Apache Spark",
+      "PySpark",
+      "Delta Lake",
+      "Parquet",
+      "Apache Airflow",
+      "Dagster",
+      "DVC",
+      "Great Expectations",
+      "Deequ",
+      "BigQuery",
+      "Redshift",
+
+      // ML / AI
+      "TensorFlow",
+      "PyTorch",
+      "Scikit-Learn",
+      "ONNX",
+      "Kubeflow",
+      "KServe",
+      "Seldon",
+      "MLflow",
+      "Amazon Bedrock",
+      "Vertex AI",
+
+      // Security / Auth
+      "OAuth2",
+      "OpenID Connect",
+      "Keycloak",
+      "HashiCorp Vault",
+      "mTLS",
+
+      // Observability
+      "Prometheus",
+      "Grafana",
+      "ELK Stack",
+      "OpenTelemetry",
+      "Jaeger",
+      "Zipkin",
+
+      // Testing / CI-CD
+      "Jest",
+      "Cypress",
+      "Terratest",
+      "GitHub Actions",
+      "Jenkins",
+      "GoCD",
+
+      // Protocols / Specs
+      "REST",
+      "gRPC",
+      "GraphQL",
+      "OpenAPI",
+      "Swagger",
+      "Protobuf",
     ],
   };
 
@@ -115,6 +194,52 @@ const MePage = () => {
 
             <div className="mb-4">
               <h4 className="font-semibold dark:text-gray-100">
+                Major Retail Energy Supply Company
+              </h4>
+              <p className="dark:text-gray-300">
+                During a 10-month tenure as a Data Engineer, designed and
+                implemented core RESTful API services utilizing Kubernetes,
+                Terraform, Helm, Google Cloud Platform (GCP), CloudSQL
+                (PostgreSQL), and TypeScript to develop customer, energy usage,
+                and billing microservices with secure OpenID Connect (OIDC) and
+                OAuth 2.0-based single sign-on (SSO) authentication.
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <h4 className="font-semibold dark:text-gray-100">
+                University Hospital
+              </h4>
+              <p className="dark:text-gray-300">
+                During a one-month tenure as a Data Engineer, developed a
+                proof-of-concept system leveraging Cloudformation, AWS Lambda,
+                Python, Amazon Comprehend Medical, AWS Step Functions, Amazon
+                S3, API Gateway, and Amazon Bedrock to automate data extraction
+                from patient reports and images, enabling automatic
+                identification of key medical data and matching potential
+                clinical trials for physician review and approval.
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <h4 className="font-semibold dark:text-gray-100">
+                Major European Retailer of Consumer Electronics and Household
+                Appliances
+              </h4>
+              <p className="dark:text-gray-300">
+                During an 8-month tenure as a Data Engineer, modernized IT
+                infrastructure and developed a Customer Data Platform on GCP
+                BigQuery, leveraging GCP, Cloud Composer, Apache Airflow,
+                Python, R, Colab Enterprise, Vertex AI, Kubeflow, Jupyter
+                Notebooks, Data Contracts, IAM roles, Google Identity Platform,
+                Terraform, Polars, Dataplex, Medallion Architecture, Cloud
+                Storage, and Looker to establish robust data governance,
+                platform capabilities, and actionable data products.
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <h4 className="font-semibold dark:text-gray-100">
                 Major Laboratory Devices and Consumables Company
               </h4>
               <p className="dark:text-gray-300">
@@ -137,9 +262,10 @@ const MePage = () => {
                 Data engineer for 5 months, building an AI platform for
                 connected cars using Kubernetes, Terraform, Terratest, Helm,
                 AWS, ECR, Amazon Aurora, Kubeflow, KServe, KNative, Istio,
-                Let&apos;s Encrypt, Seldon, Tensorflow Serving, Prometheus
-                Stack, Keycloak, and GitHub Actions. Improved Kubeflow
-                installation and integrated the customer&apos;s SSO system.
+                Let&apos;s Encrypt, Seldon, PostgreSQL, Redis, Tensorflow
+                Serving, Prometheus Stack, Keycloak, and GitHub Actions.
+                Improved Kubeflow installation and integrated the
+                customer&apos;s SSO system.
               </p>
             </div>
 
@@ -150,12 +276,12 @@ const MePage = () => {
               <p className="dark:text-gray-300">
                 Data engineer for 1 year and 3 months, working on a CD4ML
                 machine learning pipeline and AI platform using Golang, Python,
-                Typescript, Kubernetes, Helm, Azure Cloud, Azurite, ACR,
-                PostgreSQL, Terraform, DVC, Mlflow, Dagster, Great Expectations,
-                REST, gRPC, GraphQL, Memgraph, Dash, ONNX, Tensorflow,
-                Scikit-Learn, React, Prometheus Stack, Backstage, Azure DevOps,
-                and Azure Pipelines. Contributed to the development of the main
-                framework and subsections of the portal.
+                Asyncio, Aiohttp, Pydantic, Typescript, Kubernetes, Helm, Azure
+                Cloud, Azurite, ACR, PostgreSQL, Terraform, DVC, Mlflow,
+                Dagster, Great Expectations, REST, gRPC, GraphQL, Memgraph,
+                Dash, ONNX, Tensorflow, Scikit-Learn, React, Prometheus Stack,
+                Backstage, Azure DevOps, and Azure Pipelines. Contributed to the
+                development of the main framework and subsections of the portal.
               </p>
             </div>
 
@@ -204,19 +330,14 @@ const MePage = () => {
                 Major Cash and Carry Logistic Company
               </h4>
               <p className="dark:text-gray-300">
-                Developer for 4 months, building an automatic secrets
-                loading/managing system with Golang, Groovy, React, Redux,
-                Cassandra, PostgreSQL, Kubernetes, Vault, Consul, Ansible, and
-                Jenkins.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <p className="dark:text-gray-300">
-                Developer for 8 months, building an SRE tool to calculate and
-                visualize service reliability using Golang, React, Redux,
-                Cypress, Cassandra, ELK Stack, Kubernetes, API Blueprints,
-                Docker Stack, and Jenkins.
+                During a 12-month tenure as a Developer, designed and
+                implemented an automated secrets loading and management system
+                using Golang, Groovy, React, Redux, Cassandra, PostgreSQL,
+                Kubernetes, HashiCorp Vault, Consul, Ansible, and Jenkins (4
+                months), and engineered an SRE reliability monitoring tool to
+                calculate and visualize service health metrics utilizing Golang,
+                React, Redux, Cypress, Cassandra, ELK Stack, Kubernetes, API
+                Blueprints, Docker Swarm, and Jenkins (8 months).
               </p>
             </div>
 
@@ -239,8 +360,8 @@ const MePage = () => {
               <p className="dark:text-gray-300">
                 Developer for 4 months, building a loan application web page
                 using React, Redux, Gradle, Spark Java, JWT, API Blueprints,
-                Docker Stack, Terraform, GoCD Server, CoreOS, ELK Stack,
-                Pinpoint, Traefik, Sonar, and Prometheus.
+                PostgreSQL, Docker Stack, Terraform, GoCD Server, CoreOS, ELK
+                Stack, Pinpoint, Traefik, Sonar, and Prometheus.
               </p>
             </div>
 
@@ -260,7 +381,7 @@ const MePage = () => {
               </h4>
               <p className="dark:text-gray-300">
                 Developer for 3 months, building a community-driven terminology
-                management system with Python, Django, Grunt, AngularJS,
+                management system with Python, Flask, Django, Grunt, AngularJS,
                 PhantomJS, Docker Compose, Apache Solr, and MongoDB. Developed a
                 web page and REST API to facilitate monitoring, evaluation, and
                 performance improvement across healthcare and public health
@@ -284,7 +405,7 @@ const MePage = () => {
                 GWT, HTML5, CSS, Twitter Bootstrap, JavaScript, JSON, and AJAX.
                 Also developed core banking customer query and customer
                 management SOAP web services using Java EE, Maven, Spring, SOA,
-                IBM AIX, and Websphere Application Servers.
+                IBM AIX, DB2, and Websphere Application Servers.
               </p>
             </div>
 
@@ -296,7 +417,7 @@ const MePage = () => {
               <p className="dark:text-gray-300">
                 Developed core banking customer query and customer management
                 SOAP web services using Java EE, Maven, Spring, SOA, IBM AIX,
-                and Websphere Application Servers. Also, developed a data
+                DB2, and Websphere Application Servers. Also, developed a data
                 management pipeline using SAS language and SAS Data Management
                 Servers.
               </p>
@@ -314,92 +435,101 @@ const MePage = () => {
           <div>
             <h3 className="font-semibold">Programming Languages:</h3>
             <p>
-              Java, Go, Python, Scala, Lua, Ruby, C#, TypeScript, JavaScript,
-              Bash, XML, XSL, PL/SQL
+              Java, Golang, Python, TypeScript, JavaScript, Scala, C#, Swift,
+              Bash, Groovy, Ruby, Lua, PL/SQL
             </p>
           </div>
 
           <div>
             <h3 className="font-semibold">Java Specific Competencies:</h3>
             <p>
-              Spring/Spring framework, Spring Data, Security, MVC, Spring Boot,
-              Spring Cloud, Spark Java, Maven, Gradle, Groovy
+              Spring Boot, Spring Cloud, Spring Data, Spring Security, Spring
+              MVC, Spark Java, Maven, Gradle, Groovy
             </p>
           </div>
 
           <div>
             <h3 className="font-semibold">.NET Specific Competencies:</h3>
-            <p>Cake, .Net Core</p>
+            <p>.NET Core, Cake</p>
           </div>
 
           <div>
             <h3 className="font-semibold">JavaScript Specific Competencies:</h3>
             <p>
-              ReactJS, Redux, Yarn, AngularJs, Angular(version 2), Jest,
-              PhantomJS, StencilJS
+              React, Redux, TypeScript, StencilJS, Angular (2+), AngularJS,
+              Jest, Cypress, PhantomJS
             </p>
           </div>
 
           <div>
             <h3 className="font-semibold">Databases:</h3>
             <p>
-              MS SQL Server, Oracle, JDBC, DB2, PostgreSQL, Cassandra, Redis,
-              Apache Solr, MongoDB, Consul, Amazon Redshift, Google BigQuery,
-              MemSQL, VoltDB, Amazon Aurora, Memgraph, DynamoDB
+              PostgreSQL, Cassandra, Redis, MongoDB, Amazon Aurora, DynamoDB,
+              Google BigQuery, Amazon Redshift, Memgraph, Apache Solr, DB2, MS
+              SQL Server, Oracle, MemSQL, VoltDB
             </p>
           </div>
 
           <div>
-            <h3 className="font-semibold">Tools:</h3>
+            <h3 className="font-semibold">Cloud & Orchestration:</h3>
             <p>
-              Make, AngularJS, Grunt, React, Redux, Gulp, NodeJS, Spring MVC,
-              Gradle, Git, Nexus, HashiCorp-Vault, ELK Stack, Selenium, Cypress,
-              Ansible, Terraform, SonarQube, Pinpoint, Prometheus, Jaeger,
-              DataDog, Zipkin, ORY-Hydra, Continuous Deployment with GoCD,
-              Jenkins, Docker Stack, Kubernetes, Scalyr, Databricks, Lightstep,
-              Datadog, KNative, Istio, Dash
+              AWS, Google Cloud Platform (GCP), Azure, Kubernetes, Helm,
+              Terraform, CloudFormation, Istio, KNative, Docker, Docker Swarm
             </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Specifications:</h3>
-            <p>
-              Open API, Swagger, GraphQL, API Blueprints, Open Tracing, Open
-              Census, Open Telemetry, Protobuffer
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Platform:</h3>
-            <p>Google Cloud, AWS, Azure Cloud, Kubernetes, Docker Swarm</p>
           </div>
 
           <div>
             <h3 className="font-semibold">Data Engineering:</h3>
             <p>
-              Apache Spark, PySpark, AWS EMR, Databricks, Hadoop HDFS, Apache
-              Hive, Apache Airflow, Apache Kafka, Apache ZooKeeper, Google
-              BigQuery, Amazon Redshift, Delta Lake, Parquet, Apache Avro,
-              Dagster, DVC, Deequ, Great Expectations
+              Apache Spark, PySpark, Delta Lake, Parquet, Apache Airflow,
+              Dagster, DVC, Great Expectations, Deequ, Databricks, Hadoop HDFS,
+              Apache Hive, Apache Kafka, Apache ZooKeeper
             </p>
           </div>
 
           <div>
             <h3 className="font-semibold">ML Engineering:</h3>
             <p>
-              Tensorflow, PyTorch, Scikit Learn, ONNX, Mlflow, Kubeflow, KServe,
-              Seldon, Tensorflow Serving
+              TensorFlow, PyTorch, Scikit-Learn, ONNX, Kubeflow, KServe, Seldon,
+              MLflow, Amazon Bedrock, Vertex AI, Amazon Comprehend Medical
             </p>
           </div>
 
           <div>
             <h3 className="font-semibold">Infrastructure as Code:</h3>
-            <p>Ansible, Terraform, AWS CloudFormation</p>
+            <p>Terraform, AWS CloudFormation, Ansible, Terratest</p>
           </div>
 
           <div>
-            <h3 className="font-semibold">Distributed Cache:</h3>
-            <p>Apache Ignite, Hazelcast</p>
+            <h3 className="font-semibold">Observability & Monitoring:</h3>
+            <p>
+              Prometheus, Grafana, ELK Stack, OpenTelemetry, Jaeger, Zipkin,
+              Pinpoint, Lightstep, Scalyr, DataDog, XRay
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold">Security & Authentication:</h3>
+            <p>
+              OAuth 2.0, OpenID Connect (OIDC), Keycloak, HashiCorp Vault, mTLS
+              (X.509), ORY-Hydra
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold">Specifications & Protocols:</h3>
+            <p>
+              REST, gRPC, GraphQL, OpenAPI, Swagger, API Blueprints, Protobuf,
+              Open Telemetry, Open Tracing, Open Census
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold">CI/CD & Testing:</h3>
+            <p>
+              GitHub Actions, Jenkins, GoCD, Terraform (Terratest), Cypress,
+              Jest, Selenium, SonarQube
+            </p>
           </div>
         </div>
       </section>
