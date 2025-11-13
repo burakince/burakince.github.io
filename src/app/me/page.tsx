@@ -143,6 +143,27 @@ const MePage = () => {
       "OpenAPI",
       "Swagger",
       "Protobuf",
+
+      // Python
+      "PySpark",
+      "Apache Airflow",
+      "Dagster",
+      "DVC",
+      "MLflow",
+      "Pydantic",
+      "Asyncio",
+      "Aiohttp",
+      "SQLAlchemy",
+      "Polars",
+      "Scikit-Learn",
+      "TensorFlow",
+      "PyTorch",
+      "FastAPI",
+      "Flask",
+      "Django",
+      "Pandas",
+      "NumPy",
+      "Great Expectations",
     ],
   };
 
@@ -294,12 +315,13 @@ const MePage = () => {
               <p className="dark:text-gray-300">
                 Data engineer for 1 year and 3 months, working on a CD4ML
                 machine learning pipeline and AI platform using Golang, Python,
-                Asyncio, Aiohttp, Pydantic, Typescript, Kubernetes, Helm, Azure
-                Cloud, Azurite, ACR, PostgreSQL, Terraform, DVC, Mlflow,
-                Dagster, Great Expectations, REST, gRPC, GraphQL, Memgraph,
-                Dash, ONNX, Tensorflow, Scikit-Learn, React, Prometheus Stack,
-                Backstage, Azure DevOps, and Azure Pipelines. Contributed to the
-                development of the main framework and subsections of the portal.
+                Asyncio, Aiohttp, Pydantic, SQLAlchemy, Typescript, Kubernetes,
+                Helm, Azure Cloud, Azurite, ACR, PostgreSQL, Terraform, DVC,
+                Mlflow, Dagster, Great Expectations, REST, gRPC, GraphQL,
+                Memgraph, Dash, ONNX, Tensorflow, Scikit-Learn, React,
+                Prometheus Stack, Backstage, Azure DevOps, and Azure Pipelines.
+                Contributed to the development of the main framework and
+                subsections of the portal.
               </p>
             </div>
 
@@ -476,6 +498,16 @@ const MePage = () => {
             <p>
               React, Redux, TypeScript, StencilJS, Angular (2+), AngularJS,
               Jest, Cypress, PhantomJS
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-semibold">Python Specific Competencies:</h3>
+            <p>
+              PySpark, Airflow, Dagster, DVC, MLflow, Pydantic, Asyncio,
+              Aiohttp, SQLAlchemy, Polars, Jupyter Notebooks, Colab Enterprise,
+              Scikit-Learn, TensorFlow, PyTorch, FastAPI, Flask, Django, Pandas,
+              NumPy, Great Expectations, Deequ
             </p>
           </div>
 
