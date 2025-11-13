@@ -4,9 +4,28 @@ import { SITE_METADATA } from "@/lib/site-metadata";
 import { Organization, Person, ProfilePage, WithContext } from "schema-dts";
 import JsonLd from "@/app/_components/json-ld";
 
-const title = `${SITE_METADATA.author} - Lead Developer with 12+ Years Experience`;
-const description =
-  "Lead Developer with 12+ years of professional experience starting from 2011 and 24+ years of programming experience starting from 1999.";
+const PROFESSIONAL_START = { year: 2011, month: 7 };
+const PROGRAMMING_START = { year: 2001, month: 1 };
+
+const calculateYears = (start: { year: number; month: number }): number => {
+  const now = new Date();
+  const startDate = new Date(start.year, start.month - 1, 1);
+
+  let years = now.getFullYear() - startDate.getFullYear();
+  const monthDiff = now.getMonth() - startDate.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < 1)) {
+    years--;
+  }
+
+  return years;
+};
+
+const PROFESSIONAL_YEARS = calculateYears(PROFESSIONAL_START);
+const PROGRAMMING_YEARS = calculateYears(PROGRAMMING_START);
+
+const title = `${SITE_METADATA.author} - Lead Developer with ${PROFESSIONAL_YEARS}+ Years Experience`;
+const description = `Lead Developer with ${PROFESSIONAL_YEARS}+ years of professional experience (since July 2011) and ${PROGRAMMING_YEARS}+ years of programming experience (since 2001).`;
 
 const MePage = () => {
   const orgJsonLd: Organization = {
@@ -162,18 +181,17 @@ const MePage = () => {
           <div className="mt-4 dark:text-gray-300">
             <p>
               Burak works at Thoughtworks as a Lead Consultant Developer with
-              over 12 years of experience in the creation of large-scale
-              web-based applications and integration in distributed system
-              environments. He is a seasoned Full-Stack developer with
-              additional experience in more recent programming languages such as
-              TypeScript and Golang. He is heavily involved in Data Engineering,
-              Software Craftsmanship, consulting with companies on OO Design,
-              patterns, testing techniques, functional programming, and
-              development methodologies. He has a great passion for building
-              evolutionary software and system architectures, new technologies,
-              and infrastructure. He is currently working on creating a 3D
-              object with the data coming from the RGB-D camera on the robot and
-              determining the equivalent of this object on the digital twin.
+              over <strong>{PROFESSIONAL_YEARS} years</strong> of professional
+              experience (since July 2011) and{" "}
+              <strong>{PROGRAMMING_YEARS} years</strong> of programming
+              experience (since 2001). He is a seasoned Full-Stack developer
+              with additional experience in modern languages such as TypeScript
+              and Golang. He is heavily involved in Data Engineering, Software
+              Craftsmanship, and consulting on OO Design, testing, functional
+              programming, and system architecture. He has a passion for
+              evolutionary software, new technologies, and infrastructure.
+              Currently working on 3D object reconstruction from RGB-D camera
+              data and digital twin mapping.
             </p>
           </div>
         </section>
@@ -566,7 +584,7 @@ export const metadata: Metadata = {
     type: "profile",
     images: [`${SITE_METADATA.siteUrl}/assets/me/burakince.jpg`],
     url: `${SITE_METADATA.siteUrl}/me/`,
-    title,
+    title: title,
     description: description,
     emails: SITE_METADATA.email,
     siteName: description,
@@ -579,6 +597,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     creator: "@burakinc",
     images: [`${SITE_METADATA.siteUrl}/assets/me/burakince.jpg`],
+    title,
+    description,
   },
 };
 
