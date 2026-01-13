@@ -4,7 +4,7 @@ import { SITE_METADATA } from "@/lib/site-metadata";
 import { Organization, Person, ProfilePage, WithContext } from "schema-dts";
 import JsonLd from "@/app/_components/json-ld";
 
-const PROFESSIONAL_START = { year: 2011, month: 7 };
+const PROFESSIONAL_START = { year: 2012, month: 1 };
 const PROGRAMMING_START = { year: 2001, month: 1 };
 
 const calculateYears = (start: { year: number; month: number }): number => {
@@ -25,7 +25,7 @@ const PROFESSIONAL_YEARS = calculateYears(PROFESSIONAL_START);
 const PROGRAMMING_YEARS = calculateYears(PROGRAMMING_START);
 
 const title = `${SITE_METADATA.author} - Lead Developer with ${PROFESSIONAL_YEARS}+ Years Experience`;
-const description = `Lead Developer with ${PROFESSIONAL_YEARS}+ years of professional experience (since July 2011) and ${PROGRAMMING_YEARS}+ years of programming experience (since 2001).`;
+const description = `Seasoned Lead Consultant Developer with over ${PROFESSIONAL_YEARS} years of professional experience and ${PROGRAMMING_YEARS} years of programming expertise. Specializes in full-stack development, data engineering, and cloud-native architectures. Delivers high-impact solutions for Fortune 500 clients and major enterprises in retail, automotive, healthcare, energy, and manufacturing industries. Brings deep expertise in modern languages (TypeScript, Golang, Python), distributed systems, MLOps/CD4ML pipelines, infrastructure as code, and software craftsmanship. Maintains a proven track record of designing scalable microservices, modern data platforms, and evolutionary architectures that drive business value and technical excellence.`;
 
 const MePage = () => {
   const orgJsonLd: Organization = {
@@ -315,10 +315,10 @@ const MePage = () => {
               <p className="dark:text-gray-300">
                 Data engineer for 1 year and 3 months, working on a CD4ML
                 machine learning pipeline and AI platform using Golang, Python,
-                Asyncio, Aiohttp, Pydantic, SQLAlchemy, Typescript, Kubernetes,
-                Helm, Azure Cloud, Azurite, ACR, PostgreSQL, Terraform, DVC,
-                Mlflow, Dagster, Great Expectations, REST, gRPC, GraphQL,
-                Memgraph, Dash, ONNX, Tensorflow, Scikit-Learn, React,
+                Asyncio, Aiohttp, Pydantic, FastAPI, SQLAlchemy, Typescript,
+                Kubernetes, Helm, Azure Cloud, Azurite, ACR, PostgreSQL,
+                Terraform, DVC, Mlflow, Dagster, Great Expectations, REST, gRPC,
+                GraphQL, Memgraph, Dash, ONNX, Tensorflow, Scikit-Learn, React,
                 Prometheus Stack, Backstage, Azure DevOps, and Azure Pipelines.
                 Contributed to the development of the main framework and
                 subsections of the portal.
