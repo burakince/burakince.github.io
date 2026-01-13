@@ -4,7 +4,7 @@ import { SITE_METADATA } from "@/lib/site-metadata";
 import { Organization, Person, ProfilePage, WithContext } from "schema-dts";
 import JsonLd from "@/app/_components/json-ld";
 
-const PROFESSIONAL_START = { year: 2012, month: 1 };
+const PROFESSIONAL_START = { year: 2012, month: 7 };
 const PROGRAMMING_START = { year: 2001, month: 1 };
 
 const calculateYears = (start: { year: number; month: number }): number => {
