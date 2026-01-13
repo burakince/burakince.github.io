@@ -25,7 +25,7 @@ const PROFESSIONAL_YEARS = calculateYears(PROFESSIONAL_START);
 const PROGRAMMING_YEARS = calculateYears(PROGRAMMING_START);
 
 const title = `${SITE_METADATA.author} - Lead Developer with ${PROFESSIONAL_YEARS}+ Years Experience`;
-const description = `Seasoned Lead Consultant Developer with over ${PROFESSIONAL_YEARS} years of professional experience and ${PROGRAMMING_YEARS} years of programming expertise. Specializes in full-stack development, data engineering, and cloud-native architectures. Delivers high-impact solutions for Fortune 500 clients and major enterprises in retail, automotive, healthcare, energy, and manufacturing industries. Brings deep expertise in modern languages (TypeScript, Golang, Python), distributed systems, MLOps/CD4ML pipelines, infrastructure as code, and software craftsmanship. Maintains a proven track record of designing scalable microservices, modern data platforms, and evolutionary architectures that drive business value and technical excellence.`;
+const description = `Lead Developer with ${PROFESSIONAL_YEARS}+ years of professional experience (since July 2011) and ${PROGRAMMING_YEARS}+ years of programming experience (since 2001).`;
 
 const MePage = () => {
   const orgJsonLd: Organization = {
@@ -201,18 +201,19 @@ const MePage = () => {
           </div>
           <div className="mt-4 dark:text-gray-300">
             <p>
-              Burak works at Thoughtworks as a Lead Consultant Developer with
-              over <strong>{PROFESSIONAL_YEARS} years</strong> of professional
-              experience (since July 2011) and{" "}
-              <strong>{PROGRAMMING_YEARS} years</strong> of programming
-              experience (since 2001). He is a seasoned Full-Stack developer
-              with additional experience in modern languages such as TypeScript
-              and Golang. He is heavily involved in Data Engineering, Software
-              Craftsmanship, and consulting on OO Design, testing, functional
-              programming, and system architecture. He has a passion for
-              evolutionary software, new technologies, and infrastructure.
-              Currently working on 3D object reconstruction from RGB-D camera
-              data and digital twin mapping.
+              Seasoned Lead Consultant Developer with over{" "}
+              <strong>{PROFESSIONAL_YEARS} years</strong> of professional
+              experience and <strong>{PROGRAMMING_YEARS} years</strong> of
+              programming expertise. Specializes in full-stack development, data
+              engineering, and cloud-native architectures. Delivers high-impact
+              solutions for Fortune 500 clients and major enterprises in retail,
+              automotive, healthcare, energy, and manufacturing industries.
+              Brings deep expertise in modern languages (TypeScript, Golang,
+              Python), distributed systems, MLOps/CD4ML pipelines,
+              infrastructure as code, and software craftsmanship. Maintains a
+              proven track record of designing scalable microservices, modern
+              data platforms, and evolutionary architectures that drive business
+              value and technical excellence.
             </p>
           </div>
         </section>
