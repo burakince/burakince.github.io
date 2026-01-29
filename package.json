@@ -15,7 +15,7 @@
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
-    "next": "15.5.11",
+    "next": "16.1.6",
     "react": "^19",
     "react-dom": "^19",
     "rehype-highlight": "^7.0.2",
