@@ -1,9 +1,9 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
-@import url('highlight.js/styles/paraiso-dark.css') layer(utilities) screen and
+@import url('highlight.js/styles/paraiso-dark.css') screen and
   (prefers-color-scheme: dark);
-@import url('highlight.js/styles/paraiso-light.css') layer(utilities) screen and
+@import url('highlight.js/styles/paraiso-light.css') screen and
   (prefers-color-scheme: light);
 
 @utility container {
@@ -45,4 +45,14 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+}
+
+/* Collapse double-background on code blocks: hljs supplies background, padding, and scrolling */
+.prose :where(pre) {
+  background-color: transparent;
+  padding: 0;
+}
+
+.prose pre code.hljs {
+  border-radius: 0.375rem;
 }
