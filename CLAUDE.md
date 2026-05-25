@@ -107,6 +107,10 @@ When a Dependabot PR has a stale CI failure (failed against an older `main`), co
 
 If a transitive dependency has a vulnerability that cannot be fixed by a direct upgrade, use the `"overrides"` field in `package.json` to force a safe version across the entire dependency tree (see the existing `minimatch` override as an example).
 
+When the conflicting package is also a direct dependency, a top-level override will be rejected by npm with `EOVERRIDE`. In that case, scope the override under the package that pins the old version (e.g. `"next": { "postcss": ">=8.5.10" }` instead of a top-level `"postcss"` key).
+
+**`@emnapi` lock file gotcha**: Any time `package-lock.json` is edited manually and followed by `npm install`, the resolved entries for `@emnapi/core`, `@emnapi/runtime`, and `@emnapi/wasi-threads` are silently dropped. This causes `npm ci` to fail in GitHub Actions with "Missing: @emnapi/runtime from lock file". Always run `npm ci` locally after any manual lock file edit to catch this before committing. If entries are missing, restore them from the previous good commit.
+
 ### Adding a blog post
 
 Create a Markdown file in `_posts/` named with kebab-case and a `.md` extension (e.g. `my-post-title.md`). The filename becomes the URL slug. Required front matter:
