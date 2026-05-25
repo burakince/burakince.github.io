@@ -27,6 +27,10 @@ npx serve@latest out
 
 There is no test suite.
 
+## Before committing
+
+Always run `npm run build` and confirm it succeeds before committing or pushing. Some errors (TypeScript type errors, static export failures, OG image generation issues) only surface during the production build and not in `npm run dev`.
+
 ## Git commits
 
 Never include `Co-Authored-By` or any Claude attribution in commit messages.
