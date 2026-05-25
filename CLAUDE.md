@@ -27,6 +27,10 @@ npx serve@latest out
 
 There is no test suite.
 
+## Git commits
+
+Never include `Co-Authored-By` or any Claude attribution in commit messages.
+
 ## Architecture
 
 Personal blog/portfolio site built with Next.js 15 App Router, exported as a fully static site (`output: "export"`) and deployed to GitHub Pages via `.github/workflows/pages.yml`.
