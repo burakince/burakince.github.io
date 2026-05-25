@@ -18,7 +18,7 @@ npm run build      # Build for production (runs next-sitemap as postbuild)
 npm run lint       # ESLint (next + next/core-web-vitals + prettier rules)
 ```
 
-Some issues (static export errors, OG image generation, sitemap) are only visible in the production build. To verify them locally, build first then serve the output:
+Some issues (TypeScript errors, static export failures, CSS bundling, OG image generation, sitemap) are only visible in the production build and not in `npm run dev`. To verify locally:
 
 ```bash
 npm run build
@@ -29,7 +29,7 @@ There is no test suite.
 
 ## Before committing
 
-Always run `npm run build` and confirm it succeeds before committing or pushing. Some errors (TypeScript type errors, static export failures, OG image generation issues) only surface during the production build and not in `npm run dev`.
+Always run `npm run build` and confirm it succeeds with no errors before committing or pushing.
 
 ## Git commits
 
@@ -74,7 +74,7 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
   - `markdownToHtml.ts` — Unified/remark/rehype pipeline with `rehype-highlight` for syntax highlighting
   - `og-generator.ts` — Generates OG images as PNGs using satori + resvg-js; images are written to `public/assets/blog/og-images/` and skipped if already present
   - `site-metadata.ts` — Single source of truth for site-wide config (author, URLs, analytics ID)
-- `src/interfaces/` — TypeScript types (`Post`, `Params`)
+- `src/interfaces/` — TypeScript types (`Post`, `Params`); also holds module declarations (`svgr.d.ts`)
 - `fonts/` — Inter font files required by `og-generator.ts` at build time
 
 ### Important behaviors
@@ -86,6 +86,18 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 - **Styling**: Use Tailwind CSS utility classes for all styling — do not write custom CSS unless unavoidable. Global styles live in `src/app/globals.css`.
 - **Dark mode**: Tailwind CSS v4 `dark:` variants driven by system `prefers-color-scheme`.
 - **Typography**: `@tailwindcss/typography` (`prose` classes) is used for rendered Markdown content.
+
+### CSS architecture in `globals.css`
+
+The production bundler is **Lightning CSS** (via `@tailwindcss/postcss`). Several rules apply:
+
+1. **`@import` order**: All `@import` statements must come before any other at-rules (`@plugin`, `@utility`, `@layer` with rules, etc.). Out-of-order imports are silently dropped in production even if they appear to work in dev.
+
+2. **Bare string imports for npm packages**: Always use `@import 'package/path'` — never `@import url('package/path')`. Lightning CSS treats `url()` as a remote URL fetch and silently skips npm package paths in production.
+
+3. **`@tailwindcss/typography` vs highlight.js**: The typography plugin resets `pre code { background-color: transparent; color: inherit }`. To prevent this from overriding highlight.js token colours, use higher-specificity selectors (e.g. `.prose pre code.hljs { ... }` has specificity 0,4,0 vs typography's `:where()` selectors at 0,1,0). The background colours are also set explicitly in `globals.css` to match the paraiso-dark/light themes rather than relying on the hljs CSS being last in the cascade.
+
+4. **TypeScript 6 CSS imports**: TypeScript 6 requires a type declaration for side-effect CSS imports. `declare module "*.css"` is in `src/interfaces/svgr.d.ts`.
 
 ### Adding a blog post
 
@@ -102,4 +114,4 @@ keywords:
 ---
 ```
 
-An OG image is generated automatically on the next build.
+Specify the language on every code fence (e.g. ` ```typescript `) — `rehype-highlight` uses the `language-*` class to tokenise the block. An OG image is generated automatically on the next build.
