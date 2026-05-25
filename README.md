@@ -15,7 +15,15 @@ keywords:
 ---
 ```
 
+Always specify the language on code fences (e.g. ` ```typescript `) so syntax highlighting works correctly.
+
 ## Development
+
+This project requires the Node.js version defined in `.nvmrc`. Install [nvm](https://github.com/nvm-sh/nvm) and run:
+
+```bash
+nvm use
+```
 
 Starts the development server.
 
@@ -23,7 +31,7 @@ Starts the development server.
 npm run dev
 ```
 
-Builds the app for production.
+Builds the app for production. Always confirm this passes before committing — some errors (TypeScript, CSS bundling, static export) only surface in the production build.
 
 ```bash
 npm run build
