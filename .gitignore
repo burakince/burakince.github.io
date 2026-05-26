@@ -94,3 +94,6 @@ next-env.d.ts
 
 # Playwright MCP browser session data
 .playwright-mcp/
+
+# Claude project plans
+project-plans

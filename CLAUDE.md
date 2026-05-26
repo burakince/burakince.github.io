@@ -10,6 +10,10 @@ Always use the Node version specified in `.nvmrc` (currently Node 24):
 nvm use
 ```
 
+## Browser testing
+
+Always use the playwright plugin for browser-based testing and UI verification.
+
 ## Commands
 
 ```bash
@@ -127,3 +131,5 @@ keywords:
 ```
 
 Specify the language on every code fence (e.g. ` ```typescript `) — `rehype-highlight` uses the `language-*` class to tokenise the block. An OG image is generated automatically on the next build.
+
+If the post includes static images, place them in `public/assets/blog/<post-slug>/` and reference them in Markdown as `/assets/blog/<post-slug>/image.png`. The post slug (filename without `.md`) must match the asset subfolder name.
