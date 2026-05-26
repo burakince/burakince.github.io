@@ -12,7 +12,7 @@ const PostPreview = ({ title, date, excerpt, slug }: Props) => {
   return (
     <div className="border border-slate-300 p-4 rounded-md shadow-xs bg-white dark:bg-slate-900">
       <DateFormatter dateString={date} />
-      <Link as={`/post/${slug}`} href="/post/[slug]">
+      <Link href={`/post/${slug}/`}>
         <h2 className="text-violet-600 dark:text-violet-500 hover:underline mb-4">
           {title}
         </h2>
