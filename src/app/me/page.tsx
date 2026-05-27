@@ -4,6 +4,7 @@ import { SITE_METADATA } from "@/lib/site-metadata";
 import { Person, ProfilePage, WithContext } from "schema-dts";
 import JsonLd from "@/app/_components/json-ld";
 import { orgJsonLd } from "@/lib/schema";
+import { CORE_CONCEPTS, SKILL_CATEGORIES } from "@/lib/skills";
 
 const PROFESSIONAL_START = { year: 2012, month: 7 };
 const PROGRAMMING_START = { year: 2001, month: 1 };
@@ -52,109 +53,8 @@ const MePage = () => {
       SITE_METADATA.huggingface,
     ],
     knowsAbout: [
-      // Core
-      "software development",
-      "full-stack development",
-      "system architecture",
-      "distributed systems",
-      "micro-services",
-      "event-driven architecture",
-
-      // Languages
-      "Java",
-      "Golang",
-      "Python",
-      "TypeScript",
-      "JavaScript",
-      "Scala",
-      "C#",
-      "Swift",
-      "Bash",
-      "Groovy",
-      "Ruby",
-      "Lua",
-      "PL/SQL",
-
-      // Cloud / Infra
-      "AWS",
-      "Google Cloud Platform",
-      "Azure",
-      "Kubernetes",
-      "Helm",
-      "Terraform",
-      "CloudFormation",
-      "Istio",
-      "KNative",
-      "Docker",
-      "Docker Swarm",
-
-      // Data Engineering
-      "Apache Spark",
-      "PySpark",
-      "Delta Lake",
-      "Parquet",
-      "Apache Airflow",
-      "Dagster",
-      "DVC",
-      "Great Expectations",
-      "Deequ",
-      "BigQuery",
-      "Redshift",
-
-      // ML / AI
-      "TensorFlow",
-      "PyTorch",
-      "Scikit-Learn",
-      "ONNX",
-      "Kubeflow",
-      "KServe",
-      "Seldon",
-      "MLflow",
-      "Amazon Bedrock",
-      "Vertex AI",
-
-      // Security / Auth
-      "OAuth2",
-      "OpenID Connect",
-      "Keycloak",
-      "HashiCorp Vault",
-      "mTLS",
-
-      // Observability
-      "Prometheus",
-      "Grafana",
-      "ELK Stack",
-      "OpenTelemetry",
-      "Jaeger",
-      "Zipkin",
-
-      // Testing / CI-CD
-      "Jest",
-      "Cypress",
-      "Terratest",
-      "GitHub Actions",
-      "Jenkins",
-      "GoCD",
-
-      // Protocols / Specs
-      "REST",
-      "gRPC",
-      "GraphQL",
-      "OpenAPI",
-      "Swagger",
-      "Protobuf",
-
-      // Python frameworks (not already listed above)
-      "Pydantic",
-      "Asyncio",
-      "Aiohttp",
-      "SQLAlchemy",
-      "Polars",
-      "FastAPI",
-      "Flask",
-      "Django",
-      "Pandas",
-      "NumPy",
+      ...CORE_CONCEPTS,
+      ...SKILL_CATEGORIES.flatMap(({ items }) => items),
     ],
   };
 
@@ -464,115 +364,12 @@ const MePage = () => {
       >
         <h2 className="text-2xl font-bold mb-4 dark:text-gray-300">Skills</h2>
         <div className="space-y-4 dark:text-gray-200">
-          <div>
-            <h3 className="font-semibold">Programming Languages:</h3>
-            <p>
-              Java, Golang, Python, TypeScript, JavaScript, Scala, C#, Swift,
-              Bash, Groovy, Ruby, Lua, PL/SQL
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Java Specific Competencies:</h3>
-            <p>
-              Spring Boot, Spring Cloud, Spring Data, Spring Security, Spring
-              MVC, Spark Java, Maven, Gradle, Groovy
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">.NET Specific Competencies:</h3>
-            <p>.NET Core, Cake</p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">JavaScript Specific Competencies:</h3>
-            <p>
-              React, Redux, TypeScript, StencilJS, Angular (2+), AngularJS,
-              Jest, Cypress, PhantomJS
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Python Specific Competencies:</h3>
-            <p>
-              PySpark, Airflow, Dagster, DVC, MLflow, Pydantic, Asyncio,
-              Aiohttp, SQLAlchemy, Polars, Jupyter Notebooks, Colab Enterprise,
-              Scikit-Learn, TensorFlow, PyTorch, FastAPI, Flask, Django, Pandas,
-              NumPy, Great Expectations, Deequ
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Databases:</h3>
-            <p>
-              PostgreSQL, Cassandra, Redis, MongoDB, Amazon Aurora, DynamoDB,
-              Google BigQuery, Amazon Redshift, Memgraph, Apache Solr, DB2, MS
-              SQL Server, Oracle, MemSQL, VoltDB
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Cloud & Orchestration:</h3>
-            <p>
-              AWS, Google Cloud Platform (GCP), Azure, Kubernetes, Helm,
-              Terraform, CloudFormation, Istio, KNative, Docker, Docker Swarm
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Data Engineering:</h3>
-            <p>
-              Apache Spark, PySpark, Delta Lake, Parquet, Apache Airflow,
-              Dagster, DVC, Great Expectations, Deequ, Databricks, Hadoop HDFS,
-              Apache Hive, Apache Kafka, Apache ZooKeeper
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">ML Engineering:</h3>
-            <p>
-              TensorFlow, PyTorch, Scikit-Learn, ONNX, Kubeflow, KServe, Seldon,
-              MLflow, Amazon Bedrock, Vertex AI, Amazon Comprehend Medical
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Infrastructure as Code:</h3>
-            <p>Terraform, AWS CloudFormation, Ansible, Terratest</p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Observability & Monitoring:</h3>
-            <p>
-              Prometheus, Grafana, ELK Stack, OpenTelemetry, Jaeger, Zipkin,
-              Pinpoint, Lightstep, Scalyr, DataDog, XRay
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Security & Authentication:</h3>
-            <p>
-              OAuth 2.0, OpenID Connect (OIDC), Keycloak, HashiCorp Vault, mTLS
-              (X.509), ORY-Hydra
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">Specifications & Protocols:</h3>
-            <p>
-              REST, gRPC, GraphQL, OpenAPI, Swagger, API Blueprints, Protobuf,
-              Open Telemetry, Open Tracing, Open Census
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">CI/CD & Testing:</h3>
-            <p>
-              GitHub Actions, Jenkins, GoCD, Terraform (Terratest), Cypress,
-              Jest, Selenium, SonarQube
-            </p>
-          </div>
+          {SKILL_CATEGORIES.map(({ label, items }) => (
+            <div key={label}>
+              <h3 className="font-semibold">{label}:</h3>
+              <p>{items.join(", ")}</p>
+            </div>
+          ))}
         </div>
       </section>
       <JsonLd data={structuredData} />
