@@ -1,6 +1,6 @@
 import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
-import { Organization, Person, WebSite, WithContext } from "schema-dts";
+import { Organization, Person, ProfilePage, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import JsonLd from "@/app/_components/json-ld";
 import { Metadata } from "next";
@@ -22,7 +22,7 @@ const HomePage = () => {
     image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
   };
 
-  const structuredData: WithContext<WebSite> = {
+  const websiteJsonLd: WithContext<WebSite> = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_METADATA.title,
@@ -35,6 +35,15 @@ const HomePage = () => {
     publisher: meJsonLd,
     description: SITE_METADATA.description,
   };
+
+  const profilePageJsonLd: WithContext<ProfilePage> = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    dateCreated: "2024-04-28T15:18:27.000Z",
+    url: `${SITE_METADATA.siteUrl}/`,
+    mainEntity: meJsonLd,
+  };
+
   const allPosts = getAllPosts();
   const allPostPreviews = allPosts.map((post) => (
     <PostPreview key={post.slug} {...post} />
@@ -48,7 +57,8 @@ const HomePage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {allPostPreviews}
       </div>
-      <JsonLd data={structuredData} />
+      <JsonLd data={websiteJsonLd} />
+      <JsonLd data={profilePageJsonLd} />
     </div>
   );
 };
