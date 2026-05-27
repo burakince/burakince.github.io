@@ -53,7 +53,7 @@ const MePage = () => {
       SITE_METADATA.huggingface,
     ],
     knowsAbout: [
-      ...new Set([...CORE_CONCEPTS, ...SKILL_CATEGORIES.flatMap(({ items }) => items)]),
+      ...[...new Set([...CORE_CONCEPTS, ...SKILL_CATEGORIES.flatMap(({ items }) => items)])].sort((a, b) => a.localeCompare(b)),
     ],
   };
 
@@ -366,7 +366,7 @@ const MePage = () => {
           {SKILL_CATEGORIES.map(({ label, items }) => (
             <div key={label}>
               <h3 className="font-semibold">{label}:</h3>
-              <p>{items.join(", ")}</p>
+              <p>{[...items].sort((a, b) => a.localeCompare(b)).join(", ")}</p>
             </div>
           ))}
         </div>
