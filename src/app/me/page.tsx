@@ -4,7 +4,7 @@ import { SITE_METADATA } from "@/lib/site-metadata";
 import { Person, ProfilePage, WithContext } from "schema-dts";
 import JsonLd from "@/app/_components/json-ld";
 import { orgJsonLd } from "@/lib/schema";
-import { CORE_CONCEPTS, SKILL_CATEGORIES } from "@/lib/skills";
+import { ALL_SKILLS_SORTED, SKILL_CATEGORIES_SORTED } from "@/lib/skills";
 
 const PROFESSIONAL_START = { year: 2012, month: 7 };
 const PROGRAMMING_START = { year: 2001, month: 1 };
@@ -52,9 +52,7 @@ const MePage = () => {
       SITE_METADATA.keybase,
       SITE_METADATA.huggingface,
     ],
-    knowsAbout: [
-      ...[...new Set([...CORE_CONCEPTS, ...SKILL_CATEGORIES.flatMap(({ items }) => items)])].sort((a, b) => a.localeCompare(b)),
-    ],
+    knowsAbout: [...ALL_SKILLS_SORTED],
   };
 
   const structuredData: WithContext<ProfilePage> = {
@@ -363,10 +361,10 @@ const MePage = () => {
       >
         <h2 className="text-2xl font-bold mb-4 dark:text-gray-300">Skills</h2>
         <div className="space-y-4 dark:text-gray-200">
-          {SKILL_CATEGORIES.map(({ label, items }) => (
+          {SKILL_CATEGORIES_SORTED.map(({ label, items }) => (
             <div key={label}>
               <h3 className="font-semibold">{label}:</h3>
-              <p>{[...items].sort((a, b) => a.localeCompare(b)).join(", ")}</p>
+              <p>{items.join(", ")}</p>
             </div>
           ))}
         </div>

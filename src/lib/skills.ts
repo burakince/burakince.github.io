@@ -114,3 +114,15 @@ export const SKILL_CATEGORIES: readonly SkillCategory[] = [
     ],
   },
 ];
+
+const byLocale = (a: string, b: string) => a.localeCompare(b, "en");
+
+export const SKILL_CATEGORIES_SORTED: readonly SkillCategory[] =
+  SKILL_CATEGORIES.map(({ label, items }) => ({
+    label,
+    items: [...items].sort(byLocale),
+  }));
+
+export const ALL_SKILLS_SORTED: readonly string[] = [
+  ...new Set([...CORE_CONCEPTS, ...SKILL_CATEGORIES.flatMap(({ items }) => items)]),
+].sort(byLocale);
