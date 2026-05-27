@@ -4,7 +4,8 @@ import markdownToHtml from "@/lib/markdownToHtml";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BlogPosting, Organization, Person, WithContext } from "schema-dts";
+import { BlogPosting, Person, WithContext } from "schema-dts";
+import { orgJsonLd } from "@/lib/schema";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
@@ -22,13 +23,6 @@ hljs.registerLanguage("typescript", typescript);
 hljs.registerLanguage("bash", bash);
 hljs.registerLanguage("css", css);
 hljs.registerLanguage("yaml", yaml);
-
-const orgJsonLd: Organization = {
-  "@type": "Organization",
-  name: SITE_METADATA.worksFor.name,
-  url: SITE_METADATA.worksFor.url,
-  logo: SITE_METADATA.worksFor.logo,
-};
 
 const imageSize = {
   width: 1200,

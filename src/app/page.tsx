@@ -1,18 +1,12 @@
 import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
-import { Blog, Organization, Person, WebSite, WithContext } from "schema-dts";
+import { Blog, Person, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
+import { orgJsonLd } from "@/lib/schema";
 import JsonLd from "@/app/_components/json-ld";
 import { Metadata } from "next";
 
 const HomePage = () => {
-  const orgJsonLd: Organization = {
-    "@type": "Organization",
-    name: SITE_METADATA.worksFor.name,
-    url: SITE_METADATA.worksFor.url,
-    logo: SITE_METADATA.worksFor.logo,
-  };
-
   const meJsonLd: Person = {
     "@type": "Person",
     name: SITE_METADATA.author,

@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
-import { Organization, Person, ProfilePage, WithContext } from "schema-dts";
+import { Person, ProfilePage, WithContext } from "schema-dts";
 import JsonLd from "@/app/_components/json-ld";
+import { orgJsonLd } from "@/lib/schema";
 
 const PROFESSIONAL_START = { year: 2012, month: 7 };
 const PROGRAMMING_START = { year: 2001, month: 1 };
@@ -33,13 +34,6 @@ const title = `${SITE_METADATA.author} - Lead Developer with ${PROFESSIONAL_YEAR
 const description = `Lead Developer with ${PROFESSIONAL_YEARS}+ years of professional experience (since ${MONTHS[PROFESSIONAL_START.month - 1]} ${PROFESSIONAL_START.year}) and ${PROGRAMMING_YEARS}+ years of programming experience (since ${PROGRAMMING_START.year}).`;
 
 const MePage = () => {
-  const orgJsonLd: Organization = {
-    "@type": "Organization",
-    name: SITE_METADATA.worksFor.name,
-    url: SITE_METADATA.worksFor.url,
-    logo: SITE_METADATA.worksFor.logo,
-  };
-
   const myProfileJsonLd: Person = {
     "@type": "Person",
     name: SITE_METADATA.author,
