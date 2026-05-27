@@ -1,6 +1,6 @@
 import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
-import { Organization, Person, ProfilePage, WebSite, WithContext } from "schema-dts";
+import { Blog, Organization, Person, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import JsonLd from "@/app/_components/json-ld";
 import { Metadata } from "next";
@@ -36,12 +36,16 @@ const HomePage = () => {
     description: SITE_METADATA.description,
   };
 
-  const profilePageJsonLd: WithContext<ProfilePage> = {
+  const blogJsonLd: WithContext<Blog> = {
     "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    dateCreated: "2024-04-28T15:18:27.000Z",
+    "@type": "Blog",
+    name: SITE_METADATA.title,
+    description: SITE_METADATA.description,
     url: `${SITE_METADATA.siteUrl}/`,
-    mainEntity: meJsonLd,
+    inLanguage: "en-US",
+    author: meJsonLd,
+    creator: meJsonLd,
+    publisher: meJsonLd,
   };
 
   const allPosts = getAllPosts();
@@ -58,7 +62,7 @@ const HomePage = () => {
         {allPostPreviews}
       </div>
       <JsonLd data={websiteJsonLd} />
-      <JsonLd data={profilePageJsonLd} />
+      <JsonLd data={blogJsonLd} />
     </div>
   );
 };
