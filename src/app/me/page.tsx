@@ -30,8 +30,8 @@ const MONTHS = [
   "July", "August", "September", "October", "November", "December",
 ];
 
-const title = `${SITE_METADATA.author} - Lead Developer with ${PROFESSIONAL_YEARS}+ Years Experience`;
-const description = `Lead Developer with ${PROFESSIONAL_YEARS}+ years of professional experience (since ${MONTHS[PROFESSIONAL_START.month - 1]} ${PROFESSIONAL_START.year}) and ${PROGRAMMING_YEARS}+ years of programming experience (since ${PROGRAMMING_START.year}).`;
+const title = `${SITE_METADATA.author} - ${SITE_METADATA.jobTitle} with ${PROFESSIONAL_YEARS}+ Years Experience`;
+const description = `${SITE_METADATA.jobTitle} with ${PROFESSIONAL_YEARS}+ years of professional experience (since ${MONTHS[PROFESSIONAL_START.month - 1]} ${PROFESSIONAL_START.year}) and ${PROGRAMMING_YEARS}+ years of programming experience (since ${PROGRAMMING_START.year}).`;
 
 const MePage = () => {
   const myProfileJsonLd: Person = {
@@ -183,10 +183,10 @@ const MePage = () => {
             />
             <div>
               <h1 className="text-3xl font-bold dark:text-gray-300">
-                Burak Ince
+                {SITE_METADATA.author}
               </h1>
               <p className="text-xl text-gray-700 dark:text-gray-500">
-                Lead Consultant Developer at Thoughtworks
+                {SITE_METADATA.jobTitle} at {SITE_METADATA.worksFor.name}
               </p>
             </div>
           </div>
