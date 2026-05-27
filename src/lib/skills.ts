@@ -42,7 +42,7 @@ export const SKILL_CATEGORIES: readonly SkillCategory[] = [
   {
     label: "Python Specific Competencies",
     items: [
-      "PySpark", "Airflow", "Dagster", "DVC", "MLflow", "Pydantic",
+      "PySpark", "Apache Airflow", "Dagster", "DVC", "MLflow", "Pydantic",
       "Asyncio", "Aiohttp", "SQLAlchemy", "Polars", "Jupyter Notebooks",
       "Colab Enterprise", "Scikit-Learn", "TensorFlow", "PyTorch",
       "FastAPI", "Flask", "Django", "Pandas", "NumPy",
@@ -109,7 +109,7 @@ export const SKILL_CATEGORIES: readonly SkillCategory[] = [
   {
     label: "CI/CD & Testing",
     items: [
-      "GitHub Actions", "Jenkins", "GoCD", "Terraform (Terratest)",
+      "GitHub Actions", "Jenkins", "GoCD", "Terratest",
       "Cypress", "Jest", "Selenium", "SonarQube",
     ],
   },

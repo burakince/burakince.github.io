@@ -53,8 +53,7 @@ const MePage = () => {
       SITE_METADATA.huggingface,
     ],
     knowsAbout: [
-      ...CORE_CONCEPTS,
-      ...SKILL_CATEGORIES.flatMap(({ items }) => items),
+      ...new Set([...CORE_CONCEPTS, ...SKILL_CATEGORIES.flatMap(({ items }) => items)]),
     ],
   };
 
