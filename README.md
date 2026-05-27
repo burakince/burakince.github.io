@@ -31,6 +31,12 @@ Starts the development server.
 npm run dev
 ```
 
+Runs the linter (ESLint flat config with Next.js core-web-vitals and prettier rules).
+
+```bash
+npm run lint
+```
+
 Builds the app for production. Always confirm this passes before committing — some errors (TypeScript, CSS bundling, static export) only surface in the production build.
 
 ```bash

@@ -19,7 +19,7 @@ Always use the playwright plugin for browser-based testing and UI verification.
 ```bash
 npm run dev        # Start development server
 npm run build      # Build for production (runs next-sitemap as postbuild)
-npm run lint       # ESLint (next + next/core-web-vitals + prettier rules)
+npm run lint       # ESLint flat config (core-web-vitals + prettier rules); also runs in CI before build
 ```
 
 Some issues (TypeScript errors, static export failures, CSS bundling, OG image generation, sitemap) are only visible in the production build and not in `npm run dev`. To verify locally:
@@ -41,7 +41,7 @@ Never include `Co-Authored-By` or any Claude attribution in commit messages.
 
 ## Architecture
 
-Personal blog/portfolio site built with Next.js 15 App Router, exported as a fully static site (`output: "export"`) and deployed to GitHub Pages via `.github/workflows/pages.yml`.
+Personal blog/portfolio site built with Next.js 16 App Router, exported as a fully static site (`output: "export"`) and deployed to GitHub Pages via `.github/workflows/pages.yml`.
 
 ### Deployment
 
@@ -85,7 +85,9 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 
 - **Static export**: No server components that rely on runtime APIs. `trailingSlash: true` is set, so all routes end with `/`.
 - **OG image caching**: `og-generator.ts` checks whether the PNG already exists before generating. During development this can mean stale images; delete `public/assets/blog/og-images/` to force regeneration.
-- **SVGs as React components**: SVG files are imported directly as components via `@svgr/webpack`.
+- **Bundler**: Next.js 16 uses **Turbopack** by default for both `next dev` and `next build`. There is no webpack config — SVG loading is handled via `turbopack.rules` in `next.config.mjs`. Do not add a `webpack()` callback; it will never be called.
+- **SVGs as React components**: SVG files are imported directly as React components via `@svgr/webpack` (configured under `turbopack.rules`). The glob key `"*.svg"` matches by filename, so it covers SVGs in any subdirectory.
+- **ESLint**: Uses ESLint 9 flat config (`eslint.config.mjs`) with `eslint-config-next/core-web-vitals` and `eslint-config-prettier/flat`. The lint script is `eslint .` — `next lint` no longer exists in Next.js 16. ESLint is pinned to `^9` because `typescript-eslint@8.x` (bundled in `eslint-config-next`) is incompatible with ESLint 10; revisit when `eslint-config-next` upgrades its bundled `typescript-eslint`.
 - **Path alias**: `@/*` maps to `src/*`.
 - **Styling**: Use Tailwind CSS utility classes for all styling — do not write custom CSS unless unavoidable. Global styles live in `src/app/globals.css`.
 - **Dark mode**: Tailwind CSS v4 `dark:` variants driven by system `prefers-color-scheme`.
@@ -110,7 +112,7 @@ The production bundler is **Lightning CSS** (via `@tailwindcss/postcss`). Severa
 
 ### Dependabot
 
-Configured in `.github/dependabot.yml` with daily checks for both `npm` and `github-actions` ecosystems. All npm updates are grouped into a single PR (`npm-deps` group). Major version bumps are ignored for `next`, `@next/third-parties`, `eslint-config-next`, `@types/node`, `@types/react`, and `@types/react-dom` — these must be upgraded manually.
+Configured in `.github/dependabot.yml` with daily checks for both `npm` and `github-actions` ecosystems. All npm updates are grouped into a single PR (`npm-deps` group). Major version bumps are ignored for `next`, `@next/third-parties`, `eslint-config-next`, `eslint`, `@types/node`, `@types/react`, and `@types/react-dom` — these must be upgraded manually.
 
 When a Dependabot PR has a stale CI failure (failed against an older `main`), comment `@dependabot rebase` to trigger a fresh run rather than merging with a known failure.
 
