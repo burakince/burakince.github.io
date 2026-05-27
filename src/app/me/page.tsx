@@ -171,7 +171,7 @@ const MePage = () => {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
     dateCreated: "2024-04-28T15:18:27.000Z",
-    dateModified: new Date().toISOString(),
+    dateModified: "2025-01-01T00:00:00.000Z",
     mainEntity: myProfileJsonLd,
   };
 
@@ -620,7 +620,7 @@ export const metadata: Metadata = {
     title: title,
     description: description,
     emails: SITE_METADATA.email,
-    siteName: description,
+    siteName: SITE_METADATA.title,
     locale: SITE_METADATA.locale,
     firstName: "Burak",
     lastName: "Ince",

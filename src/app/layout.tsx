@@ -18,6 +18,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_METADATA.siteUrl),
   title: SITE_METADATA.title,
   description: SITE_METADATA.description,
   category: "technology",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     title: SITE_METADATA.title,
     description: SITE_METADATA.description,
     emails: SITE_METADATA.email,
-    siteName: SITE_METADATA.description,
+    siteName: SITE_METADATA.title,
     locale: SITE_METADATA.locale,
   },
   twitter: {

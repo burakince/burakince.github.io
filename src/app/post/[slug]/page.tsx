@@ -64,7 +64,7 @@ const PostPage = async ({ params }: { params: Params }) => {
     image: `${SITE_METADATA.siteUrl}${ogImage}`,
     headline: post.title,
     datePublished: post.date,
-    dateModified: new Date().toISOString(),
+    dateModified: post.date,
     inLanguage: SITE_METADATA.locale,
     isFamilyFriendly: true,
     accountablePerson: meJsonLd,
@@ -72,6 +72,7 @@ const PostPage = async ({ params }: { params: Params }) => {
     creator: meJsonLd,
     publisher: meJsonLd,
     description: post.excerpt,
+    keywords: post.keywords?.join(", "),
   };
 
   const content = await markdownToHtml(post.content || "");
@@ -131,16 +132,18 @@ export async function generateMetadata({
       title,
       description: post.excerpt,
       emails: SITE_METADATA.email,
-      siteName: post.excerpt,
+      siteName: SITE_METADATA.title,
       locale: SITE_METADATA.locale,
       publishedTime: post.date,
-      modifiedTime: new Date().toISOString(),
-      authors: `${SITE_METADATA.siteUrl}/me/`,
+      modifiedTime: post.date,
+      authors: [`${SITE_METADATA.siteUrl}/me/`],
       tags: post.keywords,
     },
     twitter: {
       card: "summary_large_image",
       creator: "@burakinc",
+      title,
+      description: post.excerpt,
       images: [
         `${SITE_METADATA.siteUrl}/assets/blog/og-images/${slug.replace(/-/g, "_")}.png`,
       ],

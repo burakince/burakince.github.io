@@ -3,6 +3,7 @@ import PostPreview from "@/app/_components/post-preview";
 import { Organization, Person, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import JsonLd from "@/app/_components/json-ld";
+import { Metadata } from "next";
 
 const HomePage = () => {
   const orgJsonLd: Organization = {
@@ -17,7 +18,7 @@ const HomePage = () => {
     name: SITE_METADATA.author,
     jobTitle: SITE_METADATA.jobTitle,
     worksFor: orgJsonLd,
-    url: `${SITE_METADATA.siteUrl}/me`,
+    url: `${SITE_METADATA.siteUrl}/me/`,
     image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
   };
 
@@ -47,6 +48,19 @@ const HomePage = () => {
       <JsonLd data={structuredData} />
     </div>
   );
+};
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: `${SITE_METADATA.siteUrl}/`,
+  },
+  openGraph: {
+    type: "website",
+    url: `${SITE_METADATA.siteUrl}/`,
+    images: [`${SITE_METADATA.siteUrl}/assets/open-graph-image.jpg`],
+    siteName: SITE_METADATA.title,
+    locale: SITE_METADATA.locale,
+  },
 };
 
 export default HomePage;
