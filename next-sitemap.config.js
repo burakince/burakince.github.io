@@ -12,6 +12,7 @@ module.exports = {
         userAgent: "*",
         allow: "/",
         disallow: [
+          "/cdn-cgi/",
           "/*.json$",
           "/*_buildManifest.js$",
           "/*_middlewareManifest.js$",
