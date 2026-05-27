@@ -79,7 +79,7 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
   - `og-generator.ts` — Generates OG images as PNGs using satori + resvg-js; images are written to `public/assets/blog/og-images/` and skipped if already present
   - `site-metadata.ts` — Single source of truth for site-wide config (author, URLs, analytics ID)
   - `schema.ts` — Shared `orgJsonLd` (`Organization` JSON-LD object) used across all three page files
-  - `skills.ts` — Single source of truth for skill categories and core concepts; drives both the visible Skills section and the `knowsAbout` JSON-LD on `/me/`
+  - `skills.ts` — Single source of truth for skill categories and core concepts; exports `SKILL_CATEGORIES_SORTED` (each category's items sorted alphabetically) and `ALL_SKILLS_SORTED` (deduplicated union of all items and core concepts, sorted with `localeCompare("en")`); drives both the visible Skills section and the `knowsAbout` JSON-LD on `/me/`. Always consume the `_SORTED` exports — do not sort at call sites.
 - `src/interfaces/` — TypeScript types (`Post`, `Params`); also holds module declarations (`svgr.d.ts`)
 - `fonts/` — Inter font files required by `og-generator.ts` at build time
 
