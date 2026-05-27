@@ -53,6 +53,7 @@ const MePage = () => {
       SITE_METADATA.linkedin,
       SITE_METADATA.github,
       SITE_METADATA.twitter,
+      SITE_METADATA.bluesky,
       SITE_METADATA.keybase,
       SITE_METADATA.huggingface,
     ],

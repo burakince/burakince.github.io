@@ -18,6 +18,7 @@ export const SITE_METADATA = {
   keybase: "https://keybase.io/burakince",
   huggingface: "https://huggingface.co/burakince",
   linkedin: "https://www.linkedin.com/in/inceburak/",
+  bluesky: "https://bsky.app/profile/burakince.bsky.social",
   keywords: [
     "latest tech trends",
     "technology updates",

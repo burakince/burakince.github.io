@@ -6,6 +6,7 @@ import LinkedinIcon from "./social-icons/linkedin.svg";
 import XIcon from "./social-icons/x.svg";
 import KeybaseIcon from "./social-icons/keybase.svg";
 import HuggingfaceIcon from "./social-icons/huggingface.svg";
+import BlueskyIcon from "./social-icons/bluesky.svg";
 
 const Footer = () => {
   return (
@@ -41,6 +42,16 @@ const Footer = () => {
           >
             <span className="sr-only">twitter</span>
             <XIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
+          </a>
+          <a
+            className="text-sm text-gray-500 transition hover:text-gray-600"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={SITE_METADATA.bluesky}
+            title="bluesky"
+          >
+            <span className="sr-only">bluesky</span>
+            <BlueskyIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
             className="text-sm text-gray-500 transition hover:text-gray-600"
