@@ -157,6 +157,59 @@ How you deploy a model depends on your latency and throughput requirements.
 
 **Streaming inference** uses a message queue (Kafka, Pub/Sub) as the trigger. Events arrive, are enriched with features, run through the model, and predictions are published to a downstream topic.
 
+#### KServe: Kubernetes-native model serving
+
+If your organisation already runs workloads on Kubernetes, [KServe](https://kserve.github.io/website/) (formerly KFServing) is worth serious consideration. It is a CNCF project that extends Kubernetes with a purpose-built model-serving layer, giving you a standardised, production-ready platform without building the scaffolding yourself.
+
+The central idea is that serving a model should feel as natural as deploying any other workload. Instead of writing Deployment manifests, Service definitions, HPA configs, and canary Ingress rules by hand, you declare an `InferenceService` resource and KServe handles the rest.
+
+```yaml
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: fraud-detector
+  namespace: ml-serving
+spec:
+  predictor:
+    sklearn:
+      storageUri: s3://ml-models/fraud-detector/v3
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "512Mi"
+        limits:
+          cpu: "1"
+          memory: "1Gi"
+  transformer:
+    containers:
+      - name: feature-transformer
+        image: myregistry/fraud-feature-transformer:1.2.0
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+```
+
+KServe fetches the model artefact from object storage at startup, spins up a pre-built serving container for the framework you specified (`sklearn`, `tensorflow`, `pytorch`, `xgboost`, `huggingface`, and others), and exposes a predict endpoint -- no custom Dockerfile required.
+
+**Built-in features worth knowing:**
+
+**Canary rollouts** are a first-class primitive. Set `canaryTrafficPercent` on a new revision and KServe splits traffic between the current and candidate model automatically. You inspect metrics, then promote or roll back by updating a single field rather than juggling multiple Deployments and Ingress weights.
+
+```yaml
+spec:
+  predictor:
+    canaryTrafficPercent: 10
+    sklearn:
+      storageUri: s3://ml-models/fraud-detector/v4
+```
+
+**Autoscaling** integrates with Knative Serving (scale-to-zero on inactivity) and KEDA (event-driven scaling based on queue depth or custom metrics). For GPU-backed models this means you are not paying for idle accelerator time -- the pod scales down when traffic drops and back up when requests arrive.
+
+**Explainability** is available via built-in alibi explainers. Attach an `explainer` block to your `InferenceService` and KServe spins up an Alibi sidecar that can return SHAP values or counterfactual explanations on a separate `/explain` endpoint, alongside the standard `/predict` endpoint -- no extra service to deploy or maintain.
+
+**Open Inference Protocol (data plane v2)** is the default wire format. KServe implements the KFServing v2 inference protocol (now standardised as the Open Inference Protocol), which is also supported by Triton, MLflow, and BentoML. This means your client code, load-testing scripts, and monitoring probes work against any v2-compliant server, not just KServe -- avoiding vendor lock-in at the serving layer.
+
 Whatever pattern you use, make sure your serving infrastructure emits structured logs for every prediction with the input features, the prediction, a confidence score, and a request ID. You will need these logs for monitoring.
 
 ### 6. Model Monitoring
@@ -231,7 +284,7 @@ The MLOps ecosystem is large and evolving quickly. Here is a quick orientation:
 | Pipeline orchestration | Airflow, Prefect, ZenML | Vertex AI Pipelines, SageMaker Pipelines |
 | Model registry | MLflow | Hugging Face Hub, Vertex AI |
 | Feature store | Feast | Tecton, Hopsworks, Vertex AI |
-| Model serving | BentoML, Ray Serve, Triton | SageMaker, Vertex AI, Azure ML |
+| Model serving | BentoML, Ray Serve, Triton, KServe | SageMaker, Vertex AI, Azure ML |
 | Monitoring | Evidently AI, WhyLogs | Arize, Fiddler |
 | Data versioning | DVC, LakeFS | -- |
 
