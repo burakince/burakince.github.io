@@ -24,6 +24,7 @@ const feed = new Feed({
   favicon: `${SITE_URL}/favicon/favicon-32x32.png`,
   copyright: `All rights reserved ${new Date().getFullYear()}, ${AUTHOR}`,
   author: { name: AUTHOR, email: EMAIL, link: `${SITE_URL}/me/` },
+  feedLinks: { rss: `${SITE_URL}/feed.xml` },
 });
 
 const postsDir = path.join(root, "_posts");
