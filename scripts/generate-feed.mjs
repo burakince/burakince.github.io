@@ -50,5 +50,5 @@ for (const post of posts) {
   });
 }
 
-fs.writeFileSync(path.join(root, "public", "feed.xml"), feed.rss2());
-console.log("✅ RSS feed written to public/feed.xml");
+fs.writeFileSync(path.join(root, "out", "feed.xml"), feed.rss2());
+console.log("✅ RSS feed written to out/feed.xml");

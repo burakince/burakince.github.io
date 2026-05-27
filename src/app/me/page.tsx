@@ -171,7 +171,7 @@ const MePage = () => {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
     dateCreated: "2024-04-28T15:18:27.000Z",
-    dateModified: "2025-01-01T00:00:00.000Z",
+    dateModified: "2026-05-27T00:00:00.000Z",
     mainEntity: myProfileJsonLd,
   };
 
