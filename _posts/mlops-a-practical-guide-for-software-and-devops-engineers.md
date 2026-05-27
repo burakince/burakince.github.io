@@ -76,7 +76,159 @@ with mlflow.start_run():
 
 A model registry (MLflow Model Registry, [Hugging Face Hub](https://huggingface.co/), Vertex AI Model Registry) records the lineage from training run to deployed model and manages lifecycle stages: Staging, Production, Archived.
 
-### 2. Build reproducible training pipelines
+### 2. MLflow model lineage and state management
+
+This is the thing most teams skip until they get burned by it. You have a model in production. Accuracy has been dropping for two weeks. Someone asks: "What data did this model train on, and which git commit?" Nobody knows. The MLflow UI has seventeen runs with no indication of which one is live. This is entirely avoidable.
+
+The MLflow Model Registry is not just a deployment mechanism. Used properly, it is an audit trail that links every production model back to the exact code, data, and hyperparameters that produced it.
+
+#### Registry states and what they actually mean
+
+The registry has three lifecycle stages: Staging, Production, and Archived.
+
+Staging is not just "pre-production". It is where a model version has passed automated evaluation and is waiting for human review or shadow testing. Your CI pipeline should move a model to Staging automatically when it meets the quality gate. A human (or a canary deploy process) then decides whether to promote it further.
+
+Production is the authoritative marker of what is live. Only one version of a given model name should be in Production at a time. When you promote a new version, move the old one to Archived rather than leaving multiple versions in Production simultaneously. Teams that skip that discipline lose track of which version is actually serving traffic, and that confusion shows up at the worst possible moment.
+
+Archived means retired, not deleted. You can still load an Archived model, inspect its run, and compare its metrics. Six months from now, when you need to understand why the model that served traffic in March 2025 behaved the way it did, Archived gives you that history. The transitions also create a timestamped paper trail: every promotion records when it happened, and if you use the client API, which pipeline or person triggered it. That is the kind of record that makes incident retrospectives survivable.
+
+#### Logging lineage at training time
+
+The traceability chain only works if you populate it during training. Two tags give you everything: the git commit hash of the training code and the DVC content hash of the dataset. Both are available without manual input.
+
+```python
+import subprocess
+import yaml
+import mlflow
+
+def get_git_commit() -> str:
+    return subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], text=True
+    ).strip()
+
+def get_dvc_data_hash(dvc_file: str) -> str:
+    with open(dvc_file) as f:
+        meta = yaml.safe_load(f)
+    return meta["outs"][0]["md5"]
+
+mlflow.set_experiment("fraud-detection")
+
+with mlflow.start_run() as run:
+    mlflow.set_tag("git_commit", get_git_commit())
+    mlflow.set_tag("dvc_data_hash", get_dvc_data_hash("data/training_set.parquet.dvc"))
+    mlflow.set_tag("dvc_file", "data/training_set.parquet.dvc")
+
+    mlflow.log_param("learning_rate", 0.001)
+    mlflow.log_param("max_depth", 6)
+
+    # ... training code ...
+
+    mlflow.log_metric("auc_roc", 0.94)
+    mlflow.log_metric("precision", 0.91)
+    mlflow.log_metric("recall", 0.88)
+
+    mlflow.sklearn.log_model(
+        model,
+        artifact_path="model",
+        registered_model_name="fraud-detector",
+    )
+```
+
+Every run now carries a pointer back to the exact state of the repository and dataset that produced it. The `git_commit` tag gives you the code; `dvc_data_hash` gives you the data. Together they are enough to reproduce the training job from scratch on any machine.
+
+#### Promoting to production and retrieving lineage
+
+Once a model clears evaluation in Staging, promote it via the MLflow client and pull the lineage in the same pipeline step.
+
+```python
+from mlflow.tracking import MlflowClient
+
+client = MlflowClient()
+model_name = "fraud-detector"
+
+# Promote the latest Staging version to Production
+staging_versions = client.get_latest_versions(model_name, stages=["Staging"])
+if not staging_versions:
+    raise RuntimeError("No model version in Staging to promote")
+
+latest = staging_versions[0]
+client.transition_model_version_stage(
+    name=model_name,
+    version=latest.version,
+    stage="Production",
+    archive_existing_versions=True,  # moves the previous Production version to Archived
+)
+print(f"Promoted version {latest.version} to Production")
+
+# Retrieve lineage for the current Production model
+prod_versions = client.get_latest_versions(model_name, stages=["Production"])
+prod = prod_versions[0]
+
+run = client.get_run(prod.run_id)
+git_commit = run.data.tags.get("git_commit", "not logged")
+dvc_hash   = run.data.tags.get("dvc_data_hash", "not logged")
+dvc_file   = run.data.tags.get("dvc_file", "not logged")
+
+print(f"Production model : version {prod.version}")
+print(f"  MLflow run ID  : {prod.run_id}")
+print(f"  git commit     : {git_commit}")
+print(f"  DVC file       : {dvc_file}")
+print(f"  DVC data hash  : {dvc_hash}")
+print(f"  Training AUC   : {run.data.metrics.get('auc_roc')}")
+```
+
+Running this against your MLflow server answers the most common incident question without opening a browser. To restore the exact environment that produced the live model:
+
+```bash
+# Restore the exact training code
+git checkout <git_commit>
+
+# Restore the exact training dataset
+dvc checkout data/training_set.parquet.dvc
+```
+
+Given a model version in Production, those two commands return you to the precise state the world was in when that model was built.
+
+#### Backtracking performance drift
+
+When production accuracy drops, the first question is whether you are looking at a data distribution problem or a code regression. The lineage trail helps you answer that quickly rather than spending days on the wrong hypothesis.
+
+Pull the training metrics from the originating run and compare them against what your monitoring system is reporting today.
+
+```python
+prod_versions = client.get_latest_versions("fraud-detector", stages=["Production"])
+run = client.get_run(prod_versions[0].run_id)
+training_metrics = run.data.metrics
+
+print("Metrics at training time:")
+for k, v in training_metrics.items():
+    print(f"  {k}: {v:.4f}")
+
+# Compare against live monitoring data
+live_auc = fetch_live_auc_from_monitoring()  # your implementation here
+
+gap = training_metrics["auc_roc"] - live_auc
+print(f"\nTraining AUC  : {training_metrics['auc_roc']:.4f}")
+print(f"Production AUC: {live_auc:.4f}")
+print(f"Gap           : {gap:.4f}")
+
+if gap > 0.05:
+    print("Significant degradation. Check drift report and input feature distributions.")
+```
+
+A large gap between training AUC and production AUC means the model is underperforming its own evaluation. If your drift report shows that input feature distributions have shifted, data drift is the likely cause. If the distributions look stable, something changed in the code path between training and serving: a preprocessing step, a feature computation, a library version. That is when you check the git commit and start diffing.
+
+This diagnosis is only possible because you kept the training metrics and lineage together. Without them, you are guessing.
+
+#### The full traceability picture
+
+Every production model should resolve to a triplet: MLflow run ID, git commit hash, DVC data hash.
+
+The run ID gives you the hyperparameters, evaluation metrics, and the registered model version. The git commit gives you the exact training code, library lock file, and Dockerfile. The DVC hash gives you the exact training dataset. From those three you can rebuild the model from scratch, verify its evaluation numbers, or audit what a model was doing at any point in its production lifetime.
+
+Teams that skip this find out why it matters when a regulator asks for documentation, a model behaves unexpectedly, or a key engineer leaves and takes the context with them. Setting up the tags takes about ten lines of code. It is one of the best returns on investment in the entire MLOps stack.
+
+### 3. Build reproducible training pipelines
 
 A training pipeline should be a first-class piece of software: version-controlled, tested, and runnable by anyone on the team with a single command. Two properties are non-negotiable.
 
@@ -97,7 +249,7 @@ ENTRYPOINT ["python", "-m", "src.train"]
 
 Pipeline orchestration tools like [Apache Airflow](https://airflow.apache.org/), [Prefect](https://www.prefect.io/), [Kubeflow Pipelines](https://www.kubeflow.org/docs/components/pipelines/), and [ZenML](https://www.zenml.io/) let you define training as a DAG of steps with explicit inputs, outputs, caching, and retry logic, the same way you would define a CI pipeline.
 
-### 3. CI/CD for machine learning
+### 4. CI/CD for machine learning
 
 Classic CI/CD runs lint, tests, and builds an artifact on every commit. ML CI/CD does all of that plus validates data, tests model quality, and gates promotion based on evaluation metrics.
 
@@ -139,7 +291,7 @@ The main difference from a standard CI pipeline is the quality gate: training su
 
 CD for ML typically involves deploying to a shadow or canary environment first, routing a small fraction of real traffic to the new model while comparing its predictions to the incumbent. Only after the canary metrics look healthy does the rollout proceed.
 
-### 4. Feature stores
+### 5. Feature stores
 
 One of the most insidious sources of training-serving skew is independently computing features in the training pipeline and in the inference service. A feature store solves this by providing a single source of truth for feature computation, with a low-latency online store for serving and a high-throughput offline store for training.
 
@@ -147,7 +299,7 @@ Popular options include [Feast](https://feast.dev/), [Tecton](https://www.tecton
 
 Feature stores are genuinely useful but also genuinely heavy. If you are not yet at the scale where training-serving skew is causing real production incidents, start smaller: define feature transformations once, in a shared library, and import that library from both your training code and your serving code. You get most of the benefit with a fraction of the operational overhead.
 
-### 5. Model serving patterns
+### 6. Model serving patterns
 
 How you deploy a model depends on your latency and throughput requirements.
 
@@ -212,7 +364,7 @@ One caveat worth naming: KServe is powerful but adds real operational complexity
 
 Whatever serving pattern you choose, make sure your infrastructure emits structured logs for every prediction with the input features, the prediction, a confidence score, and a request ID. You will need these logs for monitoring.
 
-### 6. Model monitoring
+### 7. Model monitoring
 
 Deploying a model is not the finish line. Production models need ongoing observation across at least three dimensions.
 
@@ -233,7 +385,7 @@ If you can collect ground truth labels (even with delay), track your business me
 
 Define a retraining policy upfront: retraining on a schedule (weekly, monthly), on drift detection, or when performance metrics cross a threshold. Treat retraining as a normal operational event, not an emergency.
 
-### 7. Testing for ML systems
+### 8. Testing for ML systems
 
 Testing ML systems requires a broader definition of "correctness" than unit tests alone provide.
 
