@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
-import { Organization, Person, ProfilePage, WithContext } from "schema-dts";
+import { FAQPage, Organization, Person, ProfilePage, WithContext } from "schema-dts";
 import JsonLd from "@/app/_components/json-ld";
 
 const PROFESSIONAL_START = { year: 2012, month: 7 };
@@ -581,7 +581,148 @@ const MePage = () => {
           </div>
         </div>
       </section>
+      <section
+        id="faq"
+        className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 mt-8"
+      >
+        <h2 className="text-2xl font-bold mb-4 dark:text-gray-300">
+          Frequently Asked Questions
+        </h2>
+        <div className="space-y-6 dark:text-gray-300">
+          <div>
+            <h3 className="font-semibold text-lg dark:text-gray-200">
+              How many years of professional experience does Burak Ince have?
+            </h3>
+            <p className="mt-1">
+              Burak Ince has {PROFESSIONAL_YEARS}+ years of professional
+              software development experience, having started his career in{" "}
+              {MONTHS[PROFESSIONAL_START.month - 1]} {PROFESSIONAL_START.year}.
+              He currently works as a Lead Consultant Developer at Thoughtworks.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-lg dark:text-gray-200">
+              What programming languages and technologies does Burak Ince
+              specialize in?
+            </h3>
+            <p className="mt-1">
+              Burak specializes in TypeScript, Golang, Python, Java, and Scala.
+              He has deep expertise in cloud-native architectures on AWS, Google
+              Cloud Platform, and Azure, as well as Kubernetes, Helm, Terraform,
+              and data engineering platforms including Apache Spark, Airflow, and
+              Databricks.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-lg dark:text-gray-200">
+              What industries has Burak Ince worked in?
+            </h3>
+            <p className="mt-1">
+              Burak has delivered projects for Fortune 500 clients and major
+              enterprises across retail, automotive, healthcare, energy,
+              chemicals, and financial services industries, primarily through
+              Thoughtworks consulting engagements.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-lg dark:text-gray-200">
+              Does Burak Ince have AI and machine learning experience?
+            </h3>
+            <p className="mt-1">
+              Yes. Burak has hands-on MLOps and AI platform experience,
+              including TensorFlow, PyTorch, Scikit-Learn, ONNX, Kubeflow,
+              KServe, Seldon, MLflow, Amazon Bedrock, and Vertex AI. He has
+              built CD4ML machine learning pipelines and AI platforms for
+              enterprise clients.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-lg dark:text-gray-200">
+              How can I contact Burak Ince?
+            </h3>
+            <p className="mt-1">
+              The best way to reach Burak is via{" "}
+              <a
+                href={SITE_METADATA.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                LinkedIn
+              </a>{" "}
+              for professional inquiries, or{" "}
+              <a
+                href={SITE_METADATA.keybase}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                Keybase
+              </a>{" "}
+              for encrypted/private messages. You can also email{" "}
+              <a
+                href={`mailto:${SITE_METADATA.email}`}
+                className="underline hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                {SITE_METADATA.email}
+              </a>
+              .
+            </p>
+          </div>
+        </div>
+      </section>
+
       <JsonLd data={structuredData} />
+      <JsonLd
+        data={
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: `How many years of professional experience does ${SITE_METADATA.author} have?`,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `${SITE_METADATA.author} has ${PROFESSIONAL_YEARS}+ years of professional software development experience, having started in ${MONTHS[PROFESSIONAL_START.month - 1]} ${PROFESSIONAL_START.year}. He currently works as ${SITE_METADATA.jobTitle} at ${SITE_METADATA.worksFor.name}.`,
+                },
+              },
+              {
+                "@type": "Question",
+                name: `What programming languages and technologies does ${SITE_METADATA.author} specialize in?`,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `${SITE_METADATA.author} specializes in TypeScript, Golang, Python, Java, and Scala. He has deep expertise in cloud-native architectures on AWS, Google Cloud Platform, and Azure, as well as Kubernetes, Helm, Terraform, and data engineering platforms including Apache Spark, Airflow, and Databricks.`,
+                },
+              },
+              {
+                "@type": "Question",
+                name: `What industries has ${SITE_METADATA.author} worked in?`,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `${SITE_METADATA.author} has delivered projects for Fortune 500 clients across retail, automotive, healthcare, energy, chemicals, and financial services industries, primarily through ${SITE_METADATA.worksFor.name} consulting engagements.`,
+                },
+              },
+              {
+                "@type": "Question",
+                name: `Does ${SITE_METADATA.author} have AI and machine learning experience?`,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `Yes. ${SITE_METADATA.author} has hands-on MLOps and AI platform experience including TensorFlow, PyTorch, Scikit-Learn, ONNX, Kubeflow, KServe, Seldon, MLflow, Amazon Bedrock, and Vertex AI. He has built CD4ML machine learning pipelines and AI platforms for enterprise clients.`,
+                },
+              },
+              {
+                "@type": "Question",
+                name: `How can I contact ${SITE_METADATA.author}?`,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: `The best way to reach ${SITE_METADATA.author} is via LinkedIn at ${SITE_METADATA.linkedin} for professional inquiries, or Keybase at ${SITE_METADATA.keybase} for encrypted messages. You can also email ${SITE_METADATA.email}.`,
+                },
+              },
+            ],
+          } as WithContext<FAQPage>
+        }
+      />
     </div>
   );
 };
