@@ -4,7 +4,7 @@ import { SITE_METADATA } from "@/lib/site-metadata";
 export const dynamic = "force-static";
 
 export async function GET() {
-  const { siteUrl, title, jobTitle, worksFor, linkedin, keybase, github } = SITE_METADATA;
+  const { siteUrl, title, jobTitle, worksFor, linkedin, keybase, github, email } = SITE_METADATA;
   const posts = getAllPosts();
 
   const lines = [
@@ -25,8 +25,8 @@ export async function GET() {
     `- **LinkedIn**: [${linkedin.replace("https://", "")}](${linkedin}) (preferred for professional inquiries)`,
     `- **Keybase**: [${keybase.replace("https://", "")}](${keybase}) — Best for encrypted/private messages`,
     `- **GitHub**: [${github.replace("https://", "")}](${github})`,
-    "- **PGP Key**: Available via Keybase",
-    "- **Email**: Use encrypted messages via Keybase/PGP for privacy",
+    `- **PGP Key**: [${keybase}/pgp_keys.asc](${keybase}/pgp_keys.asc)`,
+    `- **Email**: [${email}](mailto:${email}) — Use encrypted messages via Keybase/PGP for privacy`,
     "",
     "## Optional",
     "",
