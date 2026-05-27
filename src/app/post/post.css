@@ -1,0 +1,2 @@
+@import 'highlight.js/styles/paraiso-dark.css' screen and (prefers-color-scheme: dark);
+@import 'highlight.js/styles/paraiso-light.css' screen and (prefers-color-scheme: light);

@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogPosting, Person, WithContext } from "schema-dts";
 import { orgJsonLd } from "@/lib/schema";
+import "../post.css";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
