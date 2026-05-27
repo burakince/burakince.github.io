@@ -15,7 +15,7 @@ keywords:
 ---
 ```
 
-Always specify the language on code fences (e.g. ` ```typescript `) so syntax highlighting works correctly.
+Always specify the language on code fences (e.g. ` ```typescript `) so syntax highlighting works correctly. The highlight.js CSS is loaded only on post pages (`src/app/post/post.css`) — it is not part of the global bundle.
 
 ## Development
 

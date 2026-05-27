@@ -78,6 +78,8 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
   - `markdownToHtml.ts` — Unified/remark/rehype pipeline with `rehype-highlight` for syntax highlighting
   - `og-generator.ts` — Generates OG images as PNGs using satori + resvg-js; images are written to `public/assets/blog/og-images/` and skipped if already present
   - `site-metadata.ts` — Single source of truth for site-wide config (author, URLs, analytics ID)
+  - `schema.ts` — Shared `orgJsonLd` (`Organization` JSON-LD object) used across all three page files
+  - `skills.ts` — Single source of truth for skill categories and core concepts; drives both the visible Skills section and the `knowsAbout` JSON-LD on `/me/`
 - `src/interfaces/` — TypeScript types (`Post`, `Params`); also holds module declarations (`svgr.d.ts`)
 - `fonts/` — Inter font files required by `og-generator.ts` at build time
 
@@ -106,7 +108,7 @@ The production bundler is **Lightning CSS** (via `@tailwindcss/postcss`). Severa
 
 2. **Bare string imports for npm packages**: Always use `@import 'package/path'` — never `@import url('package/path')`. Lightning CSS treats `url()` as a remote URL fetch and silently skips npm package paths in production.
 
-3. **`@tailwindcss/typography` vs highlight.js**: The typography plugin resets `pre code { background-color: transparent; color: inherit }`. To prevent this from overriding highlight.js token colours, use higher-specificity selectors (e.g. `.prose pre code.hljs { ... }` has specificity 0,4,0 vs typography's `:where()` selectors at 0,1,0). The background colours are also set explicitly in `globals.css` to match the paraiso-dark/light themes rather than relying on the hljs CSS being last in the cascade.
+3. **`@tailwindcss/typography` vs highlight.js**: The highlight.js theme stylesheets (`paraiso-dark` / `paraiso-light`) live in `src/app/post/post.css`, which is imported only by `src/app/post/[slug]/page.tsx` so they don't bloat the global bundle. The typography plugin resets `pre code { background-color: transparent; color: inherit }`. To prevent this from overriding highlight.js token colours, the background overrides stay in `globals.css` using higher-specificity selectors (e.g. `.prose pre code.hljs { ... }` has specificity 0,4,0 vs typography's `:where()` selectors at 0,1,0). Never move those overrides to `post.css` — they must load on every page to prevent a flash of unstyled code on first navigation.
 
 4. **TypeScript 6 CSS imports**: TypeScript 6 requires a type declaration for side-effect CSS imports. `declare module "*.css"` is in `src/interfaces/svgr.d.ts`.
 
