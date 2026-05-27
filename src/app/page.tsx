@@ -42,6 +42,9 @@ const HomePage = () => {
 
   return (
     <div>
+      <h1 className="text-2xl font-bold mb-4 dark:text-gray-300">
+        Latest Posts
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {allPostPreviews}
       </div>
@@ -57,6 +60,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `${SITE_METADATA.siteUrl}/`,
+    title: SITE_METADATA.title,
+    description: SITE_METADATA.description,
     images: [`${SITE_METADATA.siteUrl}/assets/open-graph-image.jpg`],
     siteName: SITE_METADATA.title,
     locale: SITE_METADATA.locale,

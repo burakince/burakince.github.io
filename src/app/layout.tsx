@@ -45,6 +45,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     creator: "@burakinc",
+    title: SITE_METADATA.title,
+    description: SITE_METADATA.description,
     images: [`${SITE_METADATA.siteUrl}/assets/open-graph-image.jpg`],
   },
   icons: {

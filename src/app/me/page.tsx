@@ -24,8 +24,13 @@ const calculateYears = (start: { year: number; month: number }): number => {
 const PROFESSIONAL_YEARS = calculateYears(PROFESSIONAL_START);
 const PROGRAMMING_YEARS = calculateYears(PROGRAMMING_START);
 
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
 const title = `${SITE_METADATA.author} - Lead Developer with ${PROFESSIONAL_YEARS}+ Years Experience`;
-const description = `Lead Developer with ${PROFESSIONAL_YEARS}+ years of professional experience (since July 2011) and ${PROGRAMMING_YEARS}+ years of programming experience (since 2001).`;
+const description = `Lead Developer with ${PROFESSIONAL_YEARS}+ years of professional experience (since ${MONTHS[PROFESSIONAL_START.month - 1]} ${PROFESSIONAL_START.year}) and ${PROGRAMMING_YEARS}+ years of programming experience (since ${PROGRAMMING_START.year}).`;
 
 const MePage = () => {
   const orgJsonLd: Organization = {
@@ -144,26 +149,17 @@ const MePage = () => {
       "Swagger",
       "Protobuf",
 
-      // Python
-      "PySpark",
-      "Apache Airflow",
-      "Dagster",
-      "DVC",
-      "MLflow",
+      // Python frameworks (not already listed above)
       "Pydantic",
       "Asyncio",
       "Aiohttp",
       "SQLAlchemy",
       "Polars",
-      "Scikit-Learn",
-      "TensorFlow",
-      "PyTorch",
       "FastAPI",
       "Flask",
       "Django",
       "Pandas",
       "NumPy",
-      "Great Expectations",
     ],
   };
 
@@ -177,7 +173,7 @@ const MePage = () => {
 
   return (
     <div>
-      <header>
+      <div>
         <section
           id="profile"
           className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 mb-8"
@@ -191,12 +187,12 @@ const MePage = () => {
               className="w-24 h-24 rounded-full mr-6"
             />
             <div>
-              <h2 className="text-3xl font-bold dark:text-gray-300">
+              <h1 className="text-3xl font-bold dark:text-gray-300">
                 Burak Ince
-              </h2>
-              <h3 className="text-xl text-gray-700 dark:text-gray-500">
+              </h1>
+              <p className="text-xl text-gray-700 dark:text-gray-500">
                 Lead Consultant Developer at Thoughtworks
-              </h3>
+              </p>
             </div>
           </div>
           <div className="mt-4 dark:text-gray-300">
@@ -217,7 +213,7 @@ const MePage = () => {
             </p>
           </div>
         </section>
-      </header>
+      </div>
 
       <section
         id="experience"

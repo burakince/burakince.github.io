@@ -40,7 +40,7 @@ const meJsonLd: Person = {
   name: SITE_METADATA.author,
   jobTitle: SITE_METADATA.jobTitle,
   worksFor: orgJsonLd,
-  url: `${SITE_METADATA.siteUrl}/me`,
+  url: `${SITE_METADATA.siteUrl}/me/`,
   image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
 };
 
@@ -89,9 +89,9 @@ const PostPage = async ({ params }: { params: Params }) => {
             priority={true}
           />
         </div>
-        <h2 className="text-2xl text-violet-600 dark:text-violet-500 mt-6 mb-2">
+        <h1 className="text-2xl text-violet-600 dark:text-violet-500 mt-6 mb-2">
           {post.title}
-        </h2>
+        </h1>
         <DateFormatter dateString={post.date} />
       </div>
       <article className="prose dark:prose-invert max-w-none lg:prose-xl">

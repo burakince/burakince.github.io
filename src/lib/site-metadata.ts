@@ -1,7 +1,7 @@
 export const SITE_METADATA = {
   title: "Burak's Tech Insights: AI, Software, and More",
   author: "Burak Ince",
-  jobTitle: "Lead Software Developer",
+  jobTitle: "Lead Consultant Developer",
   worksFor: {
     name: "Thoughtworks",
     url: "https://www.thoughtworks.com",
