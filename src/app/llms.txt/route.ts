@@ -18,7 +18,7 @@ export async function GET() {
     `- **Keybase**: [${keybase.replace("https://", "")}](${keybase}) — Best for encrypted/private messages`,
     `- **GitHub**: [${github.replace("https://", "")}](${github})`,
     `- **Bluesky**: [${bluesky.replace("https://", "")}](${bluesky})`,
-    `- **PGP Key**: [${keybase.replace("https://", "")}/pgp_keys.asc](${keybase}/pgp_keys.asc)`,
+    `- **PGP Key**: [${keybase.replace("https://", "").replace(/\/$/, "")}/pgp_keys.asc](${keybase.replace(/\/$/, "")}/pgp_keys.asc)`,
     `- **Email**: [${email}](mailto:${email}) — Use encrypted messages via Keybase/PGP for privacy`,
     "",
     "## Pages",
