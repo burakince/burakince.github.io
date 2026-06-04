@@ -13,6 +13,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
 import yaml from "highlight.js/lib/languages/yaml";
+import ArticleContent from "@/app/post/_components/article-content";
 import JsonLd from "@/app/_components/json-ld";
 import { Params } from "@/interfaces/post";
 import { generateImage } from "@/lib/og-generator";
@@ -90,7 +91,7 @@ const PostPage = async ({ params }: { params: Params }) => {
         <DateFormatter dateString={post.date} />
       </div>
       <article className="prose dark:prose-invert max-w-none lg:prose-xl">
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <ArticleContent html={content} />
       </article>
       <JsonLd data={structuredData} />
     </div>
