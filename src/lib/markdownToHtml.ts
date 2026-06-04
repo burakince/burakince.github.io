@@ -1,4 +1,5 @@
 import rehypeHighlight from "rehype-highlight";
+import rehypeMermaid from "rehype-mermaid";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
@@ -11,6 +12,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkRehype)
+    .use(rehypeMermaid, { strategy: "inline-svg" })
     .use(rehypeHighlight)
     .use(rehypeStringify)
     .process(markdown);

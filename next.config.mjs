@@ -19,7 +19,12 @@ const nextConfig = {
   // Optional: Change the output directory `out` -> `dist`
   // distDir: 'dist',
 
-  serverExternalPackages: ["@resvg/resvg-js"],
+  serverExternalPackages: [
+    "@resvg/resvg-js",
+    "playwright",
+    "mermaid-isomorphic",
+    "rehype-mermaid",
+  ],
 
   turbopack: {
     rules: {

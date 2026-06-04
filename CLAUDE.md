@@ -39,6 +39,10 @@ Always run `npm run build` and confirm it succeeds with no errors before committ
 
 Never include `Co-Authored-By` or any Claude attribution in commit messages.
 
+## Writing tone
+
+Never finger-point individuals in blog posts. Do not name specific people (support agents, colleagues, vendor employees) when describing problems or negative experiences. Use impersonal phrasing instead: "the support reply," "I was told," "the response explained."
+
 ## Architecture
 
 Personal blog/portfolio site built with Next.js 16 App Router, exported as a fully static site (`output: "export"`) and deployed to GitHub Pages via `.github/workflows/pages.yml`.
@@ -87,6 +91,7 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 
 - **Static export**: No server components that rely on runtime APIs. `trailingSlash: true` is set, so all routes end with `/`.
 - **OG image caching**: `og-generator.ts` checks whether the PNG already exists before generating. During development this can mean stale images; delete `public/assets/blog/og-images/` to force regeneration.
+- **Mermaid diagrams**: `rehype-mermaid` (with `strategy: "inline-svg"`) renders ` ```mermaid ` fences to inline SVG at build time. It runs before `rehype-highlight` in the pipeline. The underlying `mermaid-isomorphic` package requires Playwright Chromium as a build-time renderer (not a test tool). `playwright`, `mermaid-isomorphic`, and `rehype-mermaid` are listed in `serverExternalPackages` in `next.config.mjs` to prevent Turbopack from bundling them. The CI workflow installs Chromium via `npx playwright install chromium --with-deps` before `npm run build`.
 - **Bundler**: Next.js 16 uses **Turbopack** by default for both `next dev` and `next build`. There is no webpack config — SVG loading is handled via `turbopack.rules` in `next.config.mjs`. Do not add a `webpack()` callback; it will never be called.
 - **SVGs as React components**: SVG files are imported directly as React components via `@svgr/webpack` (configured under `turbopack.rules`). The glob key `"*.svg"` matches by filename, so it covers SVGs in any subdirectory.
 - **ESLint**: Uses ESLint 9 flat config (`eslint.config.mjs`) with `eslint-config-next/core-web-vitals` and `eslint-config-prettier/flat`. The lint script is `eslint .` — `next lint` no longer exists in Next.js 16. ESLint is pinned to `^9` because `typescript-eslint@8.x` (bundled in `eslint-config-next`) is incompatible with ESLint 10; revisit when `eslint-config-next` upgrades its bundled `typescript-eslint`.
@@ -139,6 +144,6 @@ keywords:
 ---
 ```
 
-Specify the language on every code fence (e.g. ` ```typescript `) — `rehype-highlight` uses the `language-*` class to tokenise the block. An OG image is generated automatically on the next build.
+Specify the language on every code fence — `rehype-highlight` uses the `language-*` class to tokenise the block. Use the appropriate identifier (e.g. ` ```typescript `, ` ```yaml `, ` ```bash `). For flow charts and diagrams, use ` ```mermaid ` — diagrams are rendered to inline SVG at build time via `rehype-mermaid`. For plain text where no real language or diagram syntax applies, use ` ```text `. An OG image is generated automatically on the next build.
 
 If the post includes static images, place them in `public/assets/blog/<post-slug>/` and reference them in Markdown as `/assets/blog/<post-slug>/image.png`. The post slug (filename without `.md`) must match the asset subfolder name.
