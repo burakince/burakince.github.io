@@ -76,6 +76,7 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 - `src/app/` — Next.js App Router pages and shared components
   - `_components/` — Header, footer, container, post-preview, OG template, JSON-LD, social icons, date formatter
   - `post/[slug]/page.tsx` — Dynamic post page; uses `generateStaticParams` to enumerate all posts
+  - `post/_components/article-content.tsx` — `"use client"` component that renders post HTML via `dangerouslySetInnerHTML`, injects `.copy-btn` buttons into every `pre:has(code)` block after hydration, and handles clicks via `document`-level event delegation. Mermaid SVG blocks (`<svg>`) are not affected. Styles for `.copy-btn` live in `post/post.css`.
   - `me/page.tsx` — About/profile page
 - `src/lib/` — Core utilities
   - `api.ts` — Filesystem helpers (`getAllPosts`, `getPostBySlug`) that read `_posts/`
