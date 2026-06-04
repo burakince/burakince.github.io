@@ -57,9 +57,9 @@ flowchart LR
 
 cloudflared handles public TLS termination. Inside the tunnel, traffic goes from cloudflared to Traefik over plain HTTP on port 80, then Traefik forwards to Authentik. No self-signed cert complications, because internal traffic never touches the public internet.
 
-There's a bootstrapping problem with this setup. Cloudflare Access works by redirecting unauthenticated users to an OIDC provider. That provider has to be reachable. If I put `<your-auth-domain>` behind Cloudflare Access, nobody can ever authenticate: the access check redirects to the auth server, which is also behind the access check, which redirects to the auth server.
+There's a bootstrapping problem with this setup. Cloudflare Access works by redirecting unauthenticated users to an OIDC provider. That provider has to be reachable. If I put `auth.example.com` behind Cloudflare Access, nobody can ever authenticate: the access check redirects to the auth server, which is also behind the access check, which redirects to the auth server.
 
-So `<your-auth-domain>` is the one subdomain that stays publicly accessible. Everything else goes through Access.
+So `auth.example.com` is the one subdomain that stays publicly accessible. Everything else goes through Access.
 
 ## Deploying Authentik
 
@@ -157,7 +157,7 @@ spec:
               traefik.ingress.kubernetes.io/router.middlewares: authentik-authentik-headers@kubernetescrd
             enabled: true
             hosts:
-              - <your-auth-domain>
+              - auth.example.com
             https: false
           nodeSelector:
             node-role.kubernetes.io/worker: "true"
@@ -193,10 +193,10 @@ The authorization flow matters here. Set it to `default-provider-authorization-i
 
 In the Cloudflare Zero Trust dashboard, go to Settings > Authentication > Add new and choose OIDC. The fields:
 
-- **OpenID Configuration URL**: `https://<your-auth-domain>/application/o/<your-app-slug>/.well-known/openid-configuration`
-- **Authorize URL**: `https://<your-auth-domain>/application/o/authorize/`
-- **Token URL**: `https://<your-auth-domain>/application/o/token/`
-- **JWKS URL**: `https://<your-auth-domain>/application/o/<your-app-slug>/jwks/`
+- **OpenID Configuration URL**: `https://auth.example.com/application/o/<your-app-slug>/.well-known/openid-configuration`
+- **Authorize URL**: `https://auth.example.com/application/o/authorize/`
+- **Token URL**: `https://auth.example.com/application/o/token/`
+- **JWKS URL**: `https://auth.example.com/application/o/<your-app-slug>/jwks/`
 - **OIDC Scopes**: `openid`, `email`, `profile`
 - **OIDC Claims**: `groups`
 
