@@ -2,14 +2,11 @@
 title: "How to Use a Custom Domain with GitHub Pages"
 excerpt: "Learn how to set up a custom domain for your GitHub Pages website."
 date: "2024-04-27T13:21:27.000Z"
-keywords:
-  - GitHub Pages Custom Domain
-  - Setting Up Custom Domain on GitHub Pages
-  - Cloudflare DNS Configuration
-  - Custom Domain Setup Guide
-  - Website Hosting with GitHub Pages
-  - Cloudflare and GitHub Integration
-  - GitHub Pages Domain Verification
+tags:
+  - github-pages
+  - dns
+  - cloudflare
+  - custom-domain
 ---
 
 In a [previous post](https://www.burakince.com/post/static-web-page-generation-on-github-pages-with-nextjs-and-tailwindcss/), you learned how to publish your static website using Next.js with the help of GitHub Pages. Now, let's explore how to use a custom domain for a website hosted on GitHub Pages, instead of the default `myusername.github.io` domain. This guide will walk you through the steps to set up your custom domain. Let's get started!

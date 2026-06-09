@@ -1,18 +1,20 @@
 import { SITE_METADATA } from "@/lib/site-metadata";
 import Link from "next/link";
+import NavLinks from "@/app/_components/nav-links";
 
 const Header = () => {
   return (
     <header>
-      <div className="text-center bg-slate-800 dark:bg-slate-950 p-8 my-6 rounded-md">
+      <div className="bg-slate-800 dark:bg-slate-950 px-8 py-5 my-6 rounded-md flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <Link href={"/"}>
-          <p className="text-2xl text-white dark:text-slate-500 font-bold mt-4">
+          <p className="text-xl text-white dark:text-slate-500 font-bold leading-tight">
             {SITE_METADATA.title}
           </p>
+          <p className="text-sm text-slate-400 dark:text-slate-600 mt-0.5">
+            {SITE_METADATA.jobTitle} at {SITE_METADATA.worksFor.name}{" "}&middot;{" "}Cloud-native engineering, AI &amp; software craftsmanship.
+          </p>
         </Link>
-        <p className="text-slate-300 dark:text-slate-700">
-          🤟 Welcome to my tech blog. 💻
-        </p>
+        <NavLinks />
       </div>
     </header>
   );

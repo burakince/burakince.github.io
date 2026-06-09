@@ -97,3 +97,8 @@ next-env.d.ts
 
 # Claude project plans
 project-plans
+
+# Images
+*.png
+!public/*.png
+!public/**/*.png

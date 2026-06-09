@@ -18,7 +18,9 @@ import JsonLd from "@/app/_components/json-ld";
 import { Params } from "@/interfaces/post";
 import { generateImage } from "@/lib/og-generator";
 import OgTemplate from "@/app/_components/og-template";
-import Image from "next/image";
+import TagChip from "@/app/_components/tag-chip";
+import Link from "next/link";
+import { readingTime } from "@/lib/reading-time";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("typescript", typescript);
@@ -68,31 +70,45 @@ const PostPage = async ({ params }: { params: Params }) => {
     creator: meJsonLd,
     publisher: meJsonLd,
     description: post.excerpt,
-    keywords: post.keywords?.join(", "),
+    keywords: post.tags?.join(", "),
   };
 
   const content = await markdownToHtml(post.content || "");
 
   return (
     <div>
-      <div className="my-6 text-center">
-        <div className="flex justify-center items-center">
-          <Image
-            src={ogImage}
-            width={imageSize.width / 1.4}
-            height={imageSize.height / 1.4}
-            alt={post.title}
-            priority={true}
-          />
-        </div>
-        <h1 className="text-2xl text-violet-600 dark:text-violet-500 mt-6 mb-2">
+      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-md px-8 py-12 mb-8 text-center">
+        <h1 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-snug">
           {post.title}
         </h1>
-        <DateFormatter dateString={post.date} />
+        <p className="text-slate-400 text-sm mb-4">
+          <DateFormatter dateString={post.date} />
+          <span className="mx-2">·</span>
+          {readingTime(post.content)} min read
+        </p>
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-1.5">
+            {post.tags.map((tag) => (
+              <TagChip key={tag} tag={tag} />
+            ))}
+          </div>
+        )}
       </div>
-      <article className="prose dark:prose-invert max-w-none lg:prose-xl">
+      <article className="prose dark:prose-invert lg:prose-xl mx-auto">
         <ArticleContent html={content} />
       </article>
+      <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-wrap gap-4 items-center justify-between">
+        <Link href="/" className="text-sm text-slate-500 hover:text-violet-600 dark:text-slate-400 dark:hover:text-violet-400 transition-colors">
+          ← All Posts
+        </Link>
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {post.tags.map((tag) => (
+              <TagChip key={tag} tag={tag} />
+            ))}
+          </div>
+        )}
+      </div>
       <JsonLd data={structuredData} />
     </div>
   );
@@ -115,7 +131,7 @@ export async function generateMetadata({
   return {
     title,
     description: post.excerpt,
-    keywords: post.keywords,
+    keywords: post.tags,
     alternates: {
       canonical: `${SITE_METADATA.siteUrl}/post/${slug}/`,
     },
@@ -133,7 +149,7 @@ export async function generateMetadata({
       publishedTime: post.date,
       modifiedTime: post.date,
       authors: [`${SITE_METADATA.siteUrl}/me/`],
-      tags: post.keywords,
+      tags: post.tags,
     },
     twitter: {
       card: "summary_large_image",

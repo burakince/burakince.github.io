@@ -2,19 +2,13 @@
 title: "Replacing Auth0 with self-hosted Authentik on Kubernetes and Cloudflare"
 excerpt: "Auth0 deleted my free-tier tenant without warning after 150 days of inactivity. Here's how I replaced it with self-hosted Authentik on my homelab Kubernetes cluster, wired up through Cloudflare Access with group-based policies."
 date: "2026-06-04T09:00:00.000Z"
-keywords:
-  - Authentik self-hosted
-  - Auth0 alternative
-  - Kubernetes OIDC
-  - Cloudflare Access OIDC
-  - Traefik middleware
-  - ArgoCD Helm
-  - 1Password operator Kubernetes
-  - homelab authentication
-  - self-hosted identity provider
-  - Cloudflare Tunnel Traefik
-  - Authentik groups claim
-  - OIDC Cloudflare Zero Trust
+tags:
+  - authentik
+  - kubernetes
+  - cloudflare
+  - self-hosted
+  - devops
+  - oidc
 ---
 
 One day I logged into Auth0 and my tenant was gone. Not locked. Not suspended. Gone.

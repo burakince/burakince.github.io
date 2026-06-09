@@ -138,9 +138,9 @@ export default function RootLayout({
       </head>
       <body className={`bg-slate-100 dark:bg-slate-800 ${inter.className}`}>
         <Container>
-          <Header />
+          <div className="print:hidden"><Header /></div>
           <main>{children}</main>
-          <Footer />
+          <div className="print:hidden"><Footer /></div>
         </Container>
       </body>
       <GoogleAnalytics

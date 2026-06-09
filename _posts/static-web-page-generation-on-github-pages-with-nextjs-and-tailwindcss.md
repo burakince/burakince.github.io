@@ -2,22 +2,12 @@
 title: "Generate Static Web Pages on GitHub with Next.js, Tailwind CSS & Markdown"
 excerpt: "Discover how to create static web pages on GitHub Pages with Next.js, Tailwind CSS, and Markdown. Follow a step-by-step guide for efficient deployment."
 date: "2024-04-25T12:49:07.322Z"
-keywords:
-  - "Next.js Markdown rendering"
-  - "Tailwind CSS Markdown styling"
-  - "Syntax highlighting with Prism.js"
-  - "Code block highlighting"
-  - "Python syntax highlighting in Markdown"
-  - "Prism.js code block styling"
-  - "Next.js and Tailwind CSS integration"
-  - "Tailwind typography plugin usage"
-  - "Markdown content rendering"
-  - "Prism.js language-specific highlighting"
-  - "Tailwind CSS and Markdown"
-  - "HTML code block rendering"
-  - "Next.js tutorial with Markdown and Tailwind"
-  - "Markdown to HTML conversion in Next.js"
-  - "Highlighting code blocks in Markdown"
+tags:
+  - nextjs
+  - tailwindcss
+  - markdown
+  - github-pages
+  - static-site
 ---
 
 Static web pages offer excellent performance and low server costs since they are pre-built and don't rely on server-side processing. GitHub Pages provides an easy way to host static websites, and Next.js is a powerful React framework that supports static site generation. Tailwind CSS is a utility-first CSS framework that can help you quickly style your website with a clean, modern look. In this blog post, we'll walk through the process of setting up a static website using Next.js, Tailwind CSS, and GitHub Pages.

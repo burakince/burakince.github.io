@@ -74,23 +74,36 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 
 - `_posts/` — Markdown blog posts parsed at build time via gray-matter. Each file becomes a route at `/post/<slug>/`.
 - `src/app/` — Next.js App Router pages and shared components
-  - `_components/` — Header, footer, container, post-preview, OG template, JSON-LD, social icons, date formatter
+  - `_components/` — Header, footer, container, post-preview, OG template, JSON-LD, social icons, date formatter; also:
+    - `nav-links.tsx` — `"use client"` NavLinks with `usePathname`-based active-state highlighting; renders Latest Posts / Tags / About nav
+    - `pagination.tsx` — Prev/Next pagination for multi-page listings; page 2 prev links to `/`, not `/page/1/`
+    - `tag-chip.tsx` — Pill link to `/tag/[tag]/`; accepts `size="sm"|"md"`
   - `post/[slug]/page.tsx` — Dynamic post page; uses `generateStaticParams` to enumerate all posts
   - `post/_components/article-content.tsx` — `"use client"` component that renders post HTML via `dangerouslySetInnerHTML`, injects `.copy-btn` buttons into every `pre:has(code)` block after hydration, and handles clicks via `document`-level event delegation. Mermaid SVG blocks (`<svg>`) are not affected. Styles for `.copy-btn` live in `post/post.css`.
-  - `me/page.tsx` — About/profile page
+  - `page/[page]/page.tsx` — Paginated post listing (pages 2+); page 1 is served by `app/page.tsx`. `POSTS_PER_PAGE = 4`.
+  - `tag/page.tsx` — All-tags index listing every unique tag with post counts
+  - `tag/[tag]/page.tsx` — Tag-filtered post listing; 404s on unknown or empty tags
+  - `me/page.tsx` — About/profile page (CV layout with print support)
+  - `me/_components/anchor-heading.tsx` — `"use client"` `<h2>` with a hover copy-link button; hidden in print via `print:hidden`
+  - `me/_components/print-icon-button.tsx` — `"use client"` print button that calls `window.print()`; hidden in print
 - `src/lib/` — Core utilities
-  - `api.ts` — Filesystem helpers (`getAllPosts`, `getPostBySlug`) that read `_posts/`
+  - `api.ts` — Filesystem helpers (`getAllPosts`, `getPostBySlug`, `getAllTags`) that read `_posts/`; `getAllTags` returns a sorted deduplicated list of every tag found across all posts
   - `markdownToHtml.ts` — Unified/remark/rehype pipeline with `rehype-highlight` for syntax highlighting
   - `og-generator.ts` — Generates OG images as PNGs using satori + resvg-js; images are written to `public/assets/blog/og-images/` and skipped if already present
   - `site-metadata.ts` — Single source of truth for site-wide config (author, URLs, analytics ID)
   - `schema.ts` — Shared `orgJsonLd` (`Organization` JSON-LD object) used across all three page files
   - `skills.ts` — Single source of truth for skill categories and core concepts; exports `SKILL_CATEGORIES_SORTED` (each category's items sorted alphabetically) and `ALL_SKILLS_SORTED` (deduplicated union of all items and core concepts, sorted with `localeCompare("en")`); drives both the visible Skills section and the `knowsAbout` JSON-LD on `/me/`. Always consume the `_SORTED` exports — do not sort at call sites.
+  - `reading-time.ts` — `readingTime(content)` returns estimated read time in minutes (words / 200, minimum 1)
+  - `truncate.ts` — `smartTruncate(text, maxChars=130)` trims at sentence or word boundaries and appends an ellipsis; used for post excerpt display
+  - `experience.ts` — `EXPERIENCE_GROUPS` typed array of `ExperienceGroup` (heading + `ExperienceEntry[]`); drives the work history on `/me/`
 - `src/interfaces/` — TypeScript types (`Post`, `Params`); also holds module declarations (`svgr.d.ts`)
 - `fonts/` — Inter font files required by `og-generator.ts` at build time
 
 ### Important behaviors
 
 - **Static export**: No server components that rely on runtime APIs. `trailingSlash: true` is set, so all routes end with `/`.
+- **Pagination**: The home page (`/`) always shows the first page of posts. Pages 2+ are at `/page/[n]/` and rendered by `src/app/page/[page]/page.tsx`. `POSTS_PER_PAGE = 4` is defined there. The `Pagination` component hard-codes the prev link on page 2 to `/` (not `/page/1/`), so do not create a `/page/1/` route.
+- **Tag routing**: Tags in post front matter drive `/tag/` and `/tag/[tag]/` routes. `getAllTags()` in `api.ts` aggregates tags across all posts. Add new tags by including them in a post's `tags:` array; no other registration is needed.
 - **OG image caching**: `og-generator.ts` checks whether the PNG already exists before generating. During development this can mean stale images; delete `public/assets/blog/og-images/` to force regeneration.
 - **Mermaid diagrams**: `rehype-mermaid` (with `strategy: "inline-svg"`) renders ` ```mermaid ` fences to inline SVG at build time. It runs before `rehype-highlight` in the pipeline. The underlying `mermaid-isomorphic` package requires Playwright Chromium as a build-time renderer (not a test tool). `playwright`, `mermaid-isomorphic`, and `rehype-mermaid` are listed in `serverExternalPackages` in `next.config.mjs` to prevent Turbopack from bundling them. The CI workflow installs Chromium via `npx playwright install chromium --with-deps` before `npm run build`.
 - **Bundler**: Next.js 16 uses **Turbopack** by default for both `next dev` and `next build`. There is no webpack config — SVG loading is handled via `turbopack.rules` in `next.config.mjs`. Do not add a `webpack()` callback; it will never be called.
@@ -139,9 +152,9 @@ Create a Markdown file in `_posts/` named with kebab-case and a `.md` extension 
 title: "Title"
 excerpt: "Description"
 date: "1970-01-01T00:00:01.000Z"
-keywords:
-  - keyword one
-  - keyword two
+tags:
+  - tag-one
+  - tag-two
 ---
 ```
 

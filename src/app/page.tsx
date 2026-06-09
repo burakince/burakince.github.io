@@ -1,10 +1,13 @@
 import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
+import Pagination from "@/app/_components/pagination";
 import { Blog, Person, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { orgJsonLd } from "@/lib/schema";
 import JsonLd from "@/app/_components/json-ld";
 import { Metadata } from "next";
+
+const POSTS_PER_PAGE = 4;
 
 const HomePage = () => {
   const meJsonLd: Person = {
@@ -43,18 +46,22 @@ const HomePage = () => {
   };
 
   const allPosts = getAllPosts();
-  const allPostPreviews = allPosts.map((post) => (
-    <PostPreview key={post.slug} {...post} />
-  ));
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  const posts = allPosts.slice(0, POSTS_PER_PAGE);
 
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4 dark:text-gray-300">
         Latest Posts
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {allPostPreviews}
+      <div className={`grid gap-4 ${posts.length === 1 ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"}`}>
+        {posts.map((post) => (
+          <PostPreview key={post.slug} {...post} />
+        ))}
       </div>
+      {totalPages > 1 && (
+        <Pagination currentPage={1} totalPages={totalPages} totalPosts={allPosts.length} />
+      )}
       <JsonLd data={websiteJsonLd} />
       <JsonLd data={blogJsonLd} />
     </div>

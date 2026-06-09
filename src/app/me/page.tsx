@@ -5,6 +5,14 @@ import { Person, ProfilePage, WithContext } from "schema-dts";
 import JsonLd from "@/app/_components/json-ld";
 import { orgJsonLd } from "@/lib/schema";
 import { ALL_SKILLS_SORTED, SKILL_CATEGORIES_SORTED } from "@/lib/skills";
+import { EXPERIENCE_GROUPS } from "@/lib/experience";
+import AnchorHeading from "@/app/me/_components/anchor-heading";
+import PrintIconButton from "@/app/me/_components/print-icon-button";
+import Link from "next/link";
+import WebIcon from "@/app/_components/social-icons/web.svg";
+import GmailIcon from "@/app/_components/social-icons/gmail.svg";
+import LinkedinIcon from "@/app/_components/social-icons/linkedin.svg";
+import GithubIcon from "@/app/_components/social-icons/github.svg";
 
 const PROFESSIONAL_START = { year: 2012, month: 7 };
 const PROGRAMMING_START = { year: 2001, month: 1 };
@@ -68,8 +76,9 @@ const MePage = () => {
       <div>
         <section
           id="profile"
-          className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 mb-8"
+          className="relative bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 mb-8"
         >
+          <PrintIconButton />
           <div className="flex items-center">
             <Image
               src="/assets/me/burakince.jpg"
@@ -87,22 +96,50 @@ const MePage = () => {
               </p>
             </div>
           </div>
-          <div className="mt-4 dark:text-gray-300">
-            <p>
-              Seasoned Lead Consultant Developer with over{" "}
-              <strong>{PROFESSIONAL_YEARS} years</strong> of professional
-              experience and <strong>{PROGRAMMING_YEARS} years</strong> of
-              programming expertise. Specializes in full-stack development, data
-              engineering, and cloud-native architectures. Delivers high-impact
-              solutions for Fortune 500 clients and major enterprises in retail,
-              automotive, healthcare, energy, and manufacturing industries.
-              Brings deep expertise in modern languages (TypeScript, Golang,
-              Python), distributed systems, MLOps/CD4ML pipelines,
-              infrastructure as code, and software craftsmanship. Maintains a
-              proven track record of designing scalable microservices, modern
-              data platforms, and evolutionary architectures that drive business
-              value and technical excellence.
+          <div className="mt-4">
+            <p className="text-slate-700 dark:text-slate-300 mb-4 print:hidden">
+              Lead Consultant Developer at {SITE_METADATA.worksFor.name}, delivering cloud-native engineering, data platforms, and AI solutions for Fortune 500 enterprises across retail, automotive, healthcare, energy, and manufacturing.
             </p>
+            <div className="flex flex-wrap gap-2 print:hidden">
+              {[
+                `${PROFESSIONAL_YEARS}+ yrs professional`,
+                `${PROGRAMMING_YEARS}+ yrs programming`,
+                "Full-stack",
+                "Data Engineering",
+                "Cloud-native",
+                "MLOps",
+              ].map((fact) => (
+                <span
+                  key={fact}
+                  className="inline-block px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium"
+                >
+                  {fact}
+                </span>
+              ))}
+            </div>
+            <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-4 print:hidden">
+              <span className="text-xs text-slate-400 dark:text-slate-500">Jump to:</span>
+              <Link href="#experience" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Experience</Link>
+              <Link href="#skills" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Skills</Link>
+            </div>
+            <div className="hidden print:flex flex-wrap gap-x-5 gap-y-1.5 mt-3 text-sm text-slate-600">
+              <a href={SITE_METADATA.siteUrl} className="inline-flex items-center gap-1.5">
+                <WebIcon className="fill-current size-4 shrink-0" aria-hidden="true" />
+                {SITE_METADATA.siteUrl.replace("https://", "")}
+              </a>
+              <a href={`mailto:${SITE_METADATA.email}`} className="inline-flex items-center gap-1.5">
+                <GmailIcon className="fill-current size-4 shrink-0" aria-hidden="true" />
+                {SITE_METADATA.email}
+              </a>
+              <a href={SITE_METADATA.linkedin} className="inline-flex items-center gap-1.5">
+                <LinkedinIcon className="fill-current size-4 shrink-0" aria-hidden="true" />
+                linkedin.com/in/inceburak
+              </a>
+              <a href={SITE_METADATA.github} className="inline-flex items-center gap-1.5">
+                <GithubIcon className="fill-current size-4 shrink-0" aria-hidden="true" />
+                github.com/burakince
+              </a>
+            </div>
           </div>
         </section>
       </div>
@@ -111,247 +148,26 @@ const MePage = () => {
         id="experience"
         className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 mb-8"
       >
-        <h2 className="text-2xl font-bold mb-4 dark:text-gray-300">
-          Experience
-        </h2>
+        <AnchorHeading id="experience" className="text-2xl font-bold mb-4 dark:text-gray-300">Experience</AnchorHeading>
         <div className="space-y-6">
-          <div>
-            <h3 className="text-xl font-semibold mb-2 dark:text-gray-200">
-              Thoughtworks Experience
-            </h3>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major Retail Energy Supply Company
-              </h4>
-              <p className="dark:text-gray-300">
-                During a 10-month tenure as a Data Engineer, designed and
-                implemented core RESTful API services utilizing Kubernetes,
-                Terraform, Helm, Google Cloud Platform (GCP), CloudSQL
-                (PostgreSQL), and TypeScript to develop customer, energy usage,
-                and billing microservices with secure OpenID Connect (OIDC) and
-                OAuth 2.0-based single sign-on (SSO) authentication.
-              </p>
+          {EXPERIENCE_GROUPS.map((group) => (
+            <div key={group.heading}>
+              <h3 className="text-xl font-semibold mb-2 dark:text-gray-200">
+                {group.heading}
+              </h3>
+              {group.entries.map((entry) => (
+                <div
+                  key={entry.title}
+                  className="pl-4 border-l-2 border-slate-200 dark:border-slate-700 mb-5 print:break-inside-avoid"
+                >
+                  <h4 className="font-semibold dark:text-gray-100">
+                    {entry.title}
+                  </h4>
+                  <p className="dark:text-gray-300">{entry.description}</p>
+                </div>
+              ))}
             </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                University Hospital
-              </h4>
-              <p className="dark:text-gray-300">
-                During a one-month tenure as a Data Engineer, developed a
-                proof-of-concept system leveraging Cloudformation, AWS Lambda,
-                Python, Amazon Comprehend Medical, AWS Step Functions, Amazon
-                S3, API Gateway, and Amazon Bedrock to automate data extraction
-                from patient reports and images, enabling automatic
-                identification of key medical data and matching potential
-                clinical trials for physician review and approval.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major European Retailer of Consumer Electronics and Household
-                Appliances
-              </h4>
-              <p className="dark:text-gray-300">
-                During an 8-month tenure as a Data Engineer, modernized IT
-                infrastructure and developed a Customer Data Platform on GCP
-                BigQuery, leveraging GCP, Cloud Composer, Apache Airflow,
-                Python, R, Colab Enterprise, Vertex AI, Kubeflow, Jupyter
-                Notebooks, Data Contracts, IAM roles, Google Identity Platform,
-                Terraform, Polars, Dataplex, Medallion Architecture, Cloud
-                Storage, and Looker to establish robust data governance,
-                platform capabilities, and actionable data products.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major Laboratory Devices and Consumables Company
-              </h4>
-              <p className="dark:text-gray-300">
-                Infrastructure consultant for 11 months, working with C#,
-                Golang, Typescript, Terraform, Terratest, AWS (including VPC,
-                Lambda, Lambda Edge, Fargate, ECR, API Gateway), MQTT, HiveMQ,
-                IoT Core, Layer 4 Network Load Balancer, Layer 7 Application
-                Load Balancer, mTLS with X509 Certificates, DynamoDB, XRay,
-                GitHub Actions, and AWS OIDC Providers. Developed and
-                contributed to the MQTT server and infrastructure for secure and
-                scalable communication between laboratory devices and the cloud.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major Automobile Manufacturer Company
-              </h4>
-              <p className="dark:text-gray-300">
-                Data engineer for 5 months, building an AI platform for
-                connected cars using Kubernetes, Terraform, Terratest, Helm,
-                AWS, ECR, Amazon Aurora, Kubeflow, KServe, KNative, Istio,
-                Let&apos;s Encrypt, Seldon, PostgreSQL, Redis, Tensorflow
-                Serving, Prometheus Stack, Keycloak, and GitHub Actions.
-                Improved Kubeflow installation and integrated the
-                customer&apos;s SSO system.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major European Multinational Chemicals Company
-              </h4>
-              <p className="dark:text-gray-300">
-                Data engineer for 1 year and 3 months, working on a CD4ML
-                machine learning pipeline and AI platform using Golang, Python,
-                Asyncio, Aiohttp, Pydantic, FastAPI, SQLAlchemy, Typescript,
-                Kubernetes, Helm, Azure Cloud, Azurite, ACR, PostgreSQL,
-                Terraform, DVC, Mlflow, Dagster, Great Expectations, REST, gRPC,
-                GraphQL, Memgraph, Dash, ONNX, Tensorflow, Scikit-Learn, React,
-                Prometheus Stack, Backstage, Azure DevOps, and Azure Pipelines.
-                Contributed to the development of the main framework and
-                subsections of the portal.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major Energy Logistics and Chemicals Company
-              </h4>
-              <p className="dark:text-gray-300">
-                Lead consultant developer for 1 month, conducting an
-                architecture and technology review for in-house developed
-                trading software. Examined various architectural classifications
-                (monolithic and distributed) with the team and decided on
-                approaches to solve problems.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major European e-Commerce Company
-              </h4>
-              <p className="dark:text-gray-300">
-                Data engineer for 9 months, building a fast serving layer using
-                Amazon Redshift, Apache Spark, PySpark, Parquet, Delta Lake,
-                Scala, Python, Google BigQuery, Apache Airflow, Databricks,
-                Deequ, Amazon S3, AWS CloudFormation, Flyway, PostgreSQL, Java,
-                Spring Boot, Open API, Open Telemetry, Kubernetes, Scalyr,
-                Lightstep, and Grafana. Helped ingest data from different
-                systems and optimize the data pipeline.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major Automobile Manufacturer Company
-              </h4>
-              <p className="dark:text-gray-300">
-                Developer for 6 months, working on a header component for an
-                entire application ecosystem with micro frontend architecture
-                using TypeScript, StencilJS, Terraform, AWS, CodePipeline,
-                JFrog, Verizon, and BrowserStack.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major Cash and Carry Logistic Company
-              </h4>
-              <p className="dark:text-gray-300">
-                During a 12-month tenure as a Developer, designed and
-                implemented an automated secrets loading and management system
-                using Golang, Groovy, React, Redux, Cassandra, PostgreSQL,
-                Kubernetes, HashiCorp Vault, Consul, Ansible, and Jenkins (4
-                months), and engineered an SRE reliability monitoring tool to
-                calculate and visualize service health metrics utilizing Golang,
-                React, Redux, Cypress, Cassandra, ELK Stack, Kubernetes, API
-                Blueprints, Docker Swarm, and Jenkins (8 months).
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Commercial Mortgage and Financial Services Firm
-              </h4>
-              <p className="dark:text-gray-300">
-                Developer for 4 months, building a banking mobile app,
-                microservices, and a build pipeline using Swift, DotNet Core,
-                API Blueprints, Docker Stack, Jenkins, CentOS, Redis, ELK Stack,
-                and Sonar.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major Insurance Company
-              </h4>
-              <p className="dark:text-gray-300">
-                Developer for 4 months, building a loan application web page
-                using React, Redux, Gradle, Spark Java, JWT, API Blueprints,
-                PostgreSQL, Docker Stack, Terraform, GoCD Server, CoreOS, ELK
-                Stack, Pinpoint, Traefik, Sonar, and Prometheus.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major Car Rental Company
-              </h4>
-              <p className="dark:text-gray-300">
-                Developer for 1 week, building monitoring web pages with React
-                and Redux for a rich interface for end users.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Healthcare Community
-              </h4>
-              <p className="dark:text-gray-300">
-                Developer for 3 months, building a community-driven terminology
-                management system with Python, Flask, Django, Grunt, AngularJS,
-                PhantomJS, Docker Compose, Apache Solr, and MongoDB. Developed a
-                web page and REST API to facilitate monitoring, evaluation, and
-                performance improvement across healthcare and public health
-                systems.
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-semibold mb-2 dark:text-gray-200">
-              Other Experience
-            </h3>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Major Finance and Insurance Company
-              </h4>
-              <p className="dark:text-gray-300">April 2015 - December 2016</p>
-              <p className="dark:text-gray-300">
-                Developed core banking customer portfolio web applications using
-                GWT, HTML5, CSS, Twitter Bootstrap, JavaScript, JSON, and AJAX.
-                Also developed core banking customer query and customer
-                management SOAP web services using Java EE, Maven, Spring, SOA,
-                IBM AIX, DB2, and Websphere Application Servers.
-              </p>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="font-semibold dark:text-gray-100">
-                Software & Consultancy Company
-              </h4>
-              <p className="dark:text-gray-300">July 2011 - April 2014</p>
-              <p className="dark:text-gray-300">
-                Developed core banking customer query and customer management
-                SOAP web services using Java EE, Maven, Spring, SOA, IBM AIX,
-                DB2, and Websphere Application Servers. Also, developed a data
-                management pipeline using SAS language and SAS Data Management
-                Servers.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -359,12 +175,21 @@ const MePage = () => {
         id="skills"
         className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6"
       >
-        <h2 className="text-2xl font-bold mb-4 dark:text-gray-300">Skills</h2>
-        <div className="space-y-4 dark:text-gray-200">
+        <AnchorHeading id="skills" className="text-2xl font-bold mb-4 dark:text-gray-300">Skills</AnchorHeading>
+        <div className="space-y-4">
           {SKILL_CATEGORIES_SORTED.map(({ label, items }) => (
-            <div key={label}>
-              <h3 className="font-semibold">{label}:</h3>
-              <p>{items.join(", ")}</p>
+            <div key={label} className="print:break-inside-avoid">
+              <h3 className="font-semibold mb-1.5 dark:text-gray-200">{label}</h3>
+              <div className="flex flex-wrap gap-1.5">
+                {items.map((item) => (
+                  <span
+                    key={item}
+                    className="inline-block px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
         </div>

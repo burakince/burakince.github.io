@@ -18,6 +18,11 @@ export function getPostBySlug(slug: string): Post {
   return { ...data, slug: realSlug, content } as Post;
 }
 
+export function getAllTags(): string[] {
+  const tagSet = new Set(getAllPosts().flatMap((p) => p.tags ?? []));
+  return Array.from(tagSet).sort((a, b) => a.localeCompare("en"));
+}
+
 export function getAllPosts(): Post[] {
   const slugs = getPostSlugs();
   const posts = slugs

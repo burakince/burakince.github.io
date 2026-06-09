@@ -61,3 +61,105 @@
     background-color: #2f1e2e; /* paraiso-dark */
   }
 }
+
+@page {
+  margin: 1.5cm 1cm;
+}
+
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+    margin: 0;
+    font-size: 10.5pt;
+  }
+
+  .container {
+    padding-inline: 0 !important;
+    max-width: none !important;
+  }
+
+  /* strip card chrome so /me/ prints as a clean white CV */
+  #profile,
+  #experience,
+  #skills {
+    background: white !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin-bottom: 0.5rem !important;
+    padding: 0 !important;
+  }
+
+  /* override dark mode: force all text to black regardless of color scheme */
+  #profile *,
+  #experience *,
+  #skills * {
+    color: black !important;
+  }
+
+  /* fix experience entry left border color in dark mode */
+  #experience .border-l-2 {
+    border-color: #e2e8f0 !important;
+  }
+
+  /* visual separator for section headings */
+  #experience h2,
+  #skills h2 {
+    border-top: 1.5px solid #cbd5e1;
+    padding-top: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  /* skills: strip chip styling, render as comma-separated inline text */
+  #skills h3 + div {
+    display: block;
+  }
+  #skills h3 + div span {
+    display: inline;
+    background: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    font-size: inherit;
+  }
+  #skills h3 + div span::after {
+    content: ", ";
+  }
+  #skills h3 + div span:last-child::after {
+    content: "";
+  }
+
+  /* skills: 2-column layout to halve vertical space */
+  #skills .space-y-4 {
+    column-count: 2;
+    column-gap: 2rem;
+  }
+  #skills .space-y-4 > div {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-top: 0 !important;
+    margin-bottom: 0.5rem;
+  }
+
+  /* navy accent colors — higher specificity beats the blanket black rule above */
+  #experience h2 a,
+  #skills h2 a {
+    color: #1e3a5f !important;
+  }
+
+  #skills h3 {
+    color: #1e3a5f !important;
+  }
+
+  #experience .border-l-2 {
+    border-color: #1d4ed8 !important;
+  }
+
+  /* contact row: text stays dark navy, icons get a lighter blue via direct fill */
+  #profile a {
+    color: #1e3a5f !important;
+  }
+  #profile a svg,
+  #profile a svg * {
+    fill: #60a5fa !important;
+  }
+}
