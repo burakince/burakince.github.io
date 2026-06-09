@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
-import { Person, ProfilePage, WithContext } from "schema-dts";
+import { EducationalOccupationalCredential, Person, ProfilePage, WithContext } from "schema-dts";
+import { CERTIFICATES } from "@/lib/certifications";
 import JsonLd from "@/app/_components/json-ld";
 import { orgJsonLd } from "@/lib/schema";
 import { ALL_SKILLS_SORTED, SKILL_CATEGORIES_SORTED } from "@/lib/skills";
@@ -13,6 +14,9 @@ import WebIcon from "@/app/_components/social-icons/web.svg";
 import GmailIcon from "@/app/_components/social-icons/gmail.svg";
 import LinkedinIcon from "@/app/_components/social-icons/linkedin.svg";
 import GithubIcon from "@/app/_components/social-icons/github.svg";
+import CredlyIcon from "@/app/_components/social-icons/credly.svg";
+import MicrosoftLearnIcon from "@/app/_components/social-icons/microsoftlearn.svg";
+import GoogleIcon from "@/app/_components/social-icons/google.svg";
 
 const PROFESSIONAL_START = { year: 2012, month: 7 };
 const PROGRAMMING_START = { year: 2001, month: 1 };
@@ -59,8 +63,25 @@ const MePage = () => {
       SITE_METADATA.bluesky,
       SITE_METADATA.keybase,
       SITE_METADATA.huggingface,
+      SITE_METADATA.credly,
+      SITE_METADATA.microsoftLearn,
+      SITE_METADATA.googleSkills,
     ],
     knowsAbout: [...ALL_SKILLS_SORTED],
+    hasCredential: CERTIFICATES.map(
+      (cert) =>
+        ({
+          "@type": "EducationalOccupationalCredential",
+          name: cert.name,
+          url: cert.url,
+          credentialCategory: cert.type,
+          recognizedBy: {
+            "@type": "Organization",
+            name: cert.issuer,
+            url: cert.issuerUrl,
+          },
+        }) as EducationalOccupationalCredential
+    ),
   };
 
   const structuredData: WithContext<ProfilePage> = {
@@ -121,6 +142,7 @@ const MePage = () => {
               <span className="text-xs text-slate-400 dark:text-slate-500">Jump to:</span>
               <Link href="#experience" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Experience</Link>
               <Link href="#skills" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Skills</Link>
+              <Link href="#certifications" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Certifications</Link>
             </div>
             <div className="hidden print:flex flex-wrap gap-x-5 gap-y-1.5 mt-3 text-sm text-slate-600">
               <a href={SITE_METADATA.siteUrl} className="inline-flex items-center gap-1.5">
@@ -173,7 +195,7 @@ const MePage = () => {
 
       <section
         id="skills"
-        className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6"
+        className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 mb-8"
       >
         <AnchorHeading id="skills" className="text-2xl font-bold mb-4 dark:text-gray-300">Skills</AnchorHeading>
         <div className="space-y-4">
@@ -192,6 +214,78 @@ const MePage = () => {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+      <section
+        id="certifications"
+        className="bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 print:hidden"
+      >
+        <AnchorHeading id="certifications" className="text-2xl font-bold mb-4 dark:text-gray-300">Certifications &amp; Learning</AnchorHeading>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <a
+            href={SITE_METADATA.credly}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-4 p-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-violet-400 dark:hover:border-violet-500 transition-colors"
+          >
+            <CredlyIcon className="fill-current text-gray-700 dark:text-gray-200 size-8 shrink-0" aria-hidden="true" />
+            <div>
+              <p className="font-semibold dark:text-gray-100">Credly</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Verified badges &amp; certifications</p>
+            </div>
+          </a>
+          <a
+            href={SITE_METADATA.microsoftLearn}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-4 p-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-violet-400 dark:hover:border-violet-500 transition-colors"
+          >
+            <MicrosoftLearnIcon className="fill-current text-gray-700 dark:text-gray-200 size-8 shrink-0" aria-hidden="true" />
+            <div>
+              <p className="font-semibold dark:text-gray-100">Microsoft Learn</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Courses and learning paths</p>
+            </div>
+          </a>
+          <a
+            href={SITE_METADATA.googleSkills}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-4 p-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-violet-400 dark:hover:border-violet-500 transition-colors"
+          >
+            <GoogleIcon className="fill-current text-gray-700 dark:text-gray-200 size-8 shrink-0" aria-hidden="true" />
+            <div>
+              <p className="font-semibold dark:text-gray-100">Google Skills</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Google career certificates &amp; badges</p>
+            </div>
+          </a>
+        </div>
+        <div className="space-y-4">
+          {(["specialization", "course"] as const).map((type) => {
+            const items = CERTIFICATES.filter((c) => c.type === type);
+            if (items.length === 0) return null;
+            return (
+              <div key={type}>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+                  {type === "specialization" ? "Specializations" : "Courses"}
+                </h3>
+                <ul className="space-y-1">
+                  {items.map((cert) => (
+                    <li key={cert.url} className="flex items-baseline gap-2">
+                      <a
+                        href={cert.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-slate-700 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 hover:underline"
+                      >
+                        {cert.name}
+                      </a>
+                      <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0">— {cert.issuer}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </section>
       <JsonLd data={structuredData} />

@@ -19,6 +19,9 @@ export const SITE_METADATA = {
   huggingface: "https://huggingface.co/burakince",
   linkedin: "https://www.linkedin.com/in/inceburak/",
   bluesky: "https://bsky.app/profile/burakince.bsky.social",
+  credly: "https://www.credly.com/users/burakince",
+  microsoftLearn: "https://learn.microsoft.com/en-us/users/burakince/",
+  googleSkills: "https://www.skills.google/public_profiles/44f6ba93-c69f-4284-9bba-724b1e998488",
   keywords: [
     "latest tech trends",
     "technology updates",
