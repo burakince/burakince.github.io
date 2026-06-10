@@ -8,7 +8,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 
 import "@/app/globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const viewport: Viewport = {
   themeColor: [

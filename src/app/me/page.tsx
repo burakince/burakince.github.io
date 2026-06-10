@@ -177,9 +177,9 @@ const MePage = () => {
               <h3 className="text-xl font-semibold mb-2 dark:text-gray-200">
                 {group.heading}
               </h3>
-              {group.entries.map((entry) => (
+              {group.entries.map((entry, index) => (
                 <div
-                  key={entry.title}
+                  key={`${group.heading}-${index}`}
                   className="pl-4 border-l-2 border-slate-200 dark:border-slate-700 mb-5 print:break-inside-avoid"
                 >
                   <h4 className="font-semibold dark:text-gray-100">

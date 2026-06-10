@@ -6,7 +6,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogPosting, Person, WithContext } from "schema-dts";
 import { orgJsonLd } from "@/lib/schema";
-import "../post.css";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
@@ -14,6 +13,7 @@ import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
 import yaml from "highlight.js/lib/languages/yaml";
 import ArticleContent from "@/app/post/_components/article-content";
+import TableOfContents from "@/app/post/_components/table-of-contents";
 import JsonLd from "@/app/_components/json-ld";
 import { Params } from "@/interfaces/post";
 import { generateImage } from "@/lib/og-generator";
@@ -73,7 +73,7 @@ const PostPage = async ({ params }: { params: Params }) => {
     keywords: post.tags?.join(", "),
   };
 
-  const content = await markdownToHtml(post.content || "");
+  const { html, headings } = await markdownToHtml(post.content || "");
 
   return (
     <div>
@@ -94,8 +94,9 @@ const PostPage = async ({ params }: { params: Params }) => {
           </div>
         )}
       </div>
+      <TableOfContents headings={headings} />
       <article className="prose dark:prose-invert lg:prose-xl mx-auto">
-        <ArticleContent html={content} />
+        <ArticleContent html={html} />
       </article>
       <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-wrap gap-4 items-center justify-between">
         <Link href="/" className="text-sm text-slate-500 hover:text-violet-600 dark:text-slate-400 dark:hover:text-violet-400 transition-colors">
