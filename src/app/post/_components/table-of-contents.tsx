@@ -23,9 +23,9 @@ export default function TableOfContents({ headings }: Props) {
           >
             <a
               href={`#${heading.id}`}
-              className={`text-violet-600 dark:text-violet-400 hover:underline ${
+              className={`text-violet-800 dark:text-violet-400 hover:underline ${
                 heading.level === 3
-                  ? "text-xs text-slate-600 dark:text-slate-400"
+                  ? "text-xs text-slate-700 dark:text-slate-400"
                   : ""
               }`}
             >

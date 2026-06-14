@@ -90,7 +90,7 @@ const PostPage = async ({ params }: { params: Params }) => {
         <h1 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-snug">
           {post.title}
         </h1>
-        <p className="text-slate-400 text-sm mb-4">
+        <p className="text-slate-300 text-sm mb-4">
           <DateFormatter dateString={post.date} />
           <span className="mx-2">·</span>
           {readingTime(post.content)} min read
@@ -123,7 +123,7 @@ const PostPage = async ({ params }: { params: Params }) => {
         </a>
       </div>
       <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-wrap gap-4 items-center justify-between">
-        <Link href="/" className="text-sm text-slate-500 hover:text-violet-600 dark:text-slate-400 dark:hover:text-violet-400 transition-colors">
+        <Link href="/" className="text-sm text-slate-600 hover:text-violet-600 dark:text-slate-400 dark:hover:text-violet-400 transition-colors">
           ← All Posts
         </Link>
         {post.tags && post.tags.length > 0 && (

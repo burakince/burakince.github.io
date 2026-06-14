@@ -77,6 +77,7 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
   - `_components/` — Header, footer, container, post-preview, OG template, JSON-LD, social icons, date formatter; also:
     - `nav-links.tsx` — `"use client"` NavLinks with `usePathname`-based active-state highlighting; renders Latest Posts / Tags / About nav
     - `pagination.tsx` — Prev/Next pagination for multi-page listings; page 2 prev links to `/`, not `/page/1/`
+    - `date-formatter.tsx` — renders a `<time>` element with **no text-color class**; it inherits color from its parent container. Do not apply a color class directly to `DateFormatter` — set it on the parent element instead.
     - `tag-chip.tsx` — Pill link to `/tag/[tag]/`; accepts `size="sm"|"md"`
   - `post/[slug]/page.tsx` — Dynamic post page; uses `generateStaticParams` to enumerate all posts
   - `post/_components/article-content.tsx` — `"use client"` component that renders post HTML via `dangerouslySetInnerHTML`, injects `.copy-btn` buttons into every `pre:has(code)` block after hydration, and handles clicks via `document`-level event delegation. Mermaid SVG blocks (`<svg>`) are not affected. Styles for `.copy-btn` live in `post/post.css`.
@@ -127,17 +128,20 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 
 - **WCAG 1.1.1 A — Non-text content**: Inline SVGs with `role="graphics-document"` (emitted by Mermaid) need an accessible name via `aria-label` or a `<title>` child. The `rehypeMermaidA11y` plugin handles this automatically for all Mermaid diagrams.
 
-- **WCAG 1.4.3 AA — Contrast minimum**: Normal-weight text under 18pt requires a 4.5:1 ratio against its background. On the site's `bg-slate-100` body background, `text-slate-400` (2.4:1) and `text-slate-500` (4.35:1) both fail. **`text-slate-600` is the minimum safe Tailwind class for secondary/muted text on light backgrounds.** `text-slate-500` only passes on explicit `bg-white` surfaces (~5.8:1). Dark-mode equivalents (`dark:text-slate-400`) pass on `dark:bg-slate-800` (~4.8:1) and need no change.
+- **WCAG 1.4.3 AA — Contrast minimum**: Normal-weight text under 18pt requires a 4.5:1 ratio against its background. On the site's `bg-slate-100` body background, `text-slate-400` (2.4:1) and `text-slate-500` (4.35:1) both fail AA. **`text-slate-600` is the minimum safe Tailwind class for secondary/muted text on `bg-slate-100`.** `text-slate-500` only passes AA on explicit `bg-white` surfaces (~5.8:1) but still fails AAA there. Dark-mode equivalents (`dark:text-slate-400`) pass on `dark:bg-slate-800` (~4.8:1) and need no change.
 
 - **WCAG F24 — Incomplete color pair**: If CSS sets `background-color` on `<body>`, it must also set `color` explicitly (browser defaults don't count). The `<body>` in `src/app/layout.tsx` carries `text-gray-900 dark:text-gray-100` alongside `bg-slate-100 dark:bg-slate-800` for this reason.
 
 - **WCAG F22 / 3.2.5 AAA — New-window warning**: Every `target="_blank"` link must inform screen-reader users it opens in a new tab. Pattern: for icon-only links, update the `sr-only` span text directly (e.g. `"github (opens in a new tab)"`). For links with visible text, append `<span className="sr-only"> (opens in a new tab)</span>` as the last child inside the `<a>`. Affected locations in this codebase: footer social icons, `me/page.tsx` platform cards and cert list, post share buttons.
 
 - **WCAG 1.4.6 AAA — Enhanced contrast (7:1)**: AAA requires 7:1 vs AA's 4.5:1 for normal-weight text under 18pt. Safe Tailwind classes confirmed for this site's palette:
+  - `text-slate-300` → ~9.7:1 on dark gradient `from-slate-800 to-slate-900` (post header date/reading-time)
   - `text-slate-300` → 9.1:1 on `bg-slate-800` (dark header subtitle)
   - `text-violet-200` → 9.9:1 on `bg-slate-800` (active nav link on dark header)
-  - `text-slate-600` → 7.6:1 on `bg-white` (muted text on white card backgrounds)
-  - `text-violet-700` → 7.1:1 on `bg-white` (brand-coloured links on white)
+  - `text-slate-600` → 7.84:1 on `bg-white` (muted text on white card backgrounds; also the AAA minimum on white)
+  - `text-slate-700` → 8.85:1 on `bg-slate-100` (secondary text on body background; `text-slate-600` = 6.92:1 on slate-100, which fails AAA by 0.08)
+  - `text-violet-700` → 7.14:1 on `bg-white` (brand-coloured links on white)
+  - `text-violet-800` → 8.24:1 on `bg-slate-100` (TOC links on body background)
   - `text-violet-800` → 7.6:1 on `bg-violet-100` (TagChip text on violet pill background)
 
 - **HAST property-name gotcha**: When writing rehype plugins, HAST property names do not always follow simple camelCase. Look up the correct name before using it — a wrong name silently does nothing:
@@ -154,7 +158,7 @@ The production bundler is **Lightning CSS** (via `@tailwindcss/postcss`). Severa
 
 2. **Bare string imports for npm packages**: Always use `@import 'package/path'` — never `@import url('package/path')`. Lightning CSS treats `url()` as a remote URL fetch and silently skips npm package paths in production.
 
-3. **`@tailwindcss/typography` vs highlight.js**: The highlight.js theme stylesheets (`paraiso-dark` / `paraiso-light`) live in `src/app/post/post.css`, which is imported only by `src/app/post/[slug]/page.tsx` so they don't bloat the global bundle. The typography plugin resets `pre code { background-color: transparent; color: inherit }`. To prevent this from overriding highlight.js token colours, the background overrides stay in `globals.css` using higher-specificity selectors (e.g. `.prose pre code.hljs { ... }` has specificity 0,4,0 vs typography's `:where()` selectors at 0,1,0). Never move those overrides to `post.css` — they must load on every page to prevent a flash of unstyled code on first navigation.
+3. **`@tailwindcss/typography` vs highlight.js**: The highlight.js theme stylesheets (`a11y-dark` / `a11y-light`) are imported at the top of `src/app/globals.css` — there is no separate `post.css`. The themes were chosen specifically because all their token colors pass WCAG AA (4.5:1) against their own backgrounds (`#2b2b2b` / `#fefefe`). The typography plugin resets `pre code { background-color: transparent; color: inherit }`. To prevent this from overriding highlight.js token colours, the background overrides stay in `globals.css` using higher-specificity selectors (e.g. `.prose pre code.hljs { ... }` has specificity 0,4,0 vs typography's `:where()` selectors at 0,1,0) with values `#2b2b2b` (dark) and `#fefefe` (light). Never move those overrides elsewhere — they must load on every page to prevent a flash of unstyled code on first navigation.
 
 4. **TypeScript 6 CSS imports**: TypeScript 6 requires a type declaration for side-effect CSS imports. `declare module "*.css"` is in `src/interfaces/svgr.d.ts`.
 

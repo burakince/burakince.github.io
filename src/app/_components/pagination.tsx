@@ -14,7 +14,7 @@ const Pagination = ({ currentPage, totalPages, totalPosts }: Props) => {
   const baseBtn =
     "px-4 py-2 rounded-md text-sm font-medium border transition-colors";
   const activeBtn = `${baseBtn} border-violet-400 text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-slate-800`;
-  const disabledBtn = `${baseBtn} border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 cursor-default`;
+  const disabledBtn = `${baseBtn} border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 cursor-default`;
 
   return (
     <nav
@@ -29,7 +29,7 @@ const Pagination = ({ currentPage, totalPages, totalPosts }: Props) => {
         <span className={disabledBtn}>← Prev</span>
       )}
 
-      <span className="text-sm text-slate-600 dark:text-slate-400">
+      <span className="text-sm text-slate-700 dark:text-slate-400">
         Page {currentPage} of {totalPages}
         {totalPosts !== undefined && ` · ${totalPosts} posts`}
       </span>

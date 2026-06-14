@@ -127,9 +127,9 @@ const MePage = () => {
             </div>
             <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-4 print:hidden">
               <span className="text-xs text-slate-600 dark:text-slate-400">Jump to:</span>
-              <Link href="#experience" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Experience</Link>
-              <Link href="#skills" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Skills</Link>
-              <Link href="#certifications" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Certifications</Link>
+              <Link href="#experience" className="text-xs text-violet-700 dark:text-violet-400 hover:underline">Experience</Link>
+              <Link href="#skills" className="text-xs text-violet-700 dark:text-violet-400 hover:underline">Skills</Link>
+              <Link href="#certifications" className="text-xs text-violet-700 dark:text-violet-400 hover:underline">Certifications</Link>
             </div>
             <div className="hidden print:flex flex-wrap gap-x-5 gap-y-1.5 mt-3 text-sm text-slate-600">
               <a href={withTrailingSlash(SITE_METADATA.siteUrl)} className="inline-flex items-center gap-1.5">
@@ -218,7 +218,7 @@ const MePage = () => {
             <CredlyIcon className="fill-current text-gray-700 dark:text-gray-200 size-8 shrink-0" aria-hidden="true" />
             <div>
               <p className="font-semibold dark:text-gray-100">Credly</p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Verified badges &amp; certifications</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Verified badges &amp; certifications</p>
             </div>
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
@@ -231,7 +231,7 @@ const MePage = () => {
             <MicrosoftLearnIcon className="fill-current text-gray-700 dark:text-gray-200 size-8 shrink-0" aria-hidden="true" />
             <div>
               <p className="font-semibold dark:text-gray-100">Microsoft Learn</p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Courses and learning paths</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Courses and learning paths</p>
             </div>
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
@@ -244,7 +244,7 @@ const MePage = () => {
             <GoogleIcon className="fill-current text-gray-700 dark:text-gray-200 size-8 shrink-0" aria-hidden="true" />
             <div>
               <p className="font-semibold dark:text-gray-100">Google Skills</p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Google career certificates &amp; badges</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Google career certificates &amp; badges</p>
             </div>
             <span className="sr-only"> (opens in a new tab)</span>
           </a>

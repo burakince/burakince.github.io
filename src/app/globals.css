@@ -1,6 +1,6 @@
 @import 'tailwindcss';
-@import 'highlight.js/styles/paraiso-dark.css' screen and (prefers-color-scheme: dark);
-@import 'highlight.js/styles/paraiso-light.css' screen and (prefers-color-scheme: light);
+@import 'highlight.js/styles/a11y-dark.css' screen and (prefers-color-scheme: dark);
+@import 'highlight.js/styles/a11y-light.css' screen and (prefers-color-scheme: light);
 @plugin "@tailwindcss/typography";
 
 @utility container {
@@ -55,12 +55,12 @@
 
 .prose pre code.hljs {
   border-radius: 0.375rem;
-  background-color: #e7e9db; /* paraiso-light */
+  background-color: #fefefe; /* a11y-light */
 }
 
 @media (prefers-color-scheme: dark) {
   .prose pre code.hljs {
-    background-color: #2f1e2e; /* paraiso-dark */
+    background-color: #2b2b2b; /* a11y-dark */
   }
 }
 
