@@ -22,6 +22,9 @@ import TagChip from "@/app/_components/tag-chip";
 import Link from "next/link";
 import { readingTime } from "@/lib/reading-time";
 import { withTrailingSlash } from "@/lib/url";
+import XIcon from "@/app/_components/social-icons/x.svg";
+import LinkedinIcon from "@/app/_components/social-icons/linkedin.svg";
+import BlueskyIcon from "@/app/_components/social-icons/bluesky.svg";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("typescript", typescript);
@@ -76,6 +79,11 @@ const PostPage = async ({ params }: { params: Params }) => {
 
   const { html, headings } = await markdownToHtml(post.content || "");
 
+  const postUrl = withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${slug}`);
+  const xShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`;
+  const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`;
+  const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${post.title} ${postUrl}`)}`;
+
   return (
     <div>
       <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-md px-8 py-12 mb-8 text-center">
@@ -99,6 +107,21 @@ const PostPage = async ({ params }: { params: Params }) => {
       <article className="prose dark:prose-invert lg:prose-xl mx-auto">
         <ArticleContent html={html} />
       </article>
+      <div className="mt-8 flex items-center gap-3">
+        <span className="text-sm text-slate-500 dark:text-slate-400">Share:</span>
+        <a href={xShareUrl} target="_blank" rel="noopener noreferrer" title="Share on X">
+          <span className="sr-only">Share on X</span>
+          <XIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-5" />
+        </a>
+        <a href={linkedinShareUrl} target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
+          <span className="sr-only">Share on LinkedIn</span>
+          <LinkedinIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-5" />
+        </a>
+        <a href={blueskyShareUrl} target="_blank" rel="noopener noreferrer" title="Share on Bluesky">
+          <span className="sr-only">Share on Bluesky</span>
+          <BlueskyIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-5" />
+        </a>
+      </div>
       <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-wrap gap-4 items-center justify-between">
         <Link href="/" className="text-sm text-slate-500 hover:text-violet-600 dark:text-slate-400 dark:hover:text-violet-400 transition-colors">
           ← All Posts

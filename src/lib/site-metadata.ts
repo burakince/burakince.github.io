@@ -8,7 +8,7 @@ export const SITE_METADATA = {
     logo: "https://www.thoughtworks.com/etc.clientlibs/thoughtworks/clientlibs/clientlib-site/resources/images/thoughtworks-logo.svg",
   },
   description:
-    "Discover the latest in technology, software development, and AI trends with Burak's in-depth analysis and expert insights.",
+    "Discover the latest in technology, software development, and AI trends with Burak Ince's expert insights. Covering cloud-native engineering, data platforms, and AI solutions for software professionals.",
   siteUrl: "https://www.burakince.com",
   siteRepo: "https://github.com/burakince/burakince.github.io",
   locale: "en-US",
