@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
-import { EducationalOccupationalCredential, Person, ProfilePage, WithContext } from "schema-dts";
+import { Person, ProfilePage, WithContext } from "schema-dts";
 import { CERTIFICATES } from "@/lib/certifications";
 import JsonLd from "@/app/_components/json-ld";
 import { orgJsonLd } from "@/lib/schema";
@@ -68,20 +68,6 @@ const MePage = () => {
       SITE_METADATA.googleSkills,
     ],
     knowsAbout: [...ALL_SKILLS_SORTED],
-    hasCredential: CERTIFICATES.map(
-      (cert) =>
-        ({
-          "@type": "EducationalOccupationalCredential",
-          name: cert.name,
-          url: cert.url,
-          credentialCategory: cert.type,
-          recognizedBy: {
-            "@type": "Organization",
-            name: cert.issuer,
-            url: cert.issuerUrl,
-          },
-        }) as EducationalOccupationalCredential
-    ),
   };
 
   const structuredData: WithContext<ProfilePage> = {
