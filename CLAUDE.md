@@ -120,6 +120,7 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 - **Heading hierarchy**: The site Header renders the site title as `<p>` (not `<h1>`) so each page owns its own `<h1>`. Every page must have exactly one `<h1>` describing its main content (post title, person name, section heading, etc.).
 - **List element semantics**: `<dl>` requires `<dt>`+`<dd>` pairs — a `<dl>` with bare `<dd>` children is invalid HTML. Use `<ul>`/`<li>` for plain item lists (tag index, post lists, etc.).
 - **Image dimensions**: The `rehypeImgSize` plugin automatically injects `width`/`height` on all local `<img>` tags in Markdown posts at build time — no manual attributes needed in post content. For Next.js `<Image>` components in source files, `width` and `height` props must match the actual file dimensions (use `sharp` or `file` to check); declaring wrong dimensions causes CLS and validator warnings.
+- **Minimum font size**: Body/content text must be at least 12pt (16px = `text-base`). `text-sm` = 14px = 10.5pt — do not use it for paragraph or description content. It is acceptable only for secondary metadata (dates, reading-time, tag counts) that is clearly supplementary. `text-xs` = 12px = 9pt is at the hard minimum and should not be used for content.
 - **`next-sitemap` transform paths**: The `url` parameter in the `transform` function is a path (e.g. `/`, `/me/`), not a full URL. Do not compare against `config.siteUrl`.
 
 ### Accessibility
