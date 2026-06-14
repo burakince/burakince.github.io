@@ -88,7 +88,7 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
   - `me/_components/print-icon-button.tsx` — `"use client"` print button that calls `window.print()`; hidden in print
 - `src/lib/` — Core utilities
   - `api.ts` — Filesystem helpers (`getAllPosts`, `getPostBySlug`, `getAllTags`) that read `_posts/`; `getAllTags` returns a sorted deduplicated list of every tag found across all posts
-  - `markdownToHtml.ts` — Unified/remark/rehype pipeline with `rehype-highlight` for syntax highlighting
+  - `markdownToHtml.ts` — Unified/remark/rehype pipeline with `rehype-highlight` for syntax highlighting. Custom plugins: `rehypeMermaidA11y` (aria-label on Mermaid SVGs), `rehypeHeadings` (IDs for TOC), `rehypeImgSize` (injects `width`/`height` on local `<img>` elements at build time via `sharp`), `rehypeLazyImages` (adds `loading="lazy"`).
   - `og-generator.ts` — Generates OG images as PNGs using satori + resvg-js; images are written to `public/assets/blog/og-images/` and skipped if already present
   - `site-metadata.ts` — Single source of truth for site-wide config (author, URLs, analytics ID)
   - `schema.ts` — Shared `orgJsonLd` (`Organization` JSON-LD object) used across all three page files
@@ -119,6 +119,7 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 - **Twitter metadata**: Unlike `openGraph`, `twitter.title` and `twitter.description` are merged from the root layout into child pages. The layout sets defaults; override per-page where needed.
 - **Heading hierarchy**: The site Header renders the site title as `<p>` (not `<h1>`) so each page owns its own `<h1>`. Every page must have exactly one `<h1>` describing its main content (post title, person name, section heading, etc.).
 - **List element semantics**: `<dl>` requires `<dt>`+`<dd>` pairs — a `<dl>` with bare `<dd>` children is invalid HTML. Use `<ul>`/`<li>` for plain item lists (tag index, post lists, etc.).
+- **Image dimensions**: The `rehypeImgSize` plugin automatically injects `width`/`height` on all local `<img>` tags in Markdown posts at build time — no manual attributes needed in post content. For Next.js `<Image>` components in source files, `width` and `height` props must match the actual file dimensions (use `sharp` or `file` to check); declaring wrong dimensions causes CLS and validator warnings.
 - **`next-sitemap` transform paths**: The `url` parameter in the `transform` function is a path (e.g. `/`, `/me/`), not a full URL. Do not compare against `config.siteUrl`.
 
 ### Accessibility
