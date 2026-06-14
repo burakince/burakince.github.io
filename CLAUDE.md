@@ -106,7 +106,7 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 - **Pagination**: The home page (`/`) always shows the first page of posts. Pages 2+ are at `/page/[n]/` and rendered by `src/app/page/[page]/page.tsx`. `POSTS_PER_PAGE = 4` is defined there. The `Pagination` component hard-codes the prev link on page 2 to `/` (not `/page/1/`), so do not create a `/page/1/` route.
 - **Tag routing**: Tags in post front matter drive `/tag/` and `/tag/[tag]/` routes. `getAllTags()` in `api.ts` aggregates tags across all posts. Add new tags by including them in a post's `tags:` array; no other registration is needed.
 - **OG image caching**: `og-generator.ts` checks whether the PNG already exists before generating. During development this can mean stale images; delete `public/assets/blog/og-images/` to force regeneration.
-- **Mermaid diagrams**: `rehype-mermaid` (with `strategy: "inline-svg"`) renders ` ```mermaid ` fences to inline SVG at build time. It runs before `rehype-highlight` in the pipeline. The underlying `mermaid-isomorphic` package requires Playwright Chromium as a build-time renderer (not a test tool). `playwright`, `mermaid-isomorphic`, and `rehype-mermaid` are listed in `serverExternalPackages` in `next.config.mjs` to prevent Turbopack from bundling them. The CI workflow installs Chromium via `npx playwright install chromium --with-deps` before `npm run build`.
+- **Mermaid diagrams**: `rehype-mermaid` (with `strategy: "inline-svg"`) renders ` ```mermaid ` fences to inline SVG at build time. It runs before `rehype-highlight` in the pipeline. The underlying `mermaid-isomorphic` package requires Playwright Chromium as a build-time renderer (not a test tool). `playwright`, `mermaid-isomorphic`, and `rehype-mermaid` are listed in `serverExternalPackages` in `next.config.mjs` to prevent Turbopack from bundling them. The CI workflow installs Chromium via `npx playwright install chromium --with-deps` before `npm run build`. The `rehypeMermaidA11y` plugin (defined in `src/lib/markdownToHtml.ts`, runs immediately after `rehypeMermaid`) injects `aria-label` on each SVG using the nearest preceding heading text, satisfying **WCAG 1.1.1 A** — SVGs with `role="graphics-document"` require an accessible name.
 - **Bundler**: Next.js 16 uses **Turbopack** by default for both `next dev` and `next build`. There is no webpack config — SVG loading is handled via `turbopack.rules` in `next.config.mjs`. Do not add a `webpack()` callback; it will never be called.
 - **SVGs as React components**: SVG files are imported directly as React components via `@svgr/webpack` (configured under `turbopack.rules`). The glob key `"*.svg"` matches by filename, so it covers SVGs in any subdirectory.
 - **ESLint**: Uses ESLint 9 flat config (`eslint.config.mjs`) with `eslint-config-next/core-web-vitals` and `eslint-config-prettier/flat`. The lint script is `eslint .` — `next lint` no longer exists in Next.js 16. ESLint is pinned to `^9` because `typescript-eslint@8.x` (bundled in `eslint-config-next`) is incompatible with ESLint 10; revisit when `eslint-config-next` upgrades its bundled `typescript-eslint`.
@@ -119,6 +119,20 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 - **Twitter metadata**: Unlike `openGraph`, `twitter.title` and `twitter.description` are merged from the root layout into child pages. The layout sets defaults; override per-page where needed.
 - **Heading hierarchy**: The site Header renders the site title as `<p>` (not `<h1>`) so each page owns its own `<h1>`. Every page must have exactly one `<h1>` describing its main content (post title, person name, section heading, etc.).
 - **`next-sitemap` transform paths**: The `url` parameter in the `transform` function is a path (e.g. `/`, `/me/`), not a full URL. Do not compare against `config.siteUrl`.
+
+### Accessibility
+
+- **WCAG 1.1.1 A — Non-text content**: Inline SVGs with `role="graphics-document"` (emitted by Mermaid) need an accessible name via `aria-label` or a `<title>` child. The `rehypeMermaidA11y` plugin handles this automatically for all Mermaid diagrams.
+
+- **WCAG 1.4.3 AA — Contrast minimum**: Normal-weight text under 18pt requires a 4.5:1 ratio against its background. On the site's `bg-slate-100` body background, `text-slate-400` (2.4:1) and `text-slate-500` (4.35:1) both fail. **`text-slate-600` is the minimum safe Tailwind class for secondary/muted text on light backgrounds.** `text-slate-500` only passes on explicit `bg-white` surfaces (~5.8:1). Dark-mode equivalents (`dark:text-slate-400`) pass on `dark:bg-slate-800` (~4.8:1) and need no change.
+
+- **WCAG F24 — Incomplete color pair**: If CSS sets `background-color` on `<body>`, it must also set `color` explicitly (browser defaults don't count). The `<body>` in `src/app/layout.tsx` carries `text-gray-900 dark:text-gray-100` alongside `bg-slate-100 dark:bg-slate-800` for this reason.
+
+- **HAST property-name gotcha**: When writing rehype plugins, HAST property names do not always follow simple camelCase. Look up the correct name before using it — a wrong name silently does nothing:
+  ```bash
+  node -e "const pi = require('property-information'); console.log(pi.find(pi.svg, 'aria-roledescription'));"
+  # → { property: 'ariaRoleDescription', ... }   ← capital D, not 'ariaRoledescription'
+  ```
 
 ### CSS architecture in `globals.css`
 
