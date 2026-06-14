@@ -118,6 +118,7 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 - **Next.js `openGraph` merging**: A page-level `openGraph` export does NOT inherit `images`, `siteName`, or other sub-fields from the root layout. Only top-level `title`/`description` are auto-promoted. Always include all required OG fields explicitly in each page's `openGraph` object.
 - **Twitter metadata**: Unlike `openGraph`, `twitter.title` and `twitter.description` are merged from the root layout into child pages. The layout sets defaults; override per-page where needed.
 - **Heading hierarchy**: The site Header renders the site title as `<p>` (not `<h1>`) so each page owns its own `<h1>`. Every page must have exactly one `<h1>` describing its main content (post title, person name, section heading, etc.).
+- **List element semantics**: `<dl>` requires `<dt>`+`<dd>` pairs — a `<dl>` with bare `<dd>` children is invalid HTML. Use `<ul>`/`<li>` for plain item lists (tag index, post lists, etc.).
 - **`next-sitemap` transform paths**: The `url` parameter in the `transform` function is a path (e.g. `/`, `/me/`), not a full URL. Do not compare against `config.siteUrl`.
 
 ### Accessibility
