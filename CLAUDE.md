@@ -128,6 +128,15 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
 
 - **WCAG F24 — Incomplete color pair**: If CSS sets `background-color` on `<body>`, it must also set `color` explicitly (browser defaults don't count). The `<body>` in `src/app/layout.tsx` carries `text-gray-900 dark:text-gray-100` alongside `bg-slate-100 dark:bg-slate-800` for this reason.
 
+- **WCAG F22 / 3.2.5 AAA — New-window warning**: Every `target="_blank"` link must inform screen-reader users it opens in a new tab. Pattern: for icon-only links, update the `sr-only` span text directly (e.g. `"github (opens in a new tab)"`). For links with visible text, append `<span className="sr-only"> (opens in a new tab)</span>` as the last child inside the `<a>`. Affected locations in this codebase: footer social icons, `me/page.tsx` platform cards and cert list, post share buttons.
+
+- **WCAG 1.4.6 AAA — Enhanced contrast (7:1)**: AAA requires 7:1 vs AA's 4.5:1 for normal-weight text under 18pt. Safe Tailwind classes confirmed for this site's palette:
+  - `text-slate-300` → 9.1:1 on `bg-slate-800` (dark header subtitle)
+  - `text-violet-200` → 9.9:1 on `bg-slate-800` (active nav link on dark header)
+  - `text-slate-600` → 7.6:1 on `bg-white` (muted text on white card backgrounds)
+  - `text-violet-700` → 7.1:1 on `bg-white` (brand-coloured links on white)
+  - `text-violet-800` → 7.6:1 on `bg-violet-100` (TagChip text on violet pill background)
+
 - **HAST property-name gotcha**: When writing rehype plugins, HAST property names do not always follow simple camelCase. Look up the correct name before using it — a wrong name silently does nothing:
   ```bash
   node -e "const pi = require('property-information'); console.log(pi.find(pi.svg, 'aria-roledescription'));"
