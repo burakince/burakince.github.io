@@ -108,7 +108,7 @@ const PostPage = async ({ params }: { params: Params }) => {
         <ArticleContent html={html} />
       </article>
       <div className="mt-8 flex items-center gap-3">
-        <span className="text-sm text-slate-500 dark:text-slate-400">Share:</span>
+        <span className="text-sm text-slate-600 dark:text-slate-400">Share:</span>
         <a href={xShareUrl} target="_blank" rel="noopener noreferrer" title="Share on X">
           <span className="sr-only">Share on X</span>
           <XIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-5" />

@@ -29,17 +29,17 @@ const TagsIndexPage = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-2 dark:text-gray-300">Tags</h1>
-      <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">
+      <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
         Browse all topics. Click a tag to see related posts.
       </p>
-      <p className="text-xs text-slate-400 dark:text-slate-500 mb-6">
+      <p className="text-xs text-slate-600 dark:text-slate-400 mb-6">
         {tags.length} topics &middot; {allPosts.length} posts
       </p>
       <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3">
         {sortedTags.map((tag) => (
           <dd key={tag} className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
             <TagChip tag={tag} size={countByTag[tag] >= 3 ? "md" : "sm"} />
-            <span className="text-xs text-slate-400 dark:text-slate-500 tabular-nums">
+            <span className="text-xs text-slate-600 dark:text-slate-400 tabular-nums">
               {countByTag[tag]} {countByTag[tag] === 1 ? "post" : "posts"}
             </span>
           </dd>

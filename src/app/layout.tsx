@@ -137,7 +137,7 @@ export default function RootLayout({
         />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
-      <body className={`bg-slate-100 dark:bg-slate-800 ${inter.className}`}>
+      <body className={`bg-slate-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100 ${inter.className}`}>
         <Container>
           <div className="print:hidden"><Header /></div>
           <main>{children}</main>

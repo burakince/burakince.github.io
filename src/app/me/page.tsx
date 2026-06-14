@@ -126,7 +126,7 @@ const MePage = () => {
               ))}
             </div>
             <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-4 print:hidden">
-              <span className="text-xs text-slate-400 dark:text-slate-500">Jump to:</span>
+              <span className="text-xs text-slate-600 dark:text-slate-400">Jump to:</span>
               <Link href="#experience" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Experience</Link>
               <Link href="#skills" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Skills</Link>
               <Link href="#certifications" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Certifications</Link>
@@ -252,7 +252,7 @@ const MePage = () => {
             if (items.length === 0) return null;
             return (
               <div key={type}>
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                   {type === "specialization" ? "Specializations" : "Courses"}
                 </h3>
                 <ul className="space-y-1">
@@ -266,7 +266,7 @@ const MePage = () => {
                       >
                         {cert.name}
                       </a>
-                      <span className="text-xs text-slate-400 dark:text-slate-500 shrink-0">— {cert.issuer}</span>
+                      <span className="text-xs text-slate-600 dark:text-slate-400 shrink-0">— {cert.issuer}</span>
                     </li>
                   ))}
                 </ul>
