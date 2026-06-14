@@ -7,6 +7,9 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+import sharp from "sharp";
+import path from "path";
+import fs from "fs";
 
 export interface TocHeading {
   id: string;
@@ -48,6 +51,41 @@ const rehypeMermaidA11y: Plugin<[], Root> = function () {
       }
     }
     for (const child of tree.children) visit(child);
+  };
+};
+
+const rehypeImgSize: Plugin<[], Root> = function () {
+  return async function (tree) {
+    const tasks: Promise<void>[] = [];
+
+    function collect(node: Root | RootContent | ElementContent) {
+      if (node.type === "element") {
+        const el = node as Element;
+        if (el.tagName === "img") {
+          const src = el.properties?.src as string | undefined;
+          if (src && src.startsWith("/")) {
+            const filePath = path.join(process.cwd(), "public", src);
+            if (fs.existsSync(filePath)) {
+              tasks.push(
+                sharp(filePath)
+                  .metadata()
+                  .then(({ width, height }) => {
+                    if (width) el.properties!.width = width;
+                    if (height) el.properties!.height = height;
+                  })
+                  .catch(() => {})
+              );
+            }
+          }
+        }
+      }
+      if ("children" in node) {
+        for (const child of node.children) collect(child);
+      }
+    }
+
+    for (const child of tree.children) collect(child);
+    await Promise.all(tasks);
   };
 };
 
@@ -105,6 +143,7 @@ export default async function markdownToHtml(
     .use(rehypeMermaidA11y)
     .use(rehypeHeadings, headings)
     .use(rehypeHighlight)
+    .use(rehypeImgSize)
     .use(rehypeLazyImages)
     .use(rehypeStringify)
     .process(markdown);

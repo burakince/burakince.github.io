@@ -90,8 +90,8 @@ const MePage = () => {
           <div className="flex items-center">
             <Image
               src="/assets/me/burakince.jpg"
-              width={200}
-              height={250}
+              width={418}
+              height={394}
               alt="Burak Ince"
               className="w-24 h-24 rounded-full mr-6"
             />
