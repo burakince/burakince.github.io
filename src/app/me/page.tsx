@@ -220,6 +220,7 @@ const MePage = () => {
               <p className="font-semibold dark:text-gray-100">Credly</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">Verified badges &amp; certifications</p>
             </div>
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
           <a
             href={SITE_METADATA.microsoftLearn}
@@ -232,6 +233,7 @@ const MePage = () => {
               <p className="font-semibold dark:text-gray-100">Microsoft Learn</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">Courses and learning paths</p>
             </div>
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
           <a
             href={SITE_METADATA.googleSkills}
@@ -244,6 +246,7 @@ const MePage = () => {
               <p className="font-semibold dark:text-gray-100">Google Skills</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">Google career certificates &amp; badges</p>
             </div>
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </div>
         <div className="space-y-4">
@@ -265,6 +268,7 @@ const MePage = () => {
                         className="text-sm text-slate-700 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 hover:underline"
                       >
                         {cert.name}
+                        <span className="sr-only"> (opens in a new tab)</span>
                       </a>
                       <span className="text-xs text-slate-600 dark:text-slate-400 shrink-0">— {cert.issuer}</span>
                     </li>

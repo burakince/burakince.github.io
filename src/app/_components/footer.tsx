@@ -20,7 +20,7 @@ const Footer = () => {
             href={SITE_METADATA.github}
             title="github"
           >
-            <span className="sr-only">github</span>
+            <span className="sr-only">github (opens in a new tab)</span>
             <GithubIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
@@ -30,7 +30,7 @@ const Footer = () => {
             href={SITE_METADATA.linkedin}
             title="linkedin"
           >
-            <span className="sr-only">linkedin</span>
+            <span className="sr-only">linkedin (opens in a new tab)</span>
             <LinkedinIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
@@ -40,7 +40,7 @@ const Footer = () => {
             href={SITE_METADATA.twitter}
             title="twitter"
           >
-            <span className="sr-only">twitter</span>
+            <span className="sr-only">twitter (opens in a new tab)</span>
             <XIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
@@ -50,7 +50,7 @@ const Footer = () => {
             href={SITE_METADATA.bluesky}
             title="bluesky"
           >
-            <span className="sr-only">bluesky</span>
+            <span className="sr-only">bluesky (opens in a new tab)</span>
             <BlueskyIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
@@ -60,7 +60,7 @@ const Footer = () => {
             href={SITE_METADATA.keybase}
             title="keybase"
           >
-            <span className="sr-only">keybase</span>
+            <span className="sr-only">keybase (opens in a new tab)</span>
             <KeybaseIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
@@ -70,7 +70,7 @@ const Footer = () => {
             href={SITE_METADATA.huggingface}
             title="huggingface"
           >
-            <span className="sr-only">huggingface</span>
+            <span className="sr-only">huggingface (opens in a new tab)</span>
             <HuggingfaceIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
           <a
@@ -80,7 +80,7 @@ const Footer = () => {
             href={`mailto:${SITE_METADATA.email}`}
             title="email"
           >
-            <span className="sr-only">mail</span>
+            <span className="sr-only">mail (opens in a new tab)</span>
             <GmailIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
           </a>
         </div>

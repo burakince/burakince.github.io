@@ -109,16 +109,16 @@ const PostPage = async ({ params }: { params: Params }) => {
       </article>
       <div className="mt-8 flex items-center gap-3">
         <span className="text-sm text-slate-600 dark:text-slate-400">Share:</span>
-        <a href={xShareUrl} target="_blank" rel="noopener noreferrer" title="Share on X">
-          <span className="sr-only">Share on X</span>
+        <a href={xShareUrl} target="_blank" rel="noopener noreferrer" title="Share on X (opens in a new tab)">
+          <span className="sr-only">Share on X (opens in a new tab)</span>
           <XIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-5" />
         </a>
-        <a href={linkedinShareUrl} target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
-          <span className="sr-only">Share on LinkedIn</span>
+        <a href={linkedinShareUrl} target="_blank" rel="noopener noreferrer" title="Share on LinkedIn (opens in a new tab)">
+          <span className="sr-only">Share on LinkedIn (opens in a new tab)</span>
           <LinkedinIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-5" />
         </a>
-        <a href={blueskyShareUrl} target="_blank" rel="noopener noreferrer" title="Share on Bluesky">
-          <span className="sr-only">Share on Bluesky</span>
+        <a href={blueskyShareUrl} target="_blank" rel="noopener noreferrer" title="Share on Bluesky (opens in a new tab)">
+          <span className="sr-only">Share on Bluesky (opens in a new tab)</span>
           <BlueskyIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-5" />
         </a>
       </div>

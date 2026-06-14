@@ -23,7 +23,7 @@ const NavLinks = () => {
           href={href}
           className={`text-sm transition-colors ${
             isActive(href)
-              ? "text-violet-400 font-semibold"
+              ? "text-violet-200 dark:text-violet-400 font-semibold"
               : "text-slate-300 hover:text-violet-400 dark:text-slate-500 dark:hover:text-violet-400"
           }`}
         >

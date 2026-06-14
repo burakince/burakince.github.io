@@ -17,12 +17,12 @@ const PostPreview = ({ title, date, excerpt, slug, tags, content }: Props) => {
   const mins = content ? readingTime(content) : null;
   return (
     <div className="border border-slate-200 dark:border-slate-700 p-4 rounded-md shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-150 bg-white dark:bg-slate-900">
-      <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-1">
+      <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mb-1">
         <DateFormatter dateString={date} />
         {mins !== null && <span>· {mins} min read</span>}
       </div>
       <Link href={`/post/${slug}/`}>
-        <h2 className="text-violet-600 dark:text-violet-500 hover:underline mb-3">
+        <h2 className="text-violet-700 dark:text-violet-300 hover:underline mb-3">
           {title}
         </h2>
       </Link>
