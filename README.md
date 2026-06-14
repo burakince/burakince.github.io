@@ -17,6 +17,24 @@ tags:
 
 Always specify the language on code fences (e.g. ` ```typescript `) so syntax highlighting works correctly. The highlight.js CSS is loaded only on post pages (`src/app/post/post.css`) — it is not part of the global bundle.
 
+## Adding new pages
+
+When building page URLs (canonicals, `og:url`, JSON-LD `url` fields, `<a href>`), always use the `withTrailingSlash` helper from `src/lib/url.ts`:
+
+```typescript
+import { withTrailingSlash } from "@/lib/url";
+
+// Good
+withTrailingSlash(`${SITE_METADATA.siteUrl}/my-page`)  // → "https://www.burakince.com/my-page/"
+withTrailingSlash(SITE_METADATA.siteUrl)               // → "https://www.burakince.com/"
+
+// Not needed for asset/file paths
+`${SITE_METADATA.siteUrl}/assets/image.png`
+`${SITE_METADATA.siteUrl}/feed.xml`
+```
+
+The site uses `trailingSlash: true` in `next.config.mjs`. Missing slashes on page URLs cause redirects that slow down Google Search indexing.
+
 ## Development
 
 This project requires the Node.js version defined in `.nvmrc`. Install [nvm](https://github.com/nvm-sh/nvm) and run:

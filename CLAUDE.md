@@ -96,12 +96,13 @@ Do not place source files outside `src/`, static assets outside `public/`, or no
   - `reading-time.ts` — `readingTime(content)` returns estimated read time in minutes (words / 200, minimum 1)
   - `truncate.ts` — `smartTruncate(text, maxChars=130)` trims at sentence or word boundaries and appends an ellipsis; used for post excerpt display
   - `experience.ts` — `EXPERIENCE_GROUPS` typed array of `ExperienceGroup` (heading + `ExperienceEntry[]`); drives the work history on `/me/`
+  - `url.ts` — `withTrailingSlash(url)` strips any existing trailing slashes and appends one; use for every own-site page URL construction (canonicals, OG `url`, JSON-LD `url`, href links). Do not apply to asset paths, file routes (`/feed.xml`, `/sitemap.xml`), or external URLs.
 - `src/interfaces/` — TypeScript types (`Post`, `Params`); also holds module declarations (`svgr.d.ts`)
 - `fonts/` — Inter font files required by `og-generator.ts` at build time
 
 ### Important behaviors
 
-- **Static export**: No server components that rely on runtime APIs. `trailingSlash: true` is set, so all routes end with `/`.
+- **Static export**: No server components that rely on runtime APIs. `trailingSlash: true` is set, so all routes end with `/`. Always construct own-site page URLs with `withTrailingSlash()` from `src/lib/url.ts` — never hand-write the trailing slash, as it is easy to omit and causes Google Search Console redirect warnings.
 - **Pagination**: The home page (`/`) always shows the first page of posts. Pages 2+ are at `/page/[n]/` and rendered by `src/app/page/[page]/page.tsx`. `POSTS_PER_PAGE = 4` is defined there. The `Pagination` component hard-codes the prev link on page 2 to `/` (not `/page/1/`), so do not create a `/page/1/` route.
 - **Tag routing**: Tags in post front matter drive `/tag/` and `/tag/[tag]/` routes. `getAllTags()` in `api.ts` aggregates tags across all posts. Add new tags by including them in a post's `tags:` array; no other registration is needed.
 - **OG image caching**: `og-generator.ts` checks whether the PNG already exists before generating. During development this can mean stale images; delete `public/assets/blog/og-images/` to force regeneration.
@@ -141,7 +142,12 @@ If a transitive dependency has a vulnerability that cannot be fixed by a direct 
 
 When the conflicting package is also a direct dependency, a top-level override will be rejected by npm with `EOVERRIDE`. In that case, scope the override under the package that pins the old version (e.g. `"next": { "postcss": ">=8.5.10" }` instead of a top-level `"postcss"` key).
 
-**`@emnapi` lock file gotcha**: Any time `package-lock.json` is edited manually and followed by `npm install`, the resolved entries for `@emnapi/core`, `@emnapi/runtime`, and `@emnapi/wasi-threads` are silently dropped. This causes `npm ci` to fail in GitHub Actions with "Missing: @emnapi/runtime from lock file". Always run `npm ci` locally after any manual lock file edit to catch this before committing. If entries are missing, restore them from the previous good commit.
+**`@emnapi` lock file gotcha**: Any time `package-lock.json` is edited manually or `npm install` is run after a rebase that merges package changes, the resolved entries for `@emnapi/core`, `@emnapi/runtime`, and `@emnapi/wasi-threads` are silently dropped or restructured. This causes `npm ci` to fail in GitHub Actions. Always run `npm ci` locally after any lock file change to catch this before committing.
+
+If entries are missing after `npm install`:
+1. Restore `node_modules/@emnapi/core` and `node_modules/@emnapi/runtime` from the previous good commit (they carry version, resolved, integrity, and dependency fields).
+2. If the top-level `node_modules/@emnapi/wasi-threads` was upgraded to a newer version (e.g. `1.2.2`) but `@emnapi/core` still pins the older version (e.g. `1.2.1`) in its `dependencies`, add a nested entry `node_modules/@emnapi/core/node_modules/@emnapi/wasi-threads` at the older version so `npm ci` can satisfy that pinned dependency.
+3. Run `npm ci` to confirm the lock file is valid before committing.
 
 ### Adding a blog post
 
