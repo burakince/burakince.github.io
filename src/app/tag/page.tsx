@@ -29,7 +29,7 @@ const TagsIndexPage = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-2 dark:text-gray-300">Tags</h1>
-      <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
+      <p className="text-base text-slate-600 dark:text-slate-400 mb-1">
         Browse all topics. Click a tag to see related posts.
       </p>
       <p className="text-xs text-slate-600 dark:text-slate-400 mb-6">

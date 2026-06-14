@@ -26,7 +26,7 @@ const PostPreview = ({ title, date, excerpt, slug, tags, content }: Props) => {
           {title}
         </h2>
       </Link>
-      <p className="text-slate-700 dark:text-slate-500 text-sm">{smartTruncate(excerpt)}</p>
+      <p className="text-slate-700 dark:text-slate-500">{smartTruncate(excerpt)}</p>
       {tags && tags.length > 0 && (
         <div className="flex flex-wrap gap-1 mt-3">
           {tags.map((tag) => (
