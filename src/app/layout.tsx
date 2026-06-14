@@ -30,12 +30,12 @@ export const metadata: Metadata = {
   },
   keywords: SITE_METADATA.keywords,
   alternates: {
-    canonical: SITE_METADATA.siteUrl,
+    canonical: `${SITE_METADATA.siteUrl}/`,
   },
   openGraph: {
     type: "website",
     images: [`${SITE_METADATA.siteUrl}/assets/open-graph-image.jpg`],
-    url: SITE_METADATA.siteUrl,
+    url: `${SITE_METADATA.siteUrl}/`,
     title: SITE_METADATA.title,
     description: SITE_METADATA.description,
     emails: SITE_METADATA.email,

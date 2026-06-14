@@ -23,7 +23,7 @@ const HomePage = () => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_METADATA.title,
-    url: SITE_METADATA.siteUrl,
+    url: `${SITE_METADATA.siteUrl}/`,
     inLanguage: "en-US",
     isFamilyFriendly: true,
     accountablePerson: meJsonLd,

@@ -54,7 +54,7 @@ const MePage = () => {
     jobTitle: SITE_METADATA.jobTitle,
     worksFor: orgJsonLd,
     description: description,
-    url: SITE_METADATA.siteUrl,
+    url: `${SITE_METADATA.siteUrl}/me/`,
     image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
     sameAs: [
       SITE_METADATA.linkedin,
@@ -131,7 +131,7 @@ const MePage = () => {
               <Link href="#certifications" className="text-xs text-violet-600 dark:text-violet-400 hover:underline">Certifications</Link>
             </div>
             <div className="hidden print:flex flex-wrap gap-x-5 gap-y-1.5 mt-3 text-sm text-slate-600">
-              <a href={SITE_METADATA.siteUrl} className="inline-flex items-center gap-1.5">
+              <a href={`${SITE_METADATA.siteUrl}/`} className="inline-flex items-center gap-1.5">
                 <WebIcon className="fill-current size-4 shrink-0" aria-hidden="true" />
                 {SITE_METADATA.siteUrl.replace("https://", "")}
               </a>
