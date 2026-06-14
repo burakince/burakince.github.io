@@ -21,6 +21,7 @@ import OgTemplate from "@/app/_components/og-template";
 import TagChip from "@/app/_components/tag-chip";
 import Link from "next/link";
 import { readingTime } from "@/lib/reading-time";
+import { withTrailingSlash } from "@/lib/url";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("typescript", typescript);
@@ -38,7 +39,7 @@ const meJsonLd: Person = {
   name: SITE_METADATA.author,
   jobTitle: SITE_METADATA.jobTitle,
   worksFor: orgJsonLd,
-  url: `${SITE_METADATA.siteUrl}/me/`,
+  url: withTrailingSlash(`${SITE_METADATA.siteUrl}/me`),
   image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
 };
 
@@ -134,14 +135,14 @@ export async function generateMetadata({
     description: post.excerpt,
     keywords: post.tags,
     alternates: {
-      canonical: `${SITE_METADATA.siteUrl}/post/${slug}/`,
+      canonical: withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${slug}`),
     },
     openGraph: {
       type: "article",
       images: [
         `${SITE_METADATA.siteUrl}/assets/blog/og-images/${slug.replace(/-/g, "_")}.png`,
       ],
-      url: `${SITE_METADATA.siteUrl}/post/${slug}/`,
+      url: withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${slug}`),
       title,
       description: post.excerpt,
       emails: SITE_METADATA.email,
@@ -149,7 +150,7 @@ export async function generateMetadata({
       locale: SITE_METADATA.locale,
       publishedTime: post.date,
       modifiedTime: post.date,
-      authors: [`${SITE_METADATA.siteUrl}/me/`],
+      authors: [withTrailingSlash(`${SITE_METADATA.siteUrl}/me`)],
       tags: post.tags,
     },
     twitter: {

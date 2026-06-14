@@ -1,5 +1,6 @@
 import { getAllPosts } from "@/lib/api";
 import { SITE_METADATA } from "@/lib/site-metadata";
+import { withTrailingSlash } from "@/lib/url";
 
 export const dynamic = "force-static";
 
@@ -23,11 +24,11 @@ export async function GET() {
     "",
     "## Pages",
     "",
-    `- [About Burak Ince](${siteUrl}/me/): Professional profile — ${jobTitle} at ${worksFor.name} with 13+ years of experience in software engineering, AI/ML, and cloud technology.`,
+    `- [About Burak Ince](${withTrailingSlash(`${siteUrl}/me`)}): Professional profile — ${jobTitle} at ${worksFor.name} with 13+ years of experience in software engineering, AI/ML, and cloud technology.`,
     "",
     "## Blog Posts",
     "",
-    ...posts.map((post) => `- [${post.title}](${siteUrl}/post/${post.slug}/): ${post.excerpt}`),
+    ...posts.map((post) => `- [${post.title}](${withTrailingSlash(`${siteUrl}/post/${post.slug}`)}): ${post.excerpt}`),
     "",
     "## Optional",
     "",

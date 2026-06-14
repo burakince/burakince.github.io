@@ -1,6 +1,7 @@
 import { getAllPosts, getAllTags } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
 import { SITE_METADATA } from "@/lib/site-metadata";
+import { withTrailingSlash } from "@/lib/url";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -21,7 +22,7 @@ export async function generateMetadata({
   return {
     title,
     alternates: {
-      canonical: `${SITE_METADATA.siteUrl}/tag/${tag}/`,
+      canonical: withTrailingSlash(`${SITE_METADATA.siteUrl}/tag/${tag}`),
     },
   };
 }

@@ -2,6 +2,7 @@ import Header from "@/app/_components/header";
 import Footer from "@/app/_components/footer";
 import Container from "@/app/_components/container";
 import { SITE_METADATA } from "@/lib/site-metadata";
+import { withTrailingSlash } from "@/lib/url";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -30,12 +31,12 @@ export const metadata: Metadata = {
   },
   keywords: SITE_METADATA.keywords,
   alternates: {
-    canonical: `${SITE_METADATA.siteUrl}/`,
+    canonical: withTrailingSlash(SITE_METADATA.siteUrl),
   },
   openGraph: {
     type: "website",
     images: [`${SITE_METADATA.siteUrl}/assets/open-graph-image.jpg`],
-    url: `${SITE_METADATA.siteUrl}/`,
+    url: withTrailingSlash(SITE_METADATA.siteUrl),
     title: SITE_METADATA.title,
     description: SITE_METADATA.description,
     emails: SITE_METADATA.email,

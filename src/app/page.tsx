@@ -3,6 +3,7 @@ import PostPreview from "@/app/_components/post-preview";
 import Pagination from "@/app/_components/pagination";
 import { Blog, Person, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
+import { withTrailingSlash } from "@/lib/url";
 import { orgJsonLd } from "@/lib/schema";
 import JsonLd from "@/app/_components/json-ld";
 import { Metadata } from "next";
@@ -15,7 +16,7 @@ const HomePage = () => {
     name: SITE_METADATA.author,
     jobTitle: SITE_METADATA.jobTitle,
     worksFor: orgJsonLd,
-    url: `${SITE_METADATA.siteUrl}/me/`,
+    url: withTrailingSlash(`${SITE_METADATA.siteUrl}/me`),
     image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
   };
 
@@ -23,7 +24,7 @@ const HomePage = () => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_METADATA.title,
-    url: `${SITE_METADATA.siteUrl}/`,
+    url: withTrailingSlash(SITE_METADATA.siteUrl),
     inLanguage: "en-US",
     isFamilyFriendly: true,
     accountablePerson: meJsonLd,
@@ -38,7 +39,7 @@ const HomePage = () => {
     "@type": "Blog",
     name: SITE_METADATA.title,
     description: SITE_METADATA.description,
-    url: `${SITE_METADATA.siteUrl}/`,
+    url: withTrailingSlash(SITE_METADATA.siteUrl),
     inLanguage: "en-US",
     author: meJsonLd,
     creator: meJsonLd,
@@ -70,11 +71,11 @@ const HomePage = () => {
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: `${SITE_METADATA.siteUrl}/`,
+    canonical: withTrailingSlash(SITE_METADATA.siteUrl),
   },
   openGraph: {
     type: "website",
-    url: `${SITE_METADATA.siteUrl}/`,
+    url: withTrailingSlash(SITE_METADATA.siteUrl),
     title: SITE_METADATA.title,
     description: SITE_METADATA.description,
     images: [`${SITE_METADATA.siteUrl}/assets/open-graph-image.jpg`],

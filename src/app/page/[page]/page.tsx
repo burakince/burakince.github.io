@@ -2,6 +2,7 @@ import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
 import Pagination from "@/app/_components/pagination";
 import { SITE_METADATA } from "@/lib/site-metadata";
+import { withTrailingSlash } from "@/lib/url";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -28,7 +29,7 @@ export async function generateMetadata({
   return {
     title,
     alternates: {
-      canonical: `${SITE_METADATA.siteUrl}/page/${pageNum}/`,
+      canonical: withTrailingSlash(`${SITE_METADATA.siteUrl}/page/${pageNum}`),
     },
   };
 }

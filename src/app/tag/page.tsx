@@ -1,12 +1,13 @@
 import { getAllPosts, getAllTags } from "@/lib/api";
 import TagChip from "@/app/_components/tag-chip";
 import { SITE_METADATA } from "@/lib/site-metadata";
+import { withTrailingSlash } from "@/lib/url";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: `Tags | ${SITE_METADATA.title}`,
   alternates: {
-    canonical: `${SITE_METADATA.siteUrl}/tag/`,
+    canonical: withTrailingSlash(`${SITE_METADATA.siteUrl}/tag`),
   },
 };
 
