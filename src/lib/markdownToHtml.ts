@@ -30,6 +30,27 @@ function getTextContent(node: ElementContent): string {
   return "";
 }
 
+const rehypeMermaidA11y: Plugin<[], Root> = function () {
+  return function (tree) {
+    let lastHeadingText = "Diagram";
+    function visit(node: Root | RootContent | ElementContent) {
+      if (node.type === "element") {
+        const el = node as Element;
+        if (/^h[1-6]$/.test(el.tagName)) {
+          lastHeadingText = el.children.map(getTextContent).join("").trim() || "Diagram";
+        }
+        if (el.tagName === "svg" && el.properties?.ariaRoleDescription) {
+          el.properties.ariaLabel = lastHeadingText;
+        }
+      }
+      if ("children" in node) {
+        for (const child of node.children) visit(child);
+      }
+    }
+    for (const child of tree.children) visit(child);
+  };
+};
+
 const rehypeLazyImages: Plugin<[], Root> = function () {
   return function (tree) {
     function visit(node: Root | RootContent | ElementContent) {
@@ -81,6 +102,7 @@ export default async function markdownToHtml(
     .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypeMermaid, { strategy: "inline-svg" })
+    .use(rehypeMermaidA11y)
     .use(rehypeHeadings, headings)
     .use(rehypeHighlight)
     .use(rehypeLazyImages)
