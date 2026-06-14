@@ -30,6 +30,27 @@ function getTextContent(node: ElementContent): string {
   return "";
 }
 
+const rehypeLazyImages: Plugin<[], Root> = function () {
+  return function (tree) {
+    function visit(node: Root | RootContent | ElementContent) {
+      if (node.type === "element" && (node as Element).tagName === "img") {
+        (node as Element).properties = {
+          ...((node as Element).properties ?? {}),
+          loading: "lazy",
+        };
+      }
+      if ("children" in node) {
+        for (const child of node.children) {
+          visit(child);
+        }
+      }
+    }
+    for (const child of tree.children) {
+      visit(child);
+    }
+  };
+};
+
 const rehypeHeadings: Plugin<[TocHeading[]], Root> = function (headings) {
   return function (tree) {
     function visit(node: Root | RootContent | ElementContent) {
@@ -62,6 +83,7 @@ export default async function markdownToHtml(
     .use(rehypeMermaid, { strategy: "inline-svg" })
     .use(rehypeHeadings, headings)
     .use(rehypeHighlight)
+    .use(rehypeLazyImages)
     .use(rehypeStringify)
     .process(markdown);
   return { html: result.toString(), headings };
