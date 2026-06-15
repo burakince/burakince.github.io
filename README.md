@@ -15,7 +15,7 @@ tags:
 ---
 ```
 
-Always specify the language on code fences (e.g. ` ```typescript `) so syntax highlighting works correctly. The highlight.js CSS is loaded only on post pages (`src/app/post/post.css`) — it is not part of the global bundle.
+Always specify the language on code fences (e.g. ` ```typescript `, ` ```cypher ` for Neo4j queries) so syntax highlighting works correctly. The highlight.js CSS (`a11y-light` / `a11y-dark` themes) is imported in `src/app/globals.css` and applies site-wide.
 
 ## Adding new pages
 
