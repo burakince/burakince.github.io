@@ -29,7 +29,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  keywords: SITE_METADATA.keywords,
   alternates: {
     canonical: withTrailingSlash(SITE_METADATA.siteUrl),
   },

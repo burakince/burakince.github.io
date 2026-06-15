@@ -4,7 +4,7 @@ import markdownToHtml from "@/lib/markdownToHtml";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BlogPosting, Person, WithContext } from "schema-dts";
+import { BlogPosting, BreadcrumbList, Person, WithContext } from "schema-dts";
 import { orgJsonLd } from "@/lib/schema";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
@@ -60,15 +60,20 @@ const PostPage = async ({ params }: { params: Params }) => {
     options: imageSize,
   });
 
+  const postUrl = withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${slug}`);
+  const wordCount = post.content.trim().split(/\s+/).length;
+
   const structuredData: WithContext<BlogPosting> = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    mainEntityOfPage: postUrl,
     image: `${SITE_METADATA.siteUrl}${ogImage}`,
     headline: post.title,
     datePublished: post.date,
     dateModified: post.date,
     inLanguage: SITE_METADATA.locale,
     isFamilyFriendly: true,
+    wordCount,
     accountablePerson: meJsonLd,
     author: meJsonLd,
     creator: meJsonLd,
@@ -77,9 +82,26 @@ const PostPage = async ({ params }: { params: Params }) => {
     keywords: post.tags?.join(", "),
   };
 
-  const { html, headings } = await markdownToHtml(post.content || "");
+  const breadcrumbData: WithContext<BreadcrumbList> = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: withTrailingSlash(SITE_METADATA.siteUrl),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: post.title,
+        item: postUrl,
+      },
+    ],
+  };
 
-  const postUrl = withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${slug}`);
+  const { html, headings } = await markdownToHtml(post.content || "");
   const xShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`;
   const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`;
   const blueskyShareUrl = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${post.title} ${postUrl}`)}`;
@@ -135,6 +157,7 @@ const PostPage = async ({ params }: { params: Params }) => {
         )}
       </div>
       <JsonLd data={structuredData} />
+      <JsonLd data={breadcrumbData} />
     </div>
   );
 };
@@ -156,7 +179,6 @@ export async function generateMetadata({
   return {
     title,
     description: post.excerpt,
-    keywords: post.tags,
     alternates: {
       canonical: withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${slug}`),
     },

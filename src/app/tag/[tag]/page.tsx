@@ -18,9 +18,11 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const { tag } = await params;
-  const title = `#${tag} | ${SITE_METADATA.title}`;
+  const posts = getAllPosts().filter((p) => p.tags?.includes(tag));
+  const count = posts.length;
   return {
-    title,
+    title: `#${tag} | ${SITE_METADATA.title}`,
+    description: `${count} ${count === 1 ? "post" : "posts"} tagged #${tag} on Burak Ince's engineering blog.`,
     alternates: {
       canonical: withTrailingSlash(`${SITE_METADATA.siteUrl}/tag/${tag}`),
     },

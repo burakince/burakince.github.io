@@ -4,8 +4,12 @@ import { SITE_METADATA } from "@/lib/site-metadata";
 import { withTrailingSlash } from "@/lib/url";
 import { Metadata } from "next";
 
+const _tags = getAllTags();
+const _allPosts = getAllPosts();
+
 export const metadata: Metadata = {
   title: `Tags | ${SITE_METADATA.title}`,
+  description: `Browse ${_tags.length} topics across ${_allPosts.length} posts on Burak Ince's engineering blog. Find posts on AI, cloud-native engineering, and software craftsmanship.`,
   alternates: {
     canonical: withTrailingSlash(`${SITE_METADATA.siteUrl}/tag`),
   },

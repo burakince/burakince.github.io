@@ -39,13 +39,9 @@ const calculateYears = (start: { year: number; month: number }): number => {
 const PROFESSIONAL_YEARS = calculateYears(PROFESSIONAL_START);
 const PROGRAMMING_YEARS = calculateYears(PROGRAMMING_START);
 
-const MONTHS = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
 
 const title = `${SITE_METADATA.author} - ${SITE_METADATA.jobTitle} with ${PROFESSIONAL_YEARS}+ Years Experience`;
-const description = `${SITE_METADATA.jobTitle} with ${PROFESSIONAL_YEARS}+ years of professional experience (since ${MONTHS[PROFESSIONAL_START.month - 1]} ${PROFESSIONAL_START.year}) and ${PROGRAMMING_YEARS}+ years of programming experience (since ${PROGRAMMING_START.year}).`;
+const description = `${SITE_METADATA.author}, ${SITE_METADATA.jobTitle} at ${SITE_METADATA.worksFor.name} with ${PROFESSIONAL_YEARS}+ years delivering cloud-native engineering, AI systems, and data platforms for enterprises.`;
 
 const MePage = () => {
   const myProfileJsonLd: Person = {
@@ -287,24 +283,6 @@ const MePage = () => {
 export const metadata: Metadata = {
   title: title,
   description: description,
-  keywords: [
-    SITE_METADATA.author,
-    "lead developer",
-    "professional experience",
-    "programming",
-    "software development",
-    "AI",
-    "machine learning",
-    "data engineering",
-    "web development",
-    "IoT",
-    "AWS",
-    "Terraform",
-    "Python",
-    "Golang",
-    "Kubernetes",
-    "Helm",
-  ],
   alternates: {
     canonical: withTrailingSlash(`${SITE_METADATA.siteUrl}/me`),
   },
