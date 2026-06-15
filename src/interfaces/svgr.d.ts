@@ -10,3 +10,5 @@ declare module "*.svg?url" {
 }
 
 declare module "*.css";
+
+declare module "highlightjs-cypher";

@@ -1,6 +1,8 @@
 import type { Root, Element, ElementContent, RootContent } from "hast";
 import type { Plugin } from "unified";
 import rehypeHighlight from "rehype-highlight";
+import { common } from "lowlight";
+import cypher from "highlightjs-cypher";
 import rehypeMermaid from "rehype-mermaid";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
@@ -142,7 +144,7 @@ export default async function markdownToHtml(
     .use(rehypeMermaid, { strategy: "inline-svg" })
     .use(rehypeMermaidA11y)
     .use(rehypeHeadings, headings)
-    .use(rehypeHighlight)
+    .use(rehypeHighlight, { languages: { ...common, cypher } })
     .use(rehypeImgSize)
     .use(rehypeLazyImages)
     .use(rehypeStringify)
