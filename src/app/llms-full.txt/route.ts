@@ -1,12 +1,43 @@
 import { getAllPosts } from "@/lib/api";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { withTrailingSlash } from "@/lib/url";
+import { readingTime } from "@/lib/reading-time";
 
 export const dynamic = "force-static";
 
 export async function GET() {
-  const { siteUrl, title, jobTitle, worksFor, linkedin, keybase, github, bluesky, email } = SITE_METADATA;
+  const {
+    siteUrl,
+    title,
+    jobTitle,
+    worksFor,
+    linkedin,
+    keybase,
+    github,
+    bluesky,
+    email,
+  } = SITE_METADATA;
   const posts = getAllPosts();
+
+  const postLines = posts.flatMap((post) => {
+    const url = withTrailingSlash(`${siteUrl}/post/${post.slug}`);
+    const absoluteContent = post.content.replace(/\]\(\//g, `](${siteUrl}/`);
+    return [
+      "---",
+      "",
+      `### [${post.title}](${url})`,
+      "",
+      `> ${post.excerpt}`,
+      "",
+      `**URL:** ${url}`,
+      `**Date:** ${post.date.slice(0, 10)}`,
+      `**Tags:** ${post.tags?.join(", ") ?? "none"}`,
+      `**Reading time:** ${readingTime(post.content)} min`,
+      "",
+      absoluteContent,
+      "",
+    ];
+  });
 
   const lines = [
     `# ${title}`,
@@ -25,18 +56,18 @@ export async function GET() {
     "## Pages",
     "",
     `- [About Burak Ince](${withTrailingSlash(`${siteUrl}/me`)}): Professional profile — ${jobTitle} at ${worksFor.name} with 13+ years of experience in software engineering, AI/ML, and cloud technology.`,
+    `- [Profile (llms.txt)](${siteUrl}/me/llms.txt): Full structured text: experience, skills, and certifications.`,
     "",
     "## Blog Posts",
     "",
-    ...posts.map((post) => `- [${post.title}](${withTrailingSlash(`${siteUrl}/post/${post.slug}`)}): ${post.excerpt}`),
+    ...postLines,
+    "---",
     "",
     "## Optional",
     "",
     `- [RSS Feed](${siteUrl}/feed.xml): Subscribe to new posts.`,
     `- [Sitemap](${siteUrl}/sitemap.xml): Full XML sitemap.`,
-    `- [Full content (llms-full.txt)](${siteUrl}/llms-full.txt): All posts with full markdown content in one file.`,
-    `- [Profile (me/llms.txt)](${siteUrl}/me/llms.txt): Author experience, skills, and certifications as structured text.`,
-    `- Per-post full content: append /llms.txt to any post URL for full markdown, e.g. ${withTrailingSlash(`${siteUrl}/post/${posts[0]?.slug ?? "post-slug"}`)}llms.txt`,
+    `- [Index only (llms.txt)](${siteUrl}/llms.txt): Compact index without full post content.`,
   ];
 
   return new Response(lines.join("\n"), {
