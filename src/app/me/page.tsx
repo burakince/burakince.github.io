@@ -64,7 +64,6 @@ const MePage = () => {
           id="profile"
           className="relative bg-white dark:bg-slate-900 rounded-lg shadow-lg p-6 mb-8"
         >
-          <PrintIconButton />
           <div className="flex items-center">
             <Image
               src="/assets/me/burakince.jpg"
@@ -128,6 +127,7 @@ const MePage = () => {
               </a>
             </div>
           </div>
+          <PrintIconButton />
         </section>
       </div>
 

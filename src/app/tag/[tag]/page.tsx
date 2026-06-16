@@ -37,18 +37,18 @@ const TagPage = async ({ params }: { params: Params }) => {
 
   return (
     <div>
-      <Link
-        href="/tag/"
-        className="text-sm text-slate-600 hover:text-violet-600 dark:text-slate-400 dark:hover:text-violet-400 transition-colors mb-4 inline-block"
-      >
-        ← All Tags
-      </Link>
       <h1 className="text-2xl font-bold mb-1 dark:text-gray-300">
         #{tag}
       </h1>
       <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
         {posts.length} {posts.length === 1 ? "post" : "posts"}
       </p>
+      <Link
+        href="/tag/"
+        className="text-sm text-slate-600 hover:text-violet-600 dark:text-slate-400 dark:hover:text-violet-400 transition-colors mb-4 inline-block"
+      >
+        ← All Tags
+      </Link>
       <div className={`grid gap-4 ${posts.length === 1 ? "grid-cols-1" : posts.length % 3 === 0 ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3" : "grid-cols-1 md:grid-cols-2"}`}>
         {posts.map((post) => (
           <PostPreview key={post.slug} {...post} />
