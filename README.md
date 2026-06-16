@@ -16,6 +16,8 @@ tags:
 ---
 ```
 
+Set `lastModified` equal to `date` when creating a post. Update it to the current UTC time whenever you edit the content. Claude Code updates it automatically via a `PostToolUse` hook when editing posts through the `Edit` tool. `lastModified` drives `dateModified` in JSON-LD, `modifiedTime` in OpenGraph, and `lastmod` in the sitemap.
+
 Always specify the language on code fences (e.g. ` ```typescript `, ` ```cypher ` for Neo4j queries) so syntax highlighting works correctly. The highlight.js CSS (`a11y-light` / `a11y-dark` themes) is imported in `src/app/globals.css` and applies site-wide.
 
 ## Adding new pages
