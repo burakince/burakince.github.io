@@ -2,7 +2,7 @@
 
 The blog posts are stored in `/_posts` as Markdown files with front matter support. Adding a new Markdown file in there will create a new blog post.
 
-The new markdown file must have the following headlines;
+The new markdown file must have the following front matter fields:
 
 ```markdown
 ---
@@ -85,7 +85,7 @@ To upgrade dependencies, you just need to run:
 ```bash
 ncu --upgrade
 
-// or
+# or
 ncu -u
 ```
 
@@ -100,10 +100,16 @@ Navigate down through each package and use space to deselect, and enter when you
 ```bash
 ncu --interactive
 
-// or
+# or
 ncu -i
 ```
 
+### `@emnapi` lock file gotcha
+
+After any `npm install` run, the resolved entries for `@emnapi/core` and `@emnapi/runtime` may be silently dropped from `package-lock.json`. This causes `npm ci` to fail in CI. Always run `npm ci` locally after any dependency change to catch this before committing. See `.claude/rules/dependencies.md` for the restore script.
+
+## Tools
+
 - Social Share Preview Checker: https://socialsharepreview.com/
 - Favicon Generator: https://realfavicongenerator.net/
-- Open Graph Review and Generater: https://www.opengraph.xyz/
+- Open Graph Review and Generator: https://www.opengraph.xyz/
