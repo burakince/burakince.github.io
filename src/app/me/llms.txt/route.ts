@@ -23,28 +23,27 @@ export async function GET() {
   const { author, jobTitle, worksFor, linkedin, github, bluesky, siteUrl } =
     SITE_METADATA;
 
+  const meUrl = withTrailingSlash(`${siteUrl}/me`);
+
   const experienceLines = EXPERIENCE_GROUPS.flatMap((group) => [
     `### ${group.heading}`,
     "",
-    ...group.entries.flatMap((entry) => [
-      `- **${entry.title}**`,
-      `  ${entry.description}`,
-      "",
-    ]),
-  ]);
-
-  const skillLines = SKILL_CATEGORIES_SORTED.flatMap((cat) => [
-    `### ${cat.label}`,
-    cat.items.join(", "),
+    ...group.entries.map(
+      (entry) => `- [${entry.title}](${meUrl}): ${entry.description}`
+    ),
     "",
   ]);
 
+  const skillLines = SKILL_CATEGORIES_SORTED.map(
+    (cat) => `- [${cat.label}](${meUrl}): ${cat.items.join(", ")}`
+  );
+
   const specializationLines = CERTIFICATES.filter(
     (c) => c.type === "specialization"
-  ).map((c) => `- ${c.name} — ${c.issuer}`);
+  ).map((c) => `- [${c.name}](${c.url}): ${c.issuer}`);
 
   const courseLines = CERTIFICATES.filter((c) => c.type === "course").map(
-    (c) => `- ${c.name} — ${c.issuer}`
+    (c) => `- [${c.name}](${c.url}): ${c.issuer}`
   );
 
   const lines = [
@@ -65,6 +64,7 @@ export async function GET() {
     "## Skills",
     "",
     ...skillLines,
+    "",
     "## Certifications",
     "",
     "### Specializations",

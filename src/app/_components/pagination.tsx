@@ -13,7 +13,7 @@ const Pagination = ({ currentPage, totalPages, totalPosts }: Props) => {
 
   const baseBtn =
     "px-4 py-2 rounded-md text-sm font-medium border transition-colors";
-  const activeBtn = `${baseBtn} border-violet-400 text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-slate-800`;
+  const activeBtn = `${baseBtn} border-violet-800 text-violet-800 dark:border-violet-400 dark:text-violet-200 hover:bg-violet-800 hover:text-white hover:border-violet-800 dark:hover:bg-violet-900 dark:hover:text-white dark:hover:border-violet-300`;
   const disabledBtn = `${baseBtn} border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-400 cursor-default`;
 
   return (

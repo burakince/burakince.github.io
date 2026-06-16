@@ -2,10 +2,11 @@ import DateFormatter from "@/app/_components/date-formatter";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 import markdownToHtml from "@/lib/markdownToHtml";
 import { SITE_METADATA } from "@/lib/site-metadata";
+import Image from "next/image";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BlogPosting, BreadcrumbList, Person, WithContext } from "schema-dts";
-import { orgJsonLd } from "@/lib/schema";
+import { BlogPosting, BreadcrumbList, WithContext } from "schema-dts";
+import { personJsonLd } from "@/lib/schema";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
@@ -37,14 +38,6 @@ const imageSize = {
   height: 630,
 };
 
-const meJsonLd: Person = {
-  "@type": "Person",
-  name: SITE_METADATA.author,
-  jobTitle: SITE_METADATA.jobTitle,
-  worksFor: orgJsonLd,
-  url: withTrailingSlash(`${SITE_METADATA.siteUrl}/me`),
-  image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
-};
 
 const PostPage = async ({ params }: { params: Params }) => {
   const { slug } = await params;
@@ -70,14 +63,14 @@ const PostPage = async ({ params }: { params: Params }) => {
     image: `${SITE_METADATA.siteUrl}${ogImage}`,
     headline: post.title,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified: post.lastModified ?? post.date,
     inLanguage: SITE_METADATA.locale,
     isFamilyFriendly: true,
     wordCount,
-    accountablePerson: meJsonLd,
-    author: meJsonLd,
-    creator: meJsonLd,
-    publisher: meJsonLd,
+    accountablePerson: personJsonLd,
+    author: personJsonLd,
+    creator: personJsonLd,
+    publisher: personJsonLd,
     description: post.excerpt,
     keywords: post.tags?.join(", "),
   };
@@ -113,6 +106,11 @@ const PostPage = async ({ params }: { params: Params }) => {
           {post.title}
         </h1>
         <p className="text-slate-300 text-sm mb-4">
+          By{" "}
+          <Link href="/me/" className="text-violet-200 hover:text-white transition-colors">
+            {SITE_METADATA.author}
+          </Link>
+          <span className="mx-2">·</span>
           <DateFormatter dateString={post.date} />
           <span className="mx-2">·</span>
           {readingTime(post.content)} min read
@@ -129,19 +127,42 @@ const PostPage = async ({ params }: { params: Params }) => {
       <article className="prose dark:prose-invert lg:prose-xl mx-auto">
         <ArticleContent html={html} />
       </article>
+      <div className="mt-8 p-5 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 flex items-start gap-4">
+        <Image
+          src="/assets/me/burakince.webp"
+          alt={SITE_METADATA.author}
+          width={418}
+          height={500}
+          className="rounded-full size-16 object-cover object-top shrink-0"
+        />
+        <div className="min-w-0">
+          <Link
+            href="/me/"
+            className="font-semibold text-slate-900 dark:text-slate-100 hover:text-violet-700 dark:hover:text-violet-300 transition-colors"
+          >
+            {SITE_METADATA.author}
+          </Link>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            {SITE_METADATA.jobTitle} at {SITE_METADATA.worksFor.name}
+          </p>
+          <p className="text-sm text-slate-700 dark:text-slate-300 mt-1.5 leading-relaxed">
+            {SITE_METADATA.description}
+          </p>
+        </div>
+      </div>
       <div className="mt-8 flex items-center gap-3">
         <span className="text-sm text-slate-600 dark:text-slate-400">Share:</span>
-        <a href={xShareUrl} target="_blank" rel="noopener noreferrer" title="Share on X (opens in a new tab)">
+        <a href={xShareUrl} target="_blank" rel="noopener noreferrer" title="Share on X (opens in a new tab)" className="group transition-colors">
           <span className="sr-only">Share on X (opens in a new tab)</span>
-          <XIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-5" />
+          <XIcon aria-hidden={true} className="fill-current text-slate-700 dark:text-slate-200 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors size-6" />
         </a>
-        <a href={linkedinShareUrl} target="_blank" rel="noopener noreferrer" title="Share on LinkedIn (opens in a new tab)">
+        <a href={linkedinShareUrl} target="_blank" rel="noopener noreferrer" title="Share on LinkedIn (opens in a new tab)" className="group transition-colors">
           <span className="sr-only">Share on LinkedIn (opens in a new tab)</span>
-          <LinkedinIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-5" />
+          <LinkedinIcon aria-hidden={true} className="fill-current text-slate-700 dark:text-slate-200 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors size-6" />
         </a>
-        <a href={blueskyShareUrl} target="_blank" rel="noopener noreferrer" title="Share on Bluesky (opens in a new tab)">
+        <a href={blueskyShareUrl} target="_blank" rel="noopener noreferrer" title="Share on Bluesky (opens in a new tab)" className="group transition-colors">
           <span className="sr-only">Share on Bluesky (opens in a new tab)</span>
-          <BlueskyIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-5" />
+          <BlueskyIcon aria-hidden={true} className="fill-current text-slate-700 dark:text-slate-200 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors size-6" />
         </a>
       </div>
       <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-wrap gap-4 items-center justify-between">
@@ -194,7 +215,7 @@ export async function generateMetadata({
       siteName: SITE_METADATA.title,
       locale: SITE_METADATA.locale,
       publishedTime: post.date,
-      modifiedTime: post.date,
+      modifiedTime: post.lastModified ?? post.date,
       authors: [withTrailingSlash(`${SITE_METADATA.siteUrl}/me`)],
       tags: post.tags,
     },

@@ -5,8 +5,8 @@ import { Person, ProfilePage, WithContext } from "schema-dts";
 import { withTrailingSlash } from "@/lib/url";
 import { CERTIFICATES } from "@/lib/certifications";
 import JsonLd from "@/app/_components/json-ld";
-import { orgJsonLd } from "@/lib/schema";
-import { ALL_SKILLS_SORTED, SKILL_CATEGORIES_SORTED } from "@/lib/skills";
+import { personJsonLd } from "@/lib/schema";
+import { SKILL_CATEGORIES_SORTED } from "@/lib/skills";
 import { EXPERIENCE_GROUPS } from "@/lib/experience";
 import AnchorHeading from "@/app/me/_components/anchor-heading";
 import PrintIconButton from "@/app/me/_components/print-icon-button";
@@ -45,26 +45,8 @@ const description = `${SITE_METADATA.author}, ${SITE_METADATA.jobTitle} at ${SIT
 
 const MePage = () => {
   const myProfileJsonLd: Person = {
-    "@type": "Person",
-    name: SITE_METADATA.author,
-    gender: "male",
-    jobTitle: SITE_METADATA.jobTitle,
-    worksFor: orgJsonLd,
+    ...personJsonLd,
     description: description,
-    url: withTrailingSlash(`${SITE_METADATA.siteUrl}/me`),
-    image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
-    sameAs: [
-      SITE_METADATA.linkedin,
-      SITE_METADATA.github,
-      SITE_METADATA.twitter,
-      SITE_METADATA.bluesky,
-      SITE_METADATA.keybase,
-      SITE_METADATA.huggingface,
-      SITE_METADATA.credly,
-      SITE_METADATA.microsoftLearn,
-      SITE_METADATA.googleSkills,
-    ],
-    knowsAbout: [...ALL_SKILLS_SORTED],
   };
 
   const structuredData: WithContext<ProfilePage> = {

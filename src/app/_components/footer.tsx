@@ -14,77 +14,77 @@ const Footer = () => {
       <div className="border-t border-slate-400 flex flex-col items-center mt-12 py-6">
         <div className="mb-3 flex flex-row space-x-4">
           <a
-            className="text-sm text-gray-500 transition hover:text-gray-600"
+            className="group transition-colors"
             target="_blank"
             rel="noopener noreferrer"
             href={SITE_METADATA.github}
             title="github"
           >
             <span className="sr-only">github (opens in a new tab)</span>
-            <GithubIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
+            <GithubIcon aria-hidden={true} className="fill-current text-slate-700 dark:text-slate-200 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors size-6" />
           </a>
           <a
-            className="text-sm text-gray-500 transition hover:text-gray-600"
+            className="group transition-colors"
             target="_blank"
             rel="noopener noreferrer"
             href={SITE_METADATA.linkedin}
             title="linkedin"
           >
             <span className="sr-only">linkedin (opens in a new tab)</span>
-            <LinkedinIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
+            <LinkedinIcon aria-hidden={true} className="fill-current text-slate-700 dark:text-slate-200 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors size-6" />
           </a>
           <a
-            className="text-sm text-gray-500 transition hover:text-gray-600"
+            className="group transition-colors"
             target="_blank"
             rel="noopener noreferrer"
             href={SITE_METADATA.twitter}
             title="twitter"
           >
             <span className="sr-only">twitter (opens in a new tab)</span>
-            <XIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
+            <XIcon aria-hidden={true} className="fill-current text-slate-700 dark:text-slate-200 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors size-6" />
           </a>
           <a
-            className="text-sm text-gray-500 transition hover:text-gray-600"
+            className="group transition-colors"
             target="_blank"
             rel="noopener noreferrer"
             href={SITE_METADATA.bluesky}
             title="bluesky"
           >
             <span className="sr-only">bluesky (opens in a new tab)</span>
-            <BlueskyIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
+            <BlueskyIcon aria-hidden={true} className="fill-current text-slate-700 dark:text-slate-200 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors size-6" />
           </a>
           <a
-            className="text-sm text-gray-500 transition hover:text-gray-600"
+            className="group transition-colors"
             target="_blank"
             rel="noopener noreferrer"
             href={SITE_METADATA.keybase}
             title="keybase"
           >
             <span className="sr-only">keybase (opens in a new tab)</span>
-            <KeybaseIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
+            <KeybaseIcon aria-hidden={true} className="fill-current text-slate-700 dark:text-slate-200 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors size-6" />
           </a>
           <a
-            className="text-sm text-gray-500 transition hover:text-gray-600"
+            className="group transition-colors"
             target="_blank"
             rel="noopener noreferrer"
             href={SITE_METADATA.huggingface}
             title="huggingface"
           >
             <span className="sr-only">huggingface (opens in a new tab)</span>
-            <HuggingfaceIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
+            <HuggingfaceIcon aria-hidden={true} className="fill-current text-slate-700 dark:text-slate-200 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors size-6" />
           </a>
           <a
-            className="text-sm text-gray-500 transition hover:text-gray-600"
+            className="group transition-colors"
             target="_blank"
             rel="noopener noreferrer"
             href={`mailto:${SITE_METADATA.email}`}
             title="email"
           >
             <span className="sr-only">mail (opens in a new tab)</span>
-            <GmailIcon className="fill-current text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-400 size-6" />
+            <GmailIcon aria-hidden={true} className="fill-current text-slate-700 dark:text-slate-200 group-hover:text-violet-800 dark:group-hover:text-violet-200 transition-colors size-6" />
           </a>
         </div>
-        <div className="mb-2 flex space-x-2 text-sm text-gray-600 dark:text-gray-400">
+        <div className="mb-2 flex space-x-2 text-sm text-slate-700 dark:text-slate-300">
           <div>{SITE_METADATA.author}</div>
           <div>{` • `}</div>
           <div>{`© ${new Date().getFullYear()}`}</div>

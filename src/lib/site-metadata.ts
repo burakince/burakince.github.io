@@ -23,7 +23,7 @@ export const SITE_METADATA = {
   twitter: "https://twitter.com/burakinc",
   keybase: "https://keybase.io/burakince",
   huggingface: "https://huggingface.co/burakince",
-  linkedin: "https://www.linkedin.com/in/inceburak/",
+  linkedin: "https://www.linkedin.com/in/inceburak",
   bluesky: "https://bsky.app/profile/burakince.bsky.social",
   credly: "https://www.credly.com/users/burakince",
   microsoftLearn: "https://learn.microsoft.com/en-us/users/burakince/",

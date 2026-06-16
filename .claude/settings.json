@@ -3,11 +3,21 @@
   "hooks": {
     "PostToolUse": [
       {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/scripts/update-post-modified.py",
+            "statusMessage": "Updating lastModified in post front matter..."
+          }
+        ]
+      },
+      {
         "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -c \"import json,sys,os\nd=json.load(sys.stdin)\ncmd=d.get('tool_input',{}).get('command','')\nif 'npm install' not in cmd: sys.exit(0)\nl='package-lock.json'\nif not os.path.exists(l): sys.exit(0)\np=json.load(open(l)).get('packages',{})\nm=[k for k in ['node_modules/@emnapi/core','node_modules/@emnapi/runtime'] if k not in p]\nif not m: sys.exit(0)\nprint(json.dumps({'decision':'block','reason':'@emnapi lock file gotcha: '+', '.join(m)+' dropped from package-lock.json. Restore from the previous good git commit before committing.'}))\nsys.exit(2)\"",
+            "command": "python3 .claude/scripts/check-emnapi-lock.py",
             "statusMessage": "Checking @emnapi lock file entries..."
           }
         ]

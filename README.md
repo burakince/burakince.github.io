@@ -9,6 +9,7 @@ The new markdown file must have the following headlines;
 title: "Title"
 excerpt: "Description"
 date: "1970-01-01T00:00:01.000Z"
+lastModified: "1970-01-01T00:00:01.000Z"
 tags:
   - first-tag
   - second-tag

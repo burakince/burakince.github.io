@@ -2,6 +2,7 @@
 title: "MLOps: A Practical Guide for Software and DevOps Engineers"
 excerpt: "MLOps brings software engineering discipline to machine learning. Learn what it is, why it matters, and how to apply CI/CD, model versioning, monitoring, and more to ship reliable ML systems."
 date: "2026-05-27T09:00:00.000Z"
+lastModified: "2026-06-16T16:02:05.000Z"
 tags:
   - mlops
   - machine-learning

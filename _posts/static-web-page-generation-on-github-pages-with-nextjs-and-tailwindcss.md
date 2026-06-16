@@ -1,7 +1,8 @@
 ---
 title: "Generate Static Web Pages on GitHub with Next.js, Tailwind CSS & Markdown"
-excerpt: "Discover how to create static web pages on GitHub Pages with Next.js, Tailwind CSS, and Markdown. Follow a step-by-step guide for efficient deployment."
+excerpt: "A walkthrough for hosting a Next.js and Tailwind CSS site on GitHub Pages, with Markdown-based content and automated deployment via GitHub Actions."
 date: "2024-04-25T12:49:07.322Z"
+lastModified: "2026-06-16T16:01:35.000Z"
 tags:
   - nextjs
   - tailwindcss
@@ -10,19 +11,18 @@ tags:
   - static-site
 ---
 
-Static web pages offer excellent performance and low server costs since they are pre-built and don't rely on server-side processing. GitHub Pages provides an easy way to host static websites, and Next.js is a powerful React framework that supports static site generation. Tailwind CSS is a utility-first CSS framework that can help you quickly style your website with a clean, modern look. In this blog post, we'll walk through the process of setting up a static website using Next.js, Tailwind CSS, and GitHub Pages.
+Static pages are pre-built at deploy time, so there's no server processing each request. GitHub Pages is free hosting. Next.js handles the static export, and Tailwind CSS handles styling. Here's how to wire it all together.
 
-## What We'll Cover
+## What we'll cover
 
-1. **Setting Up the Project**
-2. **Tailwind CSS Configurations**
-3. **Configure Next.js for Static Site Generation**
-4. **Configuring GitHub Pages Deployment**
-5. **Conclusion**
+1. Setting up the project
+2. Tailwind CSS configuration
+3. Configuring Next.js for static export
+4. Configuring GitHub Pages deployment
 
-## Step 1: Setting Up the Project
+## Step 1: Setting up the project
 
-First, I recommend using a specific Node.js version for your project to maintain consistency. Install [nvm](https://github.com/nvm-sh/nvm) from the [official page](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) and run the following commands to set up your environment:
+First, I recommend pinning a specific Node.js version so the project behaves consistently across machines. Install [nvm](https://github.com/nvm-sh/nvm) from the [official page](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) and run:
 
 ```bash
 echo "v20.12.1" > .nvmrc
@@ -35,7 +35,7 @@ Next, create a new Next.js project:
 npx create-next-app@latest
 ```
 
-Follow the prompts and answer the questions according to your preferences:
+Follow the prompts:
 
 ```bash
 ✔ What is your project named? … my-website
@@ -47,22 +47,22 @@ Follow the prompts and answer the questions according to your preferences:
 ✔ Would you like to customize the default import alias (@/*)? … No
 ```
 
-Next.js will create a project structure for you, which you can customize according to your needs. Tailwind CSS should already be included in your project structure. Move to your project folder:
+Next.js creates the project structure and includes Tailwind CSS if you selected it above. Move into the project folder:
 
 ```bash
 cd my-website
 ```
 
-Then install the necessary dependencies:
+Then install the extra dependencies:
 
 ```bash
 npm install markdown-to-jsx gray-matter
 npm install @tailwindcss/typography -D
 ```
 
-## Step 2: Tailwind CSS Configurations
+## Step 2: Tailwind CSS configuration
 
-In `tailwind.config.ts`, add the typography plugin and adjust the content path to the `src` directory:
+In `tailwind.config.ts`, add the typography plugin and point the content path at the `src` directory:
 
 ```typescript
 import type { Config } from "tailwindcss";
@@ -78,7 +78,7 @@ const config: Config = {
 export default config;
 ```
 
-In `src/app/globals.css`, Tailwind's base, components, and utilities must be imported:
+`src/app/globals.css` also needs Tailwind's base, components, and utilities:
 
 ```css
 /* src/app/globals.css */
@@ -87,7 +87,7 @@ In `src/app/globals.css`, Tailwind's base, components, and utilities must be imp
 @tailwind utilities;
 ```
 
-In `postcss.config.mjs`, add the Tailwind CSS plugin to the configuration:
+In `postcss.config.mjs`, add the Tailwind plugin:
 
 ```javascript
 /** @type {import('postcss-load-config').Config} */
@@ -100,17 +100,15 @@ const config = {
 export default config;
 ```
 
-In `src/app/layout.tsx`, make sure you import the `globals.css` file:
+In `src/app/layout.tsx`, import `globals.css`:
 
 ```typescript
 import "./globals.css";
 ```
 
-## Step 3: Configure Next.js for Static Site Generation
+## Step 3: Configure Next.js for static export
 
-To generate a static website, configure your Next.js application to use **Static Site Generation (SSG)**:
-
-1. In your `next.config.mjs`, set the following configurations to generate static pages:
+1. In `next.config.mjs`, add the following to produce a static export:
 
    ```javascript
    /** @type {import('next').NextConfig} */
@@ -136,7 +134,7 @@ To generate a static website, configure your Next.js application to use **Static
    export default nextConfig;
    ```
 
-2. Create an `_posts` folder in your project root and keep all Markdown-based pages within this folder. Your posts should have attributes at the beginning of each file. Here's an example `lorem-ipsum.md` file:
+2. Create a `_posts` folder in the project root for your Markdown files. Each file needs front matter at the top. Here's an example `lorem-ipsum.md`:
 
    ```markdown
    ---
@@ -148,11 +146,9 @@ To generate a static website, configure your Next.js application to use **Static
    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus.
    ```
 
-3. Create a `post` folder under the `src/app` folder, and generate a `[slug]` folder within it. Adding a `page.tsx` file under the `[slug]` folder provides dynamic routing and page functionality for URLs like `http://localhost:3000/post/lorem-ipsum`. In this case, `lorem-ipsum` is your slug, representing the Markdown file name.
+3. Create a `post` folder under `src/app`, then a `[slug]` folder inside it with a `page.tsx` file. This gives you dynamic routing for URLs like `http://localhost:3000/post/lorem-ipsum`, where `lorem-ipsum` is the Markdown filename without the `.md` extension.
 
-4. Use the `generateMetadata` and `generateStaticParams` functions in `src/app/post/[slug]/page.tsx` to fetch Markdown files and generate static content:
-
-   For example, in `src/app/post/[slug]/page.tsx`:
+4. Use `generateMetadata` and `generateStaticParams` in `src/app/post/[slug]/page.tsx` to read the Markdown files and output static pages:
 
    ```typescript
    import fs from "fs";
@@ -248,11 +244,9 @@ To generate a static website, configure your Next.js application to use **Static
    export default PostPage;
    ```
 
-The Tailwind CSS Typography plugin is designed to apply clean, typographic styles to your text content, including headers, paragraphs, and lists. It provides consistent and customizable styles for Markdown content.
+The `@tailwindcss/typography` plugin adds default styles for rendered HTML: headings, paragraphs, lists, code blocks. Applying the `prose` class to the wrapper div activates those styles for the Markdown output.
 
-As shown in the example, the `prose` class is applied to a container div, wrapping the Markdown content. This ensures the typography styles are applied to the rendered Markdown content.
-
-5. Modify the `src/app/page.tsx` file to list all post titles on the main page:
+5. Modify `src/app/page.tsx` to list all post titles on the home page:
 
 ```typescript
 import fs from "fs";
@@ -318,9 +312,9 @@ const Home = () => {
 export default Home;
 ```
 
-## Step 4: Configuring GitHub Pages Deployment
+## Step 4: Configuring GitHub Pages deployment
 
-1. Create a new file called `deploy.yml` in the `.github/workflows` folder of your project:
+1. Create `.github/workflows/deploy.yml`:
 
    ```yaml
    name: Deploy Next.js site to Pages
@@ -410,21 +404,17 @@ export default Home;
            uses: actions/deploy-pages@v4
    ```
 
-2. Create an SSH deploy key for your repository and add it to your GitHub repository's Deploy Keys settings for secure deployment.
+2. Create an SSH deploy key and add it to the repository's Deploy Keys settings.
 
-3. Commit and push your changes to the repository. The GitHub Actions workflow will automatically build and deploy your static website whenever you push changes to the main branch.
+3. Commit and push. The workflow runs automatically on every push to `main`.
 
-4. To configure GitHub Pages for your repository, follow these steps:
+4. Enable GitHub Pages in your repository settings:
 
-   1. Navigate to your Git repository and click the **Settings** button.
-   2. In the **Settings** menu, select **Pages** from the **Code and automation** section.
-   3. Under the **Build and deployment** section, locate the **Source** dropdown menu.
-   4. Ensure **GitHub Actions** is selected as the source option.
+   1. Go to **Settings > Pages**.
+   2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
 
-   By setting up GitHub Actions as the source, you can streamline the build and deployment process for your GitHub Pages site.
-
-5. Once the deployment is complete, visit your GitHub repository's Settings > Pages to find the URL where your static site is hosted.
+5. Once the first deployment completes, the URL for your site appears under **Settings > Pages**.
 
 ## Conclusion
 
-You've now set up a static website using Next.js, Tailwind CSS, markdown-to-jsx, and the TailwindCSS Typography plugin, and deployed it to GitHub Pages. This approach allows you to create performant, beautiful, and efficient static websites with modern tools and workflows. Whether you're creating a blog, portfolio, or documentation site, this setup provides a strong foundation for your projects.
+You now have a static site built with Next.js, Tailwind CSS, and Markdown, deployed automatically via GitHub Actions. Pagination and tag filtering both work by filtering or slicing the array `getAllPosts()` returns.

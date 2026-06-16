@@ -2,6 +2,25 @@ const matter = require("gray-matter");
 const fs = require("fs");
 const path = require("path");
 
+const postsDir = path.join(process.cwd(), "_posts");
+const postFiles = fs.readdirSync(postsDir).filter((f) => f.endsWith(".md"));
+
+let latestPostDate = new Date(0);
+const tagLatestDate = {};
+
+for (const file of postFiles) {
+  const { data } = matter(fs.readFileSync(path.join(postsDir, file), "utf8"));
+  const modDate = new Date(data.lastModified ?? data.date);
+  if (modDate > latestPostDate) latestPostDate = modDate;
+  for (const tag of data.tags || []) {
+    if (!tagLatestDate[tag] || modDate > new Date(tagLatestDate[tag])) {
+      tagLatestDate[tag] = modDate.toISOString();
+    }
+  }
+}
+
+const latestPostDateStr = latestPostDate.toISOString();
+
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: process.env.SITE_URL || "https://www.burakince.com",
@@ -33,16 +52,30 @@ module.exports = {
         const { data } = matter(fs.readFileSync(filePath, "utf8"));
         return {
           loc: url,
-          lastmod: new Date(data.date).toISOString(),
+          lastmod: new Date(data.lastModified ?? data.date).toISOString(),
           changefreq: "monthly",
           priority: 0.8,
         };
       } catch {}
     }
+
+    const tagMatch = url.match(/\/tag\/([^/]+)\//);
+    if (tagMatch) {
+      const tag = tagMatch[1];
+      return {
+        loc: url,
+        lastmod: tagLatestDate[tag] ?? latestPostDateStr,
+        changefreq: "weekly",
+        priority: 0.7,
+      };
+    }
+
     const isHome = url === "/" || url === "";
+    const isPostListing =
+      isHome || url.startsWith("/page/") || url === "/tag/" || url === "/tag";
     return {
       loc: url,
-      lastmod: new Date().toISOString(),
+      lastmod: isPostListing ? latestPostDateStr : new Date().toISOString(),
       changefreq: isHome ? "weekly" : "monthly",
       priority: isHome ? 0.9 : 0.7,
     };

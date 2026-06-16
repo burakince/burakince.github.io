@@ -2,6 +2,7 @@
 title: "Why Are You Still Paying for Email? Here's My Almost-Free Setup"
 excerpt: "How to get a professional me@yourdomain.com address without paying for Google Workspace. Cloudflare Email Routing for inbound, AWS SES for outbound, Gmail as the client. Total cost: basically just your domain."
 date: "2026-06-09T19:07:32.168Z"
+lastModified: "2026-06-16T16:01:10.000Z"
 tags:
   - email
   - dns

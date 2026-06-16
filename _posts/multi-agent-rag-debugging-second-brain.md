@@ -2,6 +2,7 @@
 title: "I Built a Multi-Agent RAG Debugging Second Brain That Never Forgets"
 excerpt: "Debugging knowledge evaporates after incidents. I built a production multi-agent RAG to fix that: BM25 hybrid search, three-layer persistent memory, an external critic loop, and MCP integration for Claude Desktop. Full implementation breakdown."
 date: "2026-06-14T00:00:01.000Z"
+lastModified: "2026-06-16T16:01:48.000Z"
 tags:
   - python
   - ai

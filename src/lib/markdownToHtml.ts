@@ -91,6 +91,23 @@ const rehypeImgSize: Plugin<[], Root> = function () {
   };
 };
 
+const rehypePreTabindex: Plugin<[], Root> = function () {
+  return function (tree) {
+    function visit(node: Root | RootContent | ElementContent) {
+      if (node.type === "element" && (node as Element).tagName === "pre") {
+        (node as Element).properties = {
+          ...((node as Element).properties ?? {}),
+          tabIndex: 0,
+        };
+      }
+      if ("children" in node) {
+        for (const child of node.children) visit(child);
+      }
+    }
+    for (const child of tree.children) visit(child);
+  };
+};
+
 const rehypeLazyImages: Plugin<[], Root> = function () {
   return function (tree) {
     function visit(node: Root | RootContent | ElementContent) {
@@ -147,6 +164,7 @@ export default async function markdownToHtml(
     .use(rehypeHighlight, { languages: { ...common, cypher } })
     .use(rehypeImgSize)
     .use(rehypeLazyImages)
+    .use(rehypePreTabindex)
     .use(rehypeStringify)
     .process(markdown);
   return { html: result.toString(), headings };

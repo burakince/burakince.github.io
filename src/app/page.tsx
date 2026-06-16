@@ -1,25 +1,16 @@
 import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
 import Pagination from "@/app/_components/pagination";
-import { Blog, Person, WebSite, WithContext } from "schema-dts";
+import { Blog, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { withTrailingSlash } from "@/lib/url";
-import { orgJsonLd } from "@/lib/schema";
+import { personJsonLd } from "@/lib/schema";
 import JsonLd from "@/app/_components/json-ld";
 import { Metadata } from "next";
 
 const POSTS_PER_PAGE = 4;
 
 const HomePage = () => {
-  const meJsonLd: Person = {
-    "@type": "Person",
-    name: SITE_METADATA.author,
-    jobTitle: SITE_METADATA.jobTitle,
-    worksFor: orgJsonLd,
-    url: withTrailingSlash(`${SITE_METADATA.siteUrl}/me`),
-    image: `${SITE_METADATA.siteUrl}/assets/me/burakince.webp`,
-  };
-
   const websiteJsonLd: WithContext<WebSite> = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -27,10 +18,10 @@ const HomePage = () => {
     url: withTrailingSlash(SITE_METADATA.siteUrl),
     inLanguage: "en-US",
     isFamilyFriendly: true,
-    accountablePerson: meJsonLd,
-    author: meJsonLd,
-    creator: meJsonLd,
-    publisher: meJsonLd,
+    accountablePerson: personJsonLd,
+    author: personJsonLd,
+    creator: personJsonLd,
+    publisher: personJsonLd,
     description: SITE_METADATA.description,
   };
 
@@ -41,9 +32,9 @@ const HomePage = () => {
     description: SITE_METADATA.description,
     url: withTrailingSlash(SITE_METADATA.siteUrl),
     inLanguage: "en-US",
-    author: meJsonLd,
-    creator: meJsonLd,
-    publisher: meJsonLd,
+    author: personJsonLd,
+    creator: personJsonLd,
+    publisher: personJsonLd,
   };
 
   const allPosts = getAllPosts();

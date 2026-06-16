@@ -18,10 +18,9 @@ export async function GET(
   const post = getPostBySlug(slug);
 
   const url = withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${slug}`);
-  const absoluteContent = post.content.replace(
-    /\]\(\//g,
-    `](${SITE_METADATA.siteUrl}/`
-  );
+  const absoluteContent = post.content
+    .replace(/\]\(\//g, `](${SITE_METADATA.siteUrl}/`)
+    .replace(/^(#{2,})/gm, '#$1');
 
   const lines = [
     `# ${post.title}`,

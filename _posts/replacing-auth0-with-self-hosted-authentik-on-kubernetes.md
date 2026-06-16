@@ -2,6 +2,7 @@
 title: "Replacing Auth0 with self-hosted Authentik on Kubernetes and Cloudflare"
 excerpt: "Auth0 deleted my free-tier tenant without warning after 150 days of inactivity. Here's how I replaced it with self-hosted Authentik on my homelab Kubernetes cluster, wired up through Cloudflare Access with group-based policies."
 date: "2026-06-04T09:00:00.000Z"
+lastModified: "2026-06-16T16:01:45.000Z"
 tags:
   - authentik
   - kubernetes
