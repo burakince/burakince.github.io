@@ -1,4 +1,4 @@
-export function smartTruncate(text: string, maxChars = 130): string {
+export function smartTruncate(text: string, maxChars = 150): string {
   if (text.length <= maxChars) return text;
 
   const sub = text.slice(0, maxChars);
