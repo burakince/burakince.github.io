@@ -1,6 +1,12 @@
-const matter = require("gray-matter");
+const yaml = require("js-yaml");
 const fs = require("fs");
 const path = require("path");
+
+function matter(input) {
+  const match = input.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) return { data: {}, content: input };
+  return { data: yaml.load(match[1]) ?? {}, content: match[2] };
+}
 
 const postsDir = path.join(process.cwd(), "_posts");
 const postFiles = fs.readdirSync(postsDir).filter((f) => f.endsWith(".md"));
