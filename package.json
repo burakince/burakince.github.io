@@ -33,6 +33,13 @@
   },
   "overrides": {
     "minimatch": ">=9.0.7",
+    "@eslint/eslintrc": {
+      "js-yaml": ">=4.2.0 <5.0.0"
+    },
+    "cosmiconfig": {
+      "js-yaml": ">=4.2.0 <5.0.0"
+    },
+    "@babel/core": ">=7.29.6 <8.0.0",
     "next": {
       "postcss": ">=8.5.10"
     }
