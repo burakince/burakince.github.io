@@ -12,6 +12,8 @@
 
 - **WCAG F22 / 3.2.5 AAA — New-window warning**: Every `target="_blank"` link must inform screen-reader users it opens in a new tab. Pattern: for icon-only links, update the `sr-only` span text directly (e.g. `"github (opens in a new tab)"`). For links with visible text, append `<span className="sr-only"> (opens in a new tab)</span>` as the last child inside the `<a>`. Affected locations in this codebase: footer social icons, `me/page.tsx` platform cards and cert list, post share buttons.
 
+- **`mask-icon` color must contrast against dark `themeColor`**: The `<link rel="mask-icon">` `color` attribute specifies the Safari pinned-tab icon tint. The site's dark-mode `themeColor` is `#000000` (black), so a contrast tool comparing the mask-icon color against that background sees 1:1 if the color is also `#000000`. Use **`#7c3aed` (violet-600)** — it gives 3.68:1 against black (passes 3:1) and 5.22:1 against the light-mode body (`#f1f5f9`, passes 4.5:1). Defined in `src/app/layout.tsx` `icons.other`. Do not revert it to `#000000`.
+
 - **WCAG 1.4.6 AAA — Enhanced contrast (7:1)**: AAA requires 7:1 vs AA's 4.5:1 for normal-weight text under 18pt. Safe Tailwind classes confirmed for this site's palette:
   - `text-slate-300` → ~9.7:1 on dark gradient `from-slate-800 to-slate-900` (post header date/reading-time)
   - `text-slate-300` → 9.1:1 on `bg-slate-800` (dark header subtitle)
