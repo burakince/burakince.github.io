@@ -32,6 +32,12 @@ module.exports = {
   siteUrl: process.env.SITE_URL || "https://www.burakince.com",
   generateRobotsTxt: true,
   robotsTxtOptions: {
+    transformRobotsTxt: async (_config, robotsTxt) => {
+      const signal =
+        "# Content usage preferences for AI crawlers (Content-Signal)\n" +
+        "Content-Signal: ai-train=yes, search=yes, ai-input=yes\n";
+      return `${signal}\n${robotsTxt}`;
+    },
     policies: [
       {
         userAgent: "*",
