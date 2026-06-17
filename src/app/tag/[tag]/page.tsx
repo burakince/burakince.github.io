@@ -5,6 +5,9 @@ import { withTrailingSlash } from "@/lib/url";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { BlogPosting, BreadcrumbList, ItemList, ListItem, WithContext } from "schema-dts";
+import { personJsonLd } from "@/lib/schema";
+import JsonLd from "@/app/_components/json-ld";
 
 type Params = Promise<{ tag: string }>;
 
@@ -35,6 +38,56 @@ const TagPage = async ({ params }: { params: Params }) => {
 
   if (posts.length === 0) return notFound();
 
+  const tagUrl = withTrailingSlash(`${SITE_METADATA.siteUrl}/tag/${tag}`);
+  const tagsIndexUrl = withTrailingSlash(`${SITE_METADATA.siteUrl}/tag`);
+
+  const itemListJsonLd: WithContext<ItemList> = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Posts tagged #${tag}`,
+    itemListElement: posts.map((post, index): ListItem => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "BlogPosting",
+        "@id": withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${post.slug}`),
+        headline: post.title,
+        url: withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${post.slug}`),
+        image: `${SITE_METADATA.siteUrl}/assets/blog/og-images/${post.slug.replace(/-/g, "_")}.png`,
+        datePublished: post.date,
+        dateModified: post.lastModified,
+        description: post.excerpt,
+        author: personJsonLd,
+      } as BlogPosting,
+    })),
+  };
+
+  const breadcrumbData: WithContext<BreadcrumbList> = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    name: `#${tag}`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: { "@type": "WebPage", "@id": withTrailingSlash(SITE_METADATA.siteUrl), name: "Home" },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tags",
+        item: { "@type": "WebPage", "@id": tagsIndexUrl, name: "Tags" },
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: `#${tag}`,
+        item: { "@type": "WebPage", "@id": tagUrl, name: `#${tag}` },
+      },
+    ],
+  };
+
   return (
     <div>
       <h1 className="text-2xl font-bold mb-1 dark:text-gray-300">
@@ -54,6 +107,8 @@ const TagPage = async ({ params }: { params: Params }) => {
           <PostPreview key={post.slug} {...post} />
         ))}
       </div>
+      <JsonLd data={itemListJsonLd} />
+      <JsonLd data={breadcrumbData} />
     </div>
   );
 };

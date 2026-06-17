@@ -3,21 +3,11 @@ import { withTrailingSlash } from "@/lib/url";
 import { EXPERIENCE_GROUPS } from "@/lib/experience";
 import { SKILL_CATEGORIES_SORTED } from "@/lib/skills";
 import { CERTIFICATES } from "@/lib/certifications";
+import { calculateYears } from "@/lib/professional-years";
 
 export const dynamic = "force-static";
 
-function calculateYears(year: number, month: number): number {
-  const now = new Date();
-  const start = new Date(year, month - 1, 1);
-  let years = now.getFullYear() - start.getFullYear();
-  const monthDiff = now.getMonth() - start.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < start.getDate())) {
-    years--;
-  }
-  return years;
-}
-
-const PROFESSIONAL_YEARS = calculateYears(2012, 7);
+const PROFESSIONAL_YEARS = calculateYears({ year: 2012, month: 7 });
 
 export async function GET() {
   const { author, jobTitle, worksFor, linkedin, github, bluesky, siteUrl } =

@@ -56,8 +56,14 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Unit tests
+        run: npm test
+
       - name: Build with Next.js
         run: npm run build
+
+      - name: E2E smoke tests
+        run: npm run test:e2e
 
       - name: Upload artifact
         if: github.event_name != 'pull_request'
@@ -76,3 +82,12 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+      - name: Trigger profile README update
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.PROFILE_DISPATCH_TOKEN }}
+        run: |
+          gh api repos/burakince/burakince/dispatches \
+            --method POST \
+            --field event_type=blog-updated

@@ -58,17 +58,42 @@ Runs the linter (ESLint flat config with Next.js core-web-vitals and prettier ru
 npm run lint
 ```
 
-Builds the app for production. Always confirm this passes before committing — some errors (TypeScript, CSS bundling, static export) only surface in the production build.
+Builds the app for production. Some errors (TypeScript, CSS bundling, static export) only surface here.
 
 ```bash
 npm run build
 ```
+
+Runs the unit tests (vitest, no browser required).
+
+```bash
+npm test
+```
+
+Runs the E2E smoke tests against the built static site (`out/`). Requires `npm run build` first.
+
+```bash
+npm run test:e2e
+```
+
+Always confirm the full sequence passes before committing: `npm test && npm run build && npm run test:e2e`.
 
 Runs the built app in production mode.
 
 ```bash
 npx serve@latest out
 ```
+
+## Profile JSON Endpoint
+
+`/profile.json` is a static build-time endpoint consumed by the GitHub profile README auto-sync workflow in `burakince/burakince`. It exports:
+
+- `name`, `jobTitle`, `company`, `companyUrl` — from `SITE_METADATA`
+- `socialLinks` — github, linkedin, twitter, bluesky
+- `recentPosts` — latest 5 posts (title, url, date, tags, excerpt)
+- `skillCategories` — all categories from `SKILL_CATEGORIES_SORTED`
+
+The endpoint is excluded from the sitemap and blocked by the existing `/*.json$` robots.txt rule. After each main-branch deploy, `pages.yml` sends a `repository_dispatch` (`event_type: blog-updated`) to `burakince/burakince` via the `PROFILE_DISPATCH_TOKEN` secret, triggering README regeneration automatically.
 
 ## Dependency Update
 

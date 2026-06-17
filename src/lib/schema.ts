@@ -5,6 +5,7 @@ import { ALL_SKILLS_SORTED } from "@/lib/skills";
 
 export const orgJsonLd: Organization = {
   "@type": "Organization",
+  "@id": SITE_METADATA.worksFor.url,
   name: SITE_METADATA.worksFor.name,
   url: SITE_METADATA.worksFor.url,
   logo: SITE_METADATA.worksFor.logo,
@@ -12,6 +13,7 @@ export const orgJsonLd: Organization = {
 
 export const personJsonLd = {
   "@type": "Person" as const,
+  "@id": withTrailingSlash(`${SITE_METADATA.siteUrl}/me`),
   name: SITE_METADATA.author,
   gender: "male",
   jobTitle: SITE_METADATA.jobTitle,

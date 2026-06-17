@@ -8,6 +8,7 @@ import JsonLd from "@/app/_components/json-ld";
 import { personJsonLd } from "@/lib/schema";
 import { SKILL_CATEGORIES_SORTED } from "@/lib/skills";
 import { EXPERIENCE_GROUPS } from "@/lib/experience";
+import { calculateYears } from "@/lib/professional-years";
 import AnchorHeading from "@/app/me/_components/anchor-heading";
 import PrintIconButton from "@/app/me/_components/print-icon-button";
 import Link from "next/link";
@@ -19,25 +20,8 @@ import CredlyIcon from "@/app/_components/social-icons/credly.svg";
 import MicrosoftLearnIcon from "@/app/_components/social-icons/microsoftlearn.svg";
 import GoogleIcon from "@/app/_components/social-icons/google.svg";
 
-const PROFESSIONAL_START = { year: 2012, month: 7 };
-const PROGRAMMING_START = { year: 2001, month: 1 };
-
-const calculateYears = (start: { year: number; month: number }): number => {
-  const now = new Date();
-  const startDate = new Date(start.year, start.month - 1, 1);
-
-  let years = now.getFullYear() - startDate.getFullYear();
-  const monthDiff = now.getMonth() - startDate.getMonth();
-
-  if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < startDate.getDate())) {
-    years--;
-  }
-
-  return years;
-};
-
-const PROFESSIONAL_YEARS = calculateYears(PROFESSIONAL_START);
-const PROGRAMMING_YEARS = calculateYears(PROGRAMMING_START);
+const PROFESSIONAL_YEARS = calculateYears({ year: 2012, month: 7 });
+const PROGRAMMING_YEARS = calculateYears({ year: 2001, month: 1 });
 
 
 const title = `${SITE_METADATA.author} - ${SITE_METADATA.jobTitle} with ${PROFESSIONAL_YEARS}+ Years Experience`;
@@ -87,8 +71,8 @@ const MePage = () => {
             </p>
             <div className="flex flex-wrap gap-2 print:hidden">
               {[
-                `${PROFESSIONAL_YEARS}+ yrs professional`,
-                `${PROGRAMMING_YEARS}+ yrs programming`,
+                `${PROFESSIONAL_YEARS}+ years professional`,
+                `${PROGRAMMING_YEARS}+ years programming`,
                 "Full-stack",
                 "Data Engineering",
                 "Cloud-native",

@@ -46,7 +46,7 @@ module.exports = {
       },
     ],
   },
-  exclude: ["/404", "/404/"],
+  exclude: ["/404", "/404/", "/profile.json"],
   trailingSlash: true,
   output: "export",
   transform: async (config, url) => {

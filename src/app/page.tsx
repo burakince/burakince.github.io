@@ -1,7 +1,7 @@
 import { getAllPosts } from "@/lib/api";
 import PostPreview from "@/app/_components/post-preview";
 import Pagination from "@/app/_components/pagination";
-import { Blog, WebSite, WithContext } from "schema-dts";
+import { Blog, BlogPosting, ItemList, ListItem, WebSite, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { withTrailingSlash } from "@/lib/url";
 import { personJsonLd } from "@/lib/schema";
@@ -41,6 +41,26 @@ const HomePage = () => {
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
   const posts = allPosts.slice(0, POSTS_PER_PAGE);
 
+  const itemListJsonLd: WithContext<ItemList> = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: posts.map((post, index): ListItem => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "BlogPosting",
+        "@id": withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${post.slug}`),
+        headline: post.title,
+        url: withTrailingSlash(`${SITE_METADATA.siteUrl}/post/${post.slug}`),
+        image: `${SITE_METADATA.siteUrl}/assets/blog/og-images/${post.slug.replace(/-/g, "_")}.png`,
+        datePublished: post.date,
+        dateModified: post.lastModified,
+        description: post.excerpt,
+        author: personJsonLd,
+      } as BlogPosting,
+    })),
+  };
+
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4 dark:text-gray-300">
@@ -56,6 +76,7 @@ const HomePage = () => {
       )}
       <JsonLd data={websiteJsonLd} />
       <JsonLd data={blogJsonLd} />
+      <JsonLd data={itemListJsonLd} />
     </div>
   );
 };

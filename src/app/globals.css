@@ -1,6 +1,8 @@
-@import 'tailwindcss';
-@import 'highlight.js/styles/a11y-dark.css' screen and (prefers-color-scheme: dark);
-@import 'highlight.js/styles/a11y-light.css' screen and (prefers-color-scheme: light);
+@import "tailwindcss";
+@import "highlight.js/styles/a11y-dark.css" screen and
+  (prefers-color-scheme: dark);
+@import "highlight.js/styles/a11y-light.css" screen and
+  (prefers-color-scheme: light);
 @plugin "@tailwindcss/typography";
 
 @utility container {
@@ -182,7 +184,9 @@ pre {
   background: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
   line-height: 1.4;
 }
 

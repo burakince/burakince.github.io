@@ -59,6 +59,7 @@ const PostPage = async ({ params }: { params: Params }) => {
   const structuredData: WithContext<BlogPosting> = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": postUrl,
     mainEntityOfPage: postUrl,
     image: `${SITE_METADATA.siteUrl}${ogImage}`,
     headline: post.title,
@@ -78,18 +79,19 @@ const PostPage = async ({ params }: { params: Params }) => {
   const breadcrumbData: WithContext<BreadcrumbList> = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    name: post.title,
     itemListElement: [
       {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: withTrailingSlash(SITE_METADATA.siteUrl),
+        item: { "@type": "WebPage", "@id": withTrailingSlash(SITE_METADATA.siteUrl), name: "Home" },
       },
       {
         "@type": "ListItem",
         position: 2,
         name: post.title,
-        item: postUrl,
+        item: { "@type": "WebPage", "@id": postUrl, name: post.title },
       },
     ],
   };

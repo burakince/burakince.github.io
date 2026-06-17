@@ -20,7 +20,7 @@ export function getPostBySlug(slug: string): Post {
 
 export function getAllTags(): string[] {
   const tagSet = new Set(getAllPosts().flatMap((p) => p.tags ?? []));
-  return Array.from(tagSet).sort((a, b) => a.localeCompare("en"));
+  return Array.from(tagSet).sort((a, b) => a.localeCompare(b, "en"));
 }
 
 export function getAllPosts(): Post[] {

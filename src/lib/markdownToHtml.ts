@@ -19,7 +19,7 @@ export interface TocHeading {
   level: number;
 }
 
-function slugify(text: string): string {
+export function slugify(text: string): string {
   return text
     .toLowerCase()
     .trim()
@@ -27,7 +27,7 @@ function slugify(text: string): string {
     .replace(/\s+/g, "-");
 }
 
-function getTextContent(node: ElementContent): string {
+export function getTextContent(node: ElementContent): string {
   if (node.type === "text") return node.value;
   if (node.type === "element") {
     return (node as Element).children.map(getTextContent).join("");
@@ -35,7 +35,7 @@ function getTextContent(node: ElementContent): string {
   return "";
 }
 
-const rehypeMermaidA11y: Plugin<[], Root> = function () {
+export const rehypeMermaidA11y: Plugin<[], Root> = function () {
   return function (tree) {
     let lastHeadingText = "Diagram";
     function visit(node: Root | RootContent | ElementContent) {
@@ -44,8 +44,14 @@ const rehypeMermaidA11y: Plugin<[], Root> = function () {
         if (/^h[1-6]$/.test(el.tagName)) {
           lastHeadingText = el.children.map(getTextContent).join("").trim() || "Diagram";
         }
+        // inline-svg strategy: aria-label on the SVG element
         if (el.tagName === "svg" && el.properties?.ariaRoleDescription) {
           el.properties.ariaLabel = lastHeadingText;
+        }
+        // img-svg strategy: alt on the <img> inside a <picture>
+        const idStr = String(el.properties?.id ?? "");
+        if (el.tagName === "img" && idStr.startsWith("mermaid-")) {
+          el.properties!.alt = lastHeadingText;
         }
       }
       if ("children" in node) {
@@ -91,7 +97,7 @@ const rehypeImgSize: Plugin<[], Root> = function () {
   };
 };
 
-const rehypePreTabindex: Plugin<[], Root> = function () {
+export const rehypePreTabindex: Plugin<[], Root> = function () {
   return function (tree) {
     function visit(node: Root | RootContent | ElementContent) {
       if (node.type === "element" && (node as Element).tagName === "pre") {
@@ -108,7 +114,7 @@ const rehypePreTabindex: Plugin<[], Root> = function () {
   };
 };
 
-const rehypeLazyImages: Plugin<[], Root> = function () {
+export const rehypeLazyImages: Plugin<[], Root> = function () {
   return function (tree) {
     function visit(node: Root | RootContent | ElementContent) {
       if (node.type === "element" && (node as Element).tagName === "img") {
@@ -129,7 +135,7 @@ const rehypeLazyImages: Plugin<[], Root> = function () {
   };
 };
 
-const rehypeHeadings: Plugin<[TocHeading[]], Root> = function (headings) {
+export const rehypeHeadings: Plugin<[TocHeading[]], Root> = function (headings) {
   return function (tree) {
     function visit(node: Root | RootContent | ElementContent) {
       if (node.type === "element" && /^h[23]$/.test(node.tagName)) {
@@ -158,7 +164,7 @@ export default async function markdownToHtml(
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkRehype)
-    .use(rehypeMermaid, { strategy: "inline-svg" })
+    .use(rehypeMermaid, { strategy: "img-svg", dark: { theme: "dark" } })
     .use(rehypeMermaidA11y)
     .use(rehypeHeadings, headings)
     .use(rehypeHighlight, { languages: { ...common, cypher } })

@@ -1,4 +1,5 @@
 import { getAllPosts, getAllTags } from "@/lib/api";
+import { countPostsByTag, sortTagsByPostCount } from "@/lib/tags";
 import TagChip from "@/app/_components/tag-chip";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { withTrailingSlash } from "@/lib/url";
@@ -19,16 +20,8 @@ const TagsIndexPage = () => {
   const allPosts = getAllPosts();
   const tags = getAllTags();
 
-  const countByTag = Object.fromEntries(
-    tags.map((tag) => [
-      tag,
-      allPosts.filter((p) => p.tags?.includes(tag)).length,
-    ])
-  );
-
-  const sortedTags = [...tags].sort(
-    (a, b) => countByTag[b] - countByTag[a]
-  );
+  const countByTag = countPostsByTag(allPosts, tags);
+  const sortedTags = sortTagsByPostCount(tags, countByTag);
 
   return (
     <div>

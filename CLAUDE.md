@@ -20,6 +20,8 @@ Always use the playwright plugin for browser-based testing and UI verification.
 npm run dev        # Start development server
 npm run build      # Build for production (runs next-sitemap as postbuild)
 npm run lint       # ESLint flat config (core-web-vitals + prettier rules); also runs in CI before build
+npm test           # Vitest unit tests (pure lib functions; no browser needed)
+npm run test:e2e   # Playwright smoke tests against built out/ (requires prior npm run build)
 ```
 
 Some issues (TypeScript errors, static export failures, CSS bundling, OG image generation, sitemap) are only visible in the production build and not in `npm run dev`. To verify locally:
@@ -29,11 +31,9 @@ npm run build
 npx serve@latest out
 ```
 
-There is no test suite.
-
 ## Before committing
 
-Always run `npm run build` and confirm it succeeds with no errors before committing or pushing.
+Always run `npm run lint && npm test && npm run build && npm run test:e2e` and confirm all pass before committing or pushing.
 
 ## Git commits
 
@@ -49,3 +49,4 @@ Never finger-point individuals in blog posts. Do not name specific people (suppo
 @.claude/rules/accessibility.md
 @.claude/rules/css.md
 @.claude/rules/dependencies.md
+@.claude/rules/testing.md
