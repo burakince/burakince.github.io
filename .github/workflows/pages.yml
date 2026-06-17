@@ -83,6 +83,28 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v5
 
+      - name: Wait for profile.json to reflect new deploy
+        if: github.ref == 'refs/heads/main'
+        run: |
+          COMMIT_SHA="${{ github.sha }}"
+          MAX_ATTEMPTS=20
+          SLEEP_SECONDS=15
+          for i in $(seq 1 $MAX_ATTEMPTS); do
+            VERSION=$(curl -sf \
+              -H "Cache-Control: no-cache" \
+              -H "Pragma: no-cache" \
+              "https://www.burakince.com/profile.json" | jq -r '.version // empty')
+            if [ "$VERSION" = "$COMMIT_SHA" ]; then
+              echo "profile.json is up to date (version: $VERSION)"
+              break
+            fi
+            echo "Attempt $i/$MAX_ATTEMPTS: got '$VERSION', want '$COMMIT_SHA'. Retrying in ${SLEEP_SECONDS}s..."
+            if [ "$i" -eq "$MAX_ATTEMPTS" ]; then
+              echo "Warning: timed out after $((MAX_ATTEMPTS * SLEEP_SECONDS))s — sending dispatch anyway"
+            fi
+            sleep $SLEEP_SECONDS
+          done
+
       - name: Trigger profile README update
         if: github.ref == 'refs/heads/main'
         env:

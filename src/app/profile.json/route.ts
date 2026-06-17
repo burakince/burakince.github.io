@@ -24,6 +24,7 @@ export async function GET() {
   }));
 
   const payload = {
+    version: process.env.GITHUB_SHA ?? "local",
     name: author,
     jobTitle,
     company: worksFor.name,
@@ -39,5 +40,7 @@ export async function GET() {
     skillCategories,
   };
 
-  return Response.json(payload);
+  return Response.json(payload, {
+    headers: { "Cache-Control": "no-store" },
+  });
 }
