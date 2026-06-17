@@ -37,6 +37,8 @@ export async function GET() {
     `- [Full content (llms-full.txt)](${siteUrl}/llms-full.txt): All posts with full markdown content in one file.`,
     `- [Profile (me/llms.txt)](${siteUrl}/me/llms.txt): Author experience, skills, and certifications as structured text.`,
     `- Per-post full content: append /llms.txt to any post URL for full markdown, e.g. [${posts[0]?.slug ?? "post-slug"}/llms.txt](${withTrailingSlash(`${siteUrl}/post/${posts[0]?.slug ?? "post-slug"}`)}llms.txt)`,
+    `- Per-post Markdown (Content-Type: text/markdown): append /content.md to any post URL, e.g. [${posts[0]?.slug ?? "post-slug"}/content.md](${withTrailingSlash(`${siteUrl}/post/${posts[0]?.slug ?? "post-slug"}`)}content.md) — includes YAML front matter.`,
+    `- [About page Markdown](${siteUrl}/me/content.md): Author profile as text/markdown with YAML front matter.`,
   ];
 
   return new Response(lines.join("\n"), {
