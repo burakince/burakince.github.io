@@ -116,10 +116,16 @@ test("tags index JSON-LD: BreadcrumbList has 2-level trail Home > Tags", async (
 
   expect(items[0].position).toBe(1);
   expect(items[0].name).toBe("Home");
+  const tagsIndexHome = items[0].item as Schema;
+  expect(tagsIndexHome["@type"]).toBe("WebPage");
+  expect(tagsIndexHome.name).toBe("Home");
 
   expect(items[1].position).toBe(2);
   expect(items[1].name).toBe("Tags");
-  expect(String((items[1].item as Schema)["@id"])).toContain("/tag");
+  const tagsIndexLeaf = items[1].item as Schema;
+  expect(tagsIndexLeaf["@type"]).toBe("WebPage");
+  expect(String(tagsIndexLeaf["@id"])).toContain("/tag");
+  expect(tagsIndexLeaf.name).toBe("Tags");
 });
 
 // ─── Tag page ────────────────────────────────────────────────────────────────
@@ -163,14 +169,23 @@ test("tag page JSON-LD: BreadcrumbList has 3-level trail Home > Tags > #tag", as
 
   expect(items[0].position).toBe(1);
   expect(items[0].name).toBe("Home");
+  const tagHome = items[0].item as Schema;
+  expect(tagHome["@type"]).toBe("WebPage");
+  expect(tagHome.name).toBe("Home");
 
   expect(items[1].position).toBe(2);
   expect(items[1].name).toBe("Tags");
-  expect(String((items[1].item as Schema)["@id"])).toContain("/tag");
+  const tagMiddle = items[1].item as Schema;
+  expect(tagMiddle["@type"]).toBe("WebPage");
+  expect(String(tagMiddle["@id"])).toContain("/tag");
+  expect(tagMiddle.name).toBe("Tags");
 
   expect(items[2].position).toBe(3);
   expect(String(items[2].name).startsWith("#")).toBe(true);
-  expect(String((items[2].item as Schema)["@id"])).toContain("/tag/");
+  const tagLeaf = items[2].item as Schema;
+  expect(tagLeaf["@type"]).toBe("WebPage");
+  expect(String(tagLeaf["@id"])).toContain("/tag/");
+  expect(String(tagLeaf.name).startsWith("#")).toBe(true);
 });
 
 // ─── Paginated listing page ───────────────────────────────────────────────────
@@ -188,10 +203,16 @@ test("paginated page JSON-LD: BreadcrumbList has 2-level trail Home > Page N", a
 
   expect(items[0].position).toBe(1);
   expect(items[0].name).toBe("Home");
+  const paginatedHome = items[0].item as Schema;
+  expect(paginatedHome["@type"]).toBe("WebPage");
+  expect(paginatedHome.name).toBe("Home");
 
   expect(items[1].position).toBe(2);
   expect(items[1].name).toBe("Page 2");
-  expect(String((items[1].item as Schema)["@id"])).toContain("/page/2");
+  const paginatedLeaf = items[1].item as Schema;
+  expect(paginatedLeaf["@type"]).toBe("WebPage");
+  expect(String(paginatedLeaf["@id"])).toContain("/page/2");
+  expect(paginatedLeaf.name).toBe("Page 2");
 });
 
 // ─── About page ──────────────────────────────────────────────────────────────
@@ -209,10 +230,16 @@ test("about page JSON-LD: BreadcrumbList has 2-level trail Home > About", async 
 
   expect(items[0].position).toBe(1);
   expect(items[0].name).toBe("Home");
+  const aboutHome = items[0].item as Schema;
+  expect(aboutHome["@type"]).toBe("WebPage");
+  expect(aboutHome.name).toBe("Home");
 
   expect(items[1].position).toBe(2);
   expect(items[1].name).toBe("About");
-  expect(String((items[1].item as Schema)["@id"])).toContain("/me");
+  const aboutLeaf = items[1].item as Schema;
+  expect(aboutLeaf["@type"]).toBe("WebPage");
+  expect(String(aboutLeaf["@id"])).toContain("/me");
+  expect(aboutLeaf.name).toBe("About");
 });
 
 test("about page JSON-LD: ProfilePage has Person mainEntity with key fields", async ({ page }) => {

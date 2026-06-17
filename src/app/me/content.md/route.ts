@@ -3,11 +3,11 @@ import { withTrailingSlash } from "@/lib/url";
 import { EXPERIENCE_GROUPS } from "@/lib/experience";
 import { SKILL_CATEGORIES_SORTED } from "@/lib/skills";
 import { CERTIFICATES } from "@/lib/certifications";
-import { calculateYears } from "@/lib/professional-years";
+import { calculateYears, PROFESSIONAL_START } from "@/lib/professional-years";
 
 export const dynamic = "force-static";
 
-const PROFESSIONAL_YEARS = calculateYears({ year: 2012, month: 7 });
+const PROFESSIONAL_YEARS = calculateYears(PROFESSIONAL_START);
 
 export async function GET() {
   const { author, jobTitle, worksFor, linkedin, github, bluesky, siteUrl } =

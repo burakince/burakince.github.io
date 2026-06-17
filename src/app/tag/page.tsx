@@ -4,47 +4,28 @@ import TagChip from "@/app/_components/tag-chip";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { withTrailingSlash } from "@/lib/url";
 import { Metadata } from "next";
-import { BreadcrumbList, WithContext } from "schema-dts";
+import { buildBreadcrumbList } from "@/lib/schema";
 import JsonLd from "@/app/_components/json-ld";
 
-const _tags = getAllTags();
-const _allPosts = getAllPosts();
+const allPosts = getAllPosts();
+const allTags = getAllTags();
 
 export const metadata: Metadata = {
   title: `Tags | ${SITE_METADATA.title}`,
-  description: `Browse ${_tags.length} topics across ${_allPosts.length} posts on Burak Ince's engineering blog. Find posts on AI, cloud-native engineering, and software craftsmanship.`,
+  description: `Browse ${allTags.length} topics across ${allPosts.length} posts on Burak Ince's engineering blog. Find posts on AI, cloud-native engineering, and software craftsmanship.`,
   alternates: {
     canonical: withTrailingSlash(`${SITE_METADATA.siteUrl}/tag`),
   },
 };
 
 const TagsIndexPage = () => {
-  const allPosts = getAllPosts();
-  const tags = getAllTags();
-
-  const countByTag = countPostsByTag(allPosts, tags);
-  const sortedTags = sortTagsByPostCount(tags, countByTag);
+  const countByTag = countPostsByTag(allPosts, allTags);
+  const sortedTags = sortTagsByPostCount(allTags, countByTag);
 
   const tagsUrl = withTrailingSlash(`${SITE_METADATA.siteUrl}/tag`);
-  const breadcrumbData: WithContext<BreadcrumbList> = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    name: "Tags",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: { "@type": "WebPage", "@id": withTrailingSlash(SITE_METADATA.siteUrl), name: "Home" },
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tags",
-        item: { "@type": "WebPage", "@id": tagsUrl, name: "Tags" },
-      },
-    ],
-  };
+  const breadcrumbData = buildBreadcrumbList("Tags", [
+    { name: "Tags", url: tagsUrl },
+  ]);
 
   return (
     <div>
@@ -54,7 +35,7 @@ const TagsIndexPage = () => {
         Browse all topics. Click a tag to see related posts.
       </p>
       <p className="text-xs text-slate-700 dark:text-slate-400 mb-6">
-        {tags.length} topics &middot; {allPosts.length} posts
+        {allTags.length} topics &middot; {allPosts.length} posts
       </p>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3">
         {sortedTags.map((tag) => (

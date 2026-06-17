@@ -1,4 +1,4 @@
-import { Organization, Person } from "schema-dts";
+import { BreadcrumbList, Organization, Person, WithContext } from "schema-dts";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { withTrailingSlash } from "@/lib/url";
 import { ALL_SKILLS_SORTED } from "@/lib/skills";
@@ -33,3 +33,29 @@ export const personJsonLd = {
   ],
   knowsAbout: [...ALL_SKILLS_SORTED],
 } satisfies Person;
+
+export function buildBreadcrumbList(
+  name: string,
+  leafItems: Array<{ name: string; url: string }>
+): WithContext<BreadcrumbList> {
+  const homeUrl = withTrailingSlash(SITE_METADATA.siteUrl);
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    name,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: { "@type": "WebPage", "@id": homeUrl, name: "Home" },
+      },
+      ...leafItems.map((item, i) => ({
+        "@type": "ListItem" as const,
+        position: i + 2,
+        name: item.name,
+        item: { "@type": "WebPage" as const, "@id": item.url, name: item.name },
+      })),
+    ],
+  };
+}

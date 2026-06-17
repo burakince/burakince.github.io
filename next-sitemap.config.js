@@ -13,10 +13,13 @@ const postFiles = fs.readdirSync(postsDir).filter((f) => f.endsWith(".md"));
 
 let latestPostDate = new Date(0);
 const tagLatestDate = {};
+const postLastModified = {};
 
 for (const file of postFiles) {
   const { data } = matter(fs.readFileSync(path.join(postsDir, file), "utf8"));
+  const slug = file.replace(/\.md$/, "");
   const modDate = new Date(data.lastModified ?? data.date);
+  postLastModified[slug] = modDate.toISOString();
   if (modDate > latestPostDate) latestPostDate = modDate;
   for (const tag of data.tags || []) {
     if (!tagLatestDate[tag] || modDate > new Date(tagLatestDate[tag])) {
@@ -62,23 +65,19 @@ module.exports = {
       { userAgent: "Bytespider",         allow: "/" },
     ],
   },
-  exclude: ["/404", "/404/", "/profile.json"],
+  exclude: ["/404", "/404/", "/profile.json", "/me/content.md", "/me/content.md/"],
   trailingSlash: true,
   output: "export",
   transform: async (config, url) => {
     const postMatch = url.match(/\/post\/([^/]+)\//);
     if (postMatch) {
       const slug = postMatch[1];
-      const filePath = path.join(process.cwd(), "_posts", `${slug}.md`);
-      try {
-        const { data } = matter(fs.readFileSync(filePath, "utf8"));
-        return {
-          loc: url,
-          lastmod: new Date(data.lastModified ?? data.date).toISOString(),
-          changefreq: "monthly",
-          priority: 0.8,
-        };
-      } catch {}
+      return {
+        loc: url,
+        lastmod: postLastModified[slug] ?? new Date().toISOString(),
+        changefreq: "monthly",
+        priority: 0.8,
+      };
     }
 
     const tagMatch = url.match(/\/tag\/([^/]+)\//);

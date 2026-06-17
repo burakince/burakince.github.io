@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
-import { BreadcrumbList, Person, ProfilePage, WithContext } from "schema-dts";
+import { Person, ProfilePage, WithContext } from "schema-dts";
 import { withTrailingSlash } from "@/lib/url";
 import { CERTIFICATES } from "@/lib/certifications";
 import JsonLd from "@/app/_components/json-ld";
-import { personJsonLd } from "@/lib/schema";
+import { buildBreadcrumbList, personJsonLd } from "@/lib/schema";
 import { SKILL_CATEGORIES_SORTED } from "@/lib/skills";
 import { EXPERIENCE_GROUPS } from "@/lib/experience";
-import { calculateYears } from "@/lib/professional-years";
+import { calculateYears, PROFESSIONAL_START } from "@/lib/professional-years";
 import AnchorHeading from "@/app/me/_components/anchor-heading";
 import PrintIconButton from "@/app/me/_components/print-icon-button";
 import Link from "next/link";
@@ -20,7 +20,7 @@ import CredlyIcon from "@/app/_components/social-icons/credly.svg";
 import MicrosoftLearnIcon from "@/app/_components/social-icons/microsoftlearn.svg";
 import GoogleIcon from "@/app/_components/social-icons/google.svg";
 
-const PROFESSIONAL_YEARS = calculateYears({ year: 2012, month: 7 });
+const PROFESSIONAL_YEARS = calculateYears(PROFESSIONAL_START);
 const PROGRAMMING_YEARS = calculateYears({ year: 2001, month: 1 });
 
 
@@ -42,25 +42,9 @@ const MePage = () => {
   };
 
   const meUrl = withTrailingSlash(`${SITE_METADATA.siteUrl}/me`);
-  const breadcrumbData: WithContext<BreadcrumbList> = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    name: "About",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: { "@type": "WebPage", "@id": withTrailingSlash(SITE_METADATA.siteUrl), name: "Home" },
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "About",
-        item: { "@type": "WebPage", "@id": meUrl, name: "About" },
-      },
-    ],
-  };
+  const breadcrumbData = buildBreadcrumbList("About", [
+    { name: "About", url: meUrl },
+  ]);
 
   return (
     <div>

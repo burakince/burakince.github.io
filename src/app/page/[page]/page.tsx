@@ -6,7 +6,7 @@ import { SITE_METADATA } from "@/lib/site-metadata";
 import { withTrailingSlash } from "@/lib/url";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BreadcrumbList, WithContext } from "schema-dts";
+import { buildBreadcrumbList } from "@/lib/schema";
 import JsonLd from "@/app/_components/json-ld";
 
 const POSTS_PER_PAGE = 4;
@@ -50,25 +50,9 @@ const PaginatedPage = async ({ params }: { params: Params }) => {
   const posts = paginateSlice(allPosts, pageNum, POSTS_PER_PAGE);
 
   const pageUrl = withTrailingSlash(`${SITE_METADATA.siteUrl}/page/${pageNum}`);
-  const breadcrumbData: WithContext<BreadcrumbList> = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    name: `Page ${pageNum}`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: { "@type": "WebPage", "@id": withTrailingSlash(SITE_METADATA.siteUrl), name: "Home" },
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: `Page ${pageNum}`,
-        item: { "@type": "WebPage", "@id": pageUrl, name: `Page ${pageNum}` },
-      },
-    ],
-  };
+  const breadcrumbData = buildBreadcrumbList(`Page ${pageNum}`, [
+    { name: `Page ${pageNum}`, url: pageUrl },
+  ]);
 
   return (
     <div>

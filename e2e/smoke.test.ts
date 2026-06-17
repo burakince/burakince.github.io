@@ -46,3 +46,23 @@ test("page 2 pagination loads with posts", async ({ page }) => {
   expect(response?.status()).toBe(200);
   await expect(page.locator("a[href*='/post/']").first()).toBeVisible();
 });
+
+test("me/content.md serves text/markdown with YAML front matter", async ({ page }) => {
+  const response = await page.goto("/me/content.md");
+  expect(response?.status()).toBe(200);
+  expect(response?.headers()["content-type"]).toContain("text/markdown");
+  const body = await response?.text();
+  expect(body).toContain("---");
+  expect(body).toContain("name:");
+});
+
+test("post content.md serves text/markdown with YAML front matter", async ({ page }) => {
+  const response = await page.goto(
+    "/post/how-to-use-a-custom-domain-with-github-pages/content.md"
+  );
+  expect(response?.status()).toBe(200);
+  expect(response?.headers()["content-type"]).toContain("text/markdown");
+  const body = await response?.text();
+  expect(body).toContain("---");
+  expect(body).toContain("title:");
+});

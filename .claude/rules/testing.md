@@ -5,7 +5,7 @@ Unit tests live in `src/lib/__tests__/`. E2E tests live in `e2e/`. Both run in C
 #### When to add or update tests
 
 - **Changing or adding a `src/lib/` file** → add or update the corresponding test in `src/lib/__tests__/`.
-- **Adding a new page or changing an existing page** (except `_posts/` blog posts) → add or update the relevant smoke test in `e2e/smoke.test.ts`.
+- **Adding a new page or changing an existing page** (except `_posts/` blog posts) → add or update the relevant smoke test in `e2e/smoke.test.ts`. For non-HTML route handlers (e.g. `content.md`, `llms.txt`, `feed.xml`) use URLs **without** a trailing slash in smoke tests (e.g. `/me/content.md` not `/me/content.md/`) — these export as raw files and are not subject to the `trailingSlash: true` redirect that HTML pages use.
 - **Changing JSON-LD structured data on any page** → add or update the relevant test in `e2e/json-ld.test.ts`. That file covers: homepage `ItemList` (BlogPosting fields + OG image underscore filename), post page `BlogPosting` (required Article fields) and `BreadcrumbList` (container `name`, two `WebPage` items each with `@id` and `name`), about page `ProfilePage` (Person `mainEntity` with `name`, `jobTitle`, `sameAs`).
 
 #### `markdownToHtml.ts` testing notes

@@ -5,8 +5,8 @@ import { SITE_METADATA } from "@/lib/site-metadata";
 import Image from "next/image";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BlogPosting, BreadcrumbList, WithContext } from "schema-dts";
-import { personJsonLd } from "@/lib/schema";
+import { BlogPosting, WithContext } from "schema-dts";
+import { buildBreadcrumbList, personJsonLd } from "@/lib/schema";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
 import typescript from "highlight.js/lib/languages/typescript";
@@ -76,25 +76,9 @@ const PostPage = async ({ params }: { params: Params }) => {
     keywords: post.tags?.join(", "),
   };
 
-  const breadcrumbData: WithContext<BreadcrumbList> = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    name: post.title,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: { "@type": "WebPage", "@id": withTrailingSlash(SITE_METADATA.siteUrl), name: "Home" },
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: post.title,
-        item: { "@type": "WebPage", "@id": postUrl, name: post.title },
-      },
-    ],
-  };
+  const breadcrumbData = buildBreadcrumbList(post.title, [
+    { name: post.title, url: postUrl },
+  ]);
 
   const { html, headings } = await markdownToHtml(post.content || "");
   const xShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`;

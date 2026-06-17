@@ -5,8 +5,8 @@ import { withTrailingSlash } from "@/lib/url";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { BlogPosting, BreadcrumbList, ItemList, ListItem, WithContext } from "schema-dts";
-import { personJsonLd } from "@/lib/schema";
+import { BlogPosting, ItemList, ListItem, WithContext } from "schema-dts";
+import { buildBreadcrumbList, personJsonLd } from "@/lib/schema";
 import JsonLd from "@/app/_components/json-ld";
 
 type Params = Promise<{ tag: string }>;
@@ -62,31 +62,10 @@ const TagPage = async ({ params }: { params: Params }) => {
     })),
   };
 
-  const breadcrumbData: WithContext<BreadcrumbList> = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    name: `#${tag}`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: { "@type": "WebPage", "@id": withTrailingSlash(SITE_METADATA.siteUrl), name: "Home" },
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Tags",
-        item: { "@type": "WebPage", "@id": tagsIndexUrl, name: "Tags" },
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: `#${tag}`,
-        item: { "@type": "WebPage", "@id": tagUrl, name: `#${tag}` },
-      },
-    ],
-  };
+  const breadcrumbData = buildBreadcrumbList(`#${tag}`, [
+    { name: "Tags", url: tagsIndexUrl },
+    { name: `#${tag}`, url: tagUrl },
+  ]);
 
   return (
     <div>
