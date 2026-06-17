@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { SITE_METADATA } from "@/lib/site-metadata";
-import { Person, ProfilePage, WithContext } from "schema-dts";
+import { BreadcrumbList, Person, ProfilePage, WithContext } from "schema-dts";
 import { withTrailingSlash } from "@/lib/url";
 import { CERTIFICATES } from "@/lib/certifications";
 import JsonLd from "@/app/_components/json-ld";
@@ -39,6 +39,27 @@ const MePage = () => {
     dateCreated: "2024-04-28T15:18:27.000Z",
     dateModified: "2026-05-27T00:00:00.000Z",
     mainEntity: myProfileJsonLd,
+  };
+
+  const meUrl = withTrailingSlash(`${SITE_METADATA.siteUrl}/me`);
+  const breadcrumbData: WithContext<BreadcrumbList> = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    name: "About",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: { "@type": "WebPage", "@id": withTrailingSlash(SITE_METADATA.siteUrl), name: "Home" },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About",
+        item: { "@type": "WebPage", "@id": meUrl, name: "About" },
+      },
+    ],
   };
 
   return (
@@ -242,6 +263,7 @@ const MePage = () => {
         </div>
       </section>
       <JsonLd data={structuredData} />
+      <JsonLd data={breadcrumbData} />
     </div>
   );
 };

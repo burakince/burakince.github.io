@@ -4,6 +4,8 @@ import TagChip from "@/app/_components/tag-chip";
 import { SITE_METADATA } from "@/lib/site-metadata";
 import { withTrailingSlash } from "@/lib/url";
 import { Metadata } from "next";
+import { BreadcrumbList, WithContext } from "schema-dts";
+import JsonLd from "@/app/_components/json-ld";
 
 const _tags = getAllTags();
 const _allPosts = getAllPosts();
@@ -23,8 +25,30 @@ const TagsIndexPage = () => {
   const countByTag = countPostsByTag(allPosts, tags);
   const sortedTags = sortTagsByPostCount(tags, countByTag);
 
+  const tagsUrl = withTrailingSlash(`${SITE_METADATA.siteUrl}/tag`);
+  const breadcrumbData: WithContext<BreadcrumbList> = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    name: "Tags",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: { "@type": "WebPage", "@id": withTrailingSlash(SITE_METADATA.siteUrl), name: "Home" },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Tags",
+        item: { "@type": "WebPage", "@id": tagsUrl, name: "Tags" },
+      },
+    ],
+  };
+
   return (
     <div>
+      <JsonLd data={breadcrumbData} />
       <h1 className="text-2xl font-bold mb-2 dark:text-gray-300">Tags</h1>
       <p className="text-base text-slate-700 dark:text-slate-400 mb-1">
         Browse all topics. Click a tag to see related posts.

@@ -101,6 +101,27 @@ test("post page JSON-LD: BreadcrumbList has name and two well-formed items", asy
   expect(postWebPage.name).toBeTruthy();
 });
 
+// ─── Tags index page ─────────────────────────────────────────────────────────
+
+test("tags index JSON-LD: BreadcrumbList has 2-level trail Home > Tags", async ({ page }) => {
+  await page.goto("/tag/");
+  const schemas = await getSchemas(page);
+
+  const breadcrumb = findSchema(schemas, "BreadcrumbList");
+  expect(breadcrumb).toBeDefined();
+  expect(breadcrumb!.name).toBeTruthy();
+
+  const items = breadcrumb!.itemListElement as Schema[];
+  expect(items).toHaveLength(2);
+
+  expect(items[0].position).toBe(1);
+  expect(items[0].name).toBe("Home");
+
+  expect(items[1].position).toBe(2);
+  expect(items[1].name).toBe("Tags");
+  expect(String((items[1].item as Schema)["@id"])).toContain("/tag");
+});
+
 // ─── Tag page ────────────────────────────────────────────────────────────────
 
 test("tag page JSON-LD: ItemList has BlogPosting items with required fields", async ({ page }) => {
@@ -152,7 +173,47 @@ test("tag page JSON-LD: BreadcrumbList has 3-level trail Home > Tags > #tag", as
   expect(String((items[2].item as Schema)["@id"])).toContain("/tag/");
 });
 
+// ─── Paginated listing page ───────────────────────────────────────────────────
+
+test("paginated page JSON-LD: BreadcrumbList has 2-level trail Home > Page N", async ({ page }) => {
+  await page.goto("/page/2/");
+  const schemas = await getSchemas(page);
+
+  const breadcrumb = findSchema(schemas, "BreadcrumbList");
+  expect(breadcrumb).toBeDefined();
+  expect(breadcrumb!.name).toBeTruthy();
+
+  const items = breadcrumb!.itemListElement as Schema[];
+  expect(items).toHaveLength(2);
+
+  expect(items[0].position).toBe(1);
+  expect(items[0].name).toBe("Home");
+
+  expect(items[1].position).toBe(2);
+  expect(items[1].name).toBe("Page 2");
+  expect(String((items[1].item as Schema)["@id"])).toContain("/page/2");
+});
+
 // ─── About page ──────────────────────────────────────────────────────────────
+
+test("about page JSON-LD: BreadcrumbList has 2-level trail Home > About", async ({ page }) => {
+  await page.goto("/me/");
+  const schemas = await getSchemas(page);
+
+  const breadcrumb = findSchema(schemas, "BreadcrumbList");
+  expect(breadcrumb).toBeDefined();
+  expect(breadcrumb!.name).toBeTruthy();
+
+  const items = breadcrumb!.itemListElement as Schema[];
+  expect(items).toHaveLength(2);
+
+  expect(items[0].position).toBe(1);
+  expect(items[0].name).toBe("Home");
+
+  expect(items[1].position).toBe(2);
+  expect(items[1].name).toBe("About");
+  expect(String((items[1].item as Schema)["@id"])).toContain("/me");
+});
 
 test("about page JSON-LD: ProfilePage has Person mainEntity with key fields", async ({ page }) => {
   await page.goto("/me/");
