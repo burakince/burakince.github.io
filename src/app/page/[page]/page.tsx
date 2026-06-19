@@ -29,8 +29,10 @@ export async function generateMetadata({
   const { page } = await params;
   const pageNum = parseInt(page, 10);
   const title = `Page ${pageNum} | ${SITE_METADATA.title}`;
+  const description = `Page ${pageNum} of posts on Burak Ince's engineering blog covering AI, cloud-native systems, and software craftsmanship.`;
   return {
     title,
+    description,
     alternates: {
       canonical: withTrailingSlash(`${SITE_METADATA.siteUrl}/page/${pageNum}`),
     },
