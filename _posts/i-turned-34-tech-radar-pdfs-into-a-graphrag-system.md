@@ -2,7 +2,7 @@
 title: "I Turned 34 Tech Radar PDFs Into a GraphRAG System"
 excerpt: "I built a GraphRAG system over 34 Thoughtworks Tech Radar PDFs using Neo4j, Qdrant, and LangChain. The knowledge graph was the easy part. PDF parsing was not."
 date: "2026-06-15T18:00:00.000Z"
-lastModified: "2026-06-16T16:01:47.000Z"
+lastModified: "2026-06-26T00:35:51.000Z"
 tags:
   - graphrag
   - knowledge-graph
@@ -11,6 +11,7 @@ tags:
   - langchain
   - python
   - rag
+  - ai
   - llm
 ---
 
