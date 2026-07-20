@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
-    "@tailwindcss/postcss": "^4.3.2",
+    "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^24",
@@ -55,12 +55,12 @@
     "eslint-config-prettier": "^10.1.8",
     "next-sitemap": "^4.2.3",
     "playwright": "^1.61.1",
-    "postcss": "^8.5.19",
+    "postcss": "^8.5.20",
     "prettier": "^3.9.5",
     "schema-dts": "^2.0.0",
     "tailwindcss": "^4.3.0",
     "typescript": "^7",
-    "vite": "^8.1.4",
+    "vite": "^8.1.5",
     "vitest": "^4.1.9"
   },
   "allowScripts": {
