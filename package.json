@@ -55,7 +55,7 @@
     "eslint-config-prettier": "^10.1.8",
     "next-sitemap": "^4.2.3",
     "playwright": "^1.61.1",
-    "postcss": "^8.5.19",
+    "postcss": "^8.5.20",
     "prettier": "^3.9.5",
     "schema-dts": "^2.0.0",
     "tailwindcss": "^4.3.0",
